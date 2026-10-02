@@ -1,0 +1,102 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Lu",
+        "hour": 11,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Lu",
+        "hour": 11,
+        "minute": 50
+      },
+      "name": "Franceza",
+      "authors": [
+        "Bordea D"
+      ],
+      "type": "Seminar",
+      "location": "ONLINE"
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 8,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 9,
+        "minute": 50
+      },
+      "name": "Engleza",
+      "authors": [
+        "Ionita D"
+      ],
+      "location": {
+        "id": 102,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 10,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 11,
+        "minute": 50
+      },
+      "name": "Engleza",
+      "authors": [
+        "Ionita D"
+      ],
+      "location": {
+        "id": 102,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 12,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "Engleza",
+      "authors": [
+        "Ionita D"
+      ],
+      "location": {
+        "id": 102,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 15,
+        "minute": 50
+      },
+      "name": "Engleza",
+      "authors": [
+        "Ionita D"
+      ],
+      "location": {
+        "id": 102,
+        "type": "Sala"
+      }
+    }
+  ]
+}

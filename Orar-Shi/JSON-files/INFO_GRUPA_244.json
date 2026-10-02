@@ -1,0 +1,68 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 15,
+        "minute": 50
+      },
+      "name": "SistOper",
+      "authors": [
+        "Olaru V"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 503,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 16,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 17,
+        "minute": 50
+      },
+      "name": "SistOper",
+      "authors": [
+        "Olaru V"
+      ],
+      "type": "Lab",
+      "location": {
+        "id": 402,
+        "type": "Lab"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 12,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "AlgFundam",
+      "authors": [
+        "Meclaus A"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 109,
+        "type": "Sala"
+      },
+      "periodicity": "even"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 15,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 17,
+        "minute": 50
+      },
+      "name": "AnalizaMate",
+      "authors": [
+        "Vladoiu I"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 701,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 11,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "AlgLiniara",
+      "authors": [
+        "Dascalescu S"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 701,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 16,
+        "minute": 50
+      },
+      "name": "AnalizaMate",
+      "authors": [
+        "Manea D"
+      ],
+      "location": {
+        "id": 211,
+        "type": "Sala"
+      }
+    }
+  ]
+}

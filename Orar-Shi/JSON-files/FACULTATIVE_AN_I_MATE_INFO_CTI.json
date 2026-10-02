@@ -1,0 +1,125 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Lu",
+        "hour": 17,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Lu",
+        "hour": 17,
+        "minute": 50
+      },
+      "name": "ProgrCalc I",
+      "authors": [
+        "Dumitran M"
+      ]
+    },
+    {
+      "start": {
+        "weekday": "Lu",
+        "hour": 18,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Lu",
+        "hour": 18,
+        "minute": 50
+      },
+      "name": "Programare competitiva",
+      "authors": [
+        "amare"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 703,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Ma",
+        "hour": 10,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Ma",
+        "hour": 11,
+        "minute": 50
+      },
+      "name": "InfoAducereNivel",
+      "authors": [
+        "Obreja C"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 16,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 19,
+        "minute": 50
+      },
+      "name": "Psih Educ",
+      "authors": [
+        "Constantin V"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 703,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 16,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 17,
+        "minute": 50
+      },
+      "name": "Psih Educ",
+      "authors": [
+        "Bucur C"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 18,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 19,
+        "minute": 50
+      },
+      "name": "Psih Educ",
+      "authors": [
+        "Bucur C"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    }
+  ]
+}

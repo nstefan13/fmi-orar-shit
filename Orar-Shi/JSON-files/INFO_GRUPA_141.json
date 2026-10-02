@@ -1,0 +1,87 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 12,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "CalcDifer&Integr",
+      "authors": [
+        "Mihail A"
+      ],
+      "location": {
+        "id": 102,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 15,
+        "minute": 50
+      },
+      "name": "StrAlgebriceInInfo",
+      "authors": [
+        "Baetica C",
+        "Grigorescu T"
+      ],
+      "location": {
+        "id": 210,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 11,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 11,
+        "minute": 50
+      },
+      "name": "Instr&TehBaz aInfo",
+      "authors": [
+        "Cheval H"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 12,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "ProgAlgo",
+      "authors": [
+        "Marinescu R"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    }
+  ]
+}

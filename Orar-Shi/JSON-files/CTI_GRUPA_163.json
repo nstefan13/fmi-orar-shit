@@ -1,0 +1,109 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 10,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 12,
+        "minute": 50
+      },
+      "name": "Algebra&Geom",
+      "authors": [
+        "Hirica I"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 15,
+        "minute": 50
+      },
+      "name": "ProgrCalc I",
+      "authors": [
+        "Obreja C"
+      ],
+      "location": {
+        "id": 102,
+        "type": "Sala"
+      },
+      "periodicity": "odd"
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 10,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 11,
+        "minute": 50
+      },
+      "name": "Algebra&Geom",
+      "authors": [
+        "Halanay A"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 107,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 12,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "AnMatem",
+      "authors": [
+        "Mitroi L"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 107,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Vi",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Vi",
+        "hour": 15,
+        "minute": 50
+      },
+      "name": "AnMatem",
+      "authors": [
+        "Mihail A"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    }
+  ]
+}

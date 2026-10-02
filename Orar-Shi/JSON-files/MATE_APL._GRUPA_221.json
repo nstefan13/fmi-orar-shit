@@ -1,0 +1,88 @@
+{
+  "activities": [
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 8,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 9,
+        "minute": 50
+      },
+      "name": "GeomDifer I",
+      "authors": [
+        "Gherghe C"
+      ],
+      "type": "Curs",
+      "location": {
+        "id": 501,
+        "type": "Amf"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 10,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 11,
+        "minute": 50
+      },
+      "name": "EcDiferentiale",
+      "authors": [
+        "Cernea A"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 108,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 12,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 13,
+        "minute": 50
+      },
+      "name": "TeorMas&Integr",
+      "authors": [
+        "Bereanu C"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 108,
+        "type": "Sala"
+      }
+    },
+    {
+      "start": {
+        "weekday": "Jo",
+        "hour": 14,
+        "minute": 0
+      },
+      "end": {
+        "weekday": "Jo",
+        "hour": 15,
+        "minute": 50
+      },
+      "name": "GeomDifer I",
+      "authors": [
+        "Ghisoiu V"
+      ],
+      "type": "Seminar",
+      "location": {
+        "id": 108,
+        "type": "Sala"
+      }
+    }
+  ]
+}
