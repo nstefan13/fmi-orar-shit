@@ -12,7 +12,8 @@ from langchain.agents.structured_output import ProviderStrategy
 from rich import print
 import pickle
 
-VISION_MODEL = "deepseek/deepseek-v4.1-flash"
+# VISION_MODEL = "deepseek/deepseek-v4.1-flash"
+VISION_MODEL = "dots-studio/dots-3-note-preview:free"
 IMAGE_PATH = "image6.png"
 
 def picklefy(obj, path):
