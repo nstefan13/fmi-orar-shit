@@ -1,42 +1,19 @@
 from vision_response import *
 
-import getpass
-import os
+from utils import loadPrompt, loadEnv, imageURL, picklefy
 from langchain_openrouter import ChatOpenRouter
 from langchain.messages import HumanMessage
-import data_url
-from dotenv import load_dotenv
 import asyncio
-from jinja2 import Environment, FileSystemLoader
 from langchain.agents.structured_output import ProviderStrategy
 from rich import print
-import pickle
+import nest_asyncio
+nest_asyncio.apply()
+
+from IPython import embed
 
 VISION_MODEL = "deepseek/deepseek-v4.1-flash"
-IMAGE_PATH = "image6.png"
-
-def picklefy(obj, path):
-    with open(path, 'wb') as handle:
-        pickle.dump(obj, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-def loadPrompt(jinjaPath, context={}):
-    env = Environment(loader=FileSystemLoader("."))
-    template = env.get_template(jinjaPath)
-    return template.render(context)
-
-def loadEnv():
-    load_dotenv()
-    if not os.getenv("OPENROUTER_API_KEY"):
-        os.environ["OPENROUTER_API_KEY"] = getpass.getpass("Enter your OpenRouter API key: ")
-
-def imageURL(path):
-    mimeType = 'image/' + path.split('.')[-1]
-
-    with open(path, 'rb') as image:
-        data = image.read()
-
-    return str(data_url.construct_data_url(mime_type=mimeType, base64_encoded=True, data=data))
+# VISION_MODEL = "dots-studio/dots-3-note-preview:free"
+IMAGE_PATH = "test_images/image3.png"
 
 async def main():
     print("Loading .env...")
@@ -59,11 +36,12 @@ async def main():
             ]
         )
     ]
+    embed()
 
-
+    print("Invoking the model...")
     resp = model.invoke(messages)
-    picklefy(resp, 'resp.pickle')
     print(resp)
+    embed()
     return
 
     stream = await model.astream_events([message], version="v3")

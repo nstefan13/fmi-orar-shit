@@ -1,3 +1,6 @@
+# MUST be in sync with the schema from VISION_PROMPT.jinja
+# The schema in VISION_PROMPT.jinja is the source of truth.
+
 from typing import List, Literal, Optional, Union
 from pydantic import BaseModel, Field
 
@@ -11,7 +14,7 @@ Location = Union[Literal["ONLINE"], Room]
 
 
 class Time(BaseModel):
-    weekday: Literal["Lu", "Ma", "Mi", "Jo", "Vi"]
+    weekday: Literal["Luni", "Marti", "Miercuri", "Joi", "Vineri"]
     hour: int
     minute: int
 
