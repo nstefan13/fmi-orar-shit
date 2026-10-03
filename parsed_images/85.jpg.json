@@ -1,0 +1,196 @@
+{
+    "activities": [
+        {
+            "start": {
+                "weekday": "Joi",
+                "hour": 16,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Joi",
+                "hour": 16,
+                "minute": 50
+            },
+            "name": "ProbProgr",
+            "type": null,
+            "authors": [
+                "Popescu M"
+            ],
+            "location": {
+                "id": 503,
+                "type": "Amf"
+            },
+            "periodicity": null,
+            "subgroup": null,
+            "observations": null
+        },
+        {
+            "start": {
+                "weekday": "Joi",
+                "hour": 17,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Joi",
+                "hour": 17,
+                "minute": 50
+            },
+            "name": "PractMachLearn",
+            "type": null,
+            "authors": [
+                "Ionescu R"
+            ],
+            "location": {
+                "id": 503,
+                "type": "Amf"
+            },
+            "periodicity": null,
+            "subgroup": null,
+            "observations": null
+        },
+        {
+            "start": {
+                "weekday": "Vineri",
+                "hour": 10,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Vineri",
+                "hour": 10,
+                "minute": 50
+            },
+            "name": "KnowlRepr&Reason",
+            "type": "Lab",
+            "authors": [
+                "Ciotola M"
+            ],
+            "location": {
+                "id": 401,
+                "type": "Lab"
+            },
+            "periodicity": "even",
+            "subgroup": 3,
+            "observations": null
+        },
+        {
+            "start": {
+                "weekday": "Vineri",
+                "hour": 14,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Vineri",
+                "hour": 14,
+                "minute": 50
+            },
+            "name": "ProbProgr",
+            "type": "Lab",
+            "authors": [
+                "Marogel M"
+            ],
+            "location": {
+                "id": 106,
+                "type": "Lab"
+            },
+            "periodicity": "odd",
+            "subgroup": 1,
+            "observations": "Conflict: two subgroups have lab in same room at same time."
+        },
+        {
+            "start": {
+                "weekday": "Vineri",
+                "hour": 14,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Vineri",
+                "hour": 14,
+                "minute": 50
+            },
+            "name": "ProbProgr",
+            "type": "Lab",
+            "authors": [
+                "Marogel M"
+            ],
+            "location": {
+                "id": 106,
+                "type": "Lab"
+            },
+            "periodicity": "odd",
+            "subgroup": 2,
+            "observations": "Conflict: two subgroups have lab in same room at same time."
+        },
+        {
+            "start": {
+                "weekday": "Vineri",
+                "hour": 15,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Vineri",
+                "hour": 15,
+                "minute": 50
+            },
+            "name": "ProbProgr",
+            "type": "Lab",
+            "authors": [
+                "Marogel M"
+            ],
+            "location": {
+                "id": 106,
+                "type": "Lab"
+            },
+            "periodicity": "odd",
+            "subgroup": 3,
+            "observations": "Conflict: two subgroups have lab in same room at same time."
+        },
+        {
+            "start": {
+                "weekday": "Vineri",
+                "hour": 15,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Vineri",
+                "hour": 15,
+                "minute": 50
+            },
+            "name": "ProbProgr",
+            "type": "Lab",
+            "authors": [
+                "Marogel M"
+            ],
+            "location": {
+                "id": 106,
+                "type": "Lab"
+            },
+            "periodicity": "odd",
+            "subgroup": 4,
+            "observations": "Conflict: two subgroups have lab in same room at same time."
+        },
+        {
+            "start": {
+                "weekday": "Vineri",
+                "hour": 18,
+                "minute": 0
+            },
+            "end": {
+                "weekday": "Vineri",
+                "hour": 18,
+                "minute": 50
+            },
+            "name": "Ethics&AcadIntegr",
+            "type": null,
+            "authors": [
+                "Sava B"
+            ],
+            "location": {
+                "id": 701,
+                "type": "Amf"
+            },
+            "periodicity": null,
+            "subgroup": null,
+            "observations": null
+        }
+    ]
+}
