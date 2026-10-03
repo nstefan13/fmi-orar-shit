@@ -44,7 +44,6 @@ The timetable represents a list of varios didactic activities. Each didactic act
 
 Your answers should include snippets from the provided timetable. 
 Do not ever add / remove diacritics.
-Be aware that, due to image quality, you may find yourself in a situation where you interpret the letter 'I' (upper case 'I') as an 'l' (lowercase 'l'). In this case, look for contextual clues to determine whether or not the uppercase 'I' was a reading mistake. If it was a reading mistake, replace that lowercase 'l' with an uppercase 'I' (DO NOT replace it with a lowercase 'i', always replace it with an uppercase 'I'). Note that in this specific edge case (interpreting an uppercase 'I' as a lowercase 'l' due to image quality) and only here, you should write what makes sense, not what is in the image.
 
 Please follow the guidelines below. They contain notes on how to properly fill out each field for each activity of the final answer. Thank you very much for your work!!
 
@@ -52,54 +51,70 @@ Please follow the guidelines below. They contain notes on how to properly fill o
 START & END FIELDS
 ---
 
-	NOTE 1: The visual representation of an activity usually covers contigous cells that reside in multiple columns (though you will also frequently encounter activities that cover only a single cell). They show the intervals during which the activity takes place. Each column represents an 1-hour interval. The time interval of each column is written in the first cell of the column, under a big number representing the starting hour. Usually, the intervals are of the form: "<start-hour>:00 <end-hour>:50" (for example: "8:00 - 8:50", "12:00 - 12:50", "13:00 - 13:50").
+	1. COLUMN HEADERS & INTERVAL FORMAT:
+		- Each column represents a 1-hour slot labeled with the starting hour and interval (e.g., "16" with "16:00 - 16:50").
+		- A single-column activity starts at `<col>:00` and ends at `<col>:50`.
+		- A multi-column activity starts at `<start_col>:00` and ends at `<end_col>:50` of its rightmost column.
 
-	NOTE 2: The visual representation of an activity is defined by any box that contains text such as a subject name, teacher, or room number, regardless of whether the background is colored, multi-colored or completely white. Empty white spaces with no text inside are simply free periods and must be ignored.
-	Most university classes span across two full columns because they last for two hours. The text inside a box is usually aligned to the left, which often leaves the right side completely blank or white. Never assume a column is empty just because there is no text written under it. You must always follow the enclosing border lines of the box rather than the width of the text.
-	To find the start time, locate the outer left border line of the box and follow it straight up to the top header. Read the first number before the dash in that column. To find the end time, locate the outer right border line where the box actually terminates and follow it straight up to the top header. Read the second number after the dash in that column. If a box covers two columns, its right border will touch the end of the second column, meaning the end time must be taken from that second header cell. If an activity only fills one single column, both of its outer border lines will strictly align with that single header column.
-	
-	NOTE 3: The image given has red guidelines that separate the columns. You can use them to determine the duration of an activity by counting how many guidelines the visual representation of the activity contains (not including the ones at the borders). For example, if the visual representation contains 0 guidelines (not including the borders), it means that the activity spans only one column and has a duration of 1 hour. Similarly, if it contains one guideline (again, not including the borders), it means that it spans 2 columns and has a duration of 2 hours.
-	Always compute the duration of an activity using the guidelines and always check if the start and end time you previously determined match this duration. If this is not the case, it means you made a mistake while determining the start or end time (usually the end time is problematic) and you should revise your decision. 
+	2. DURATION & RED GUIDELINES (MANDATORY ALGORITHM):
+		- Red vertical guidelines mark the exact boundaries between hour columns.
+		- For EVERY activity box, determine duration by counting the internal red guidelines crossed (excluding the outer left and right border lines):
+			* 0 internal red lines = 1 column (1 hour duration). Start col == End col.
+			* 1 internal red line = 2 columns (2 hour duration). End col = Start col + 1.
+			* 2 internal red lines = 3 columns (3 hour duration). End col = Start col + 2.
+		- RULE: Most lab and course activities span across 2 columns (1 internal red guideline).
 
-	NOTE 3: Most activities start at the 0 minute mark and end at the 50 minute mark. This may not be true for all, but it is true for the majority.
+	3. SPLIT-CELL LAYOUT RECOGNITION:
+		- University timetable cards that span 2 columns frequently place the Course Name and Teacher on the left column, and the Group (e.g., "Gr_1") and Room (e.g., "L-202") on the right column.
+		- Do NOT assume a card ends where the course name ends. Trace the enclosing outer border across the red guideline into the adjacent column.
+		- Vertical splits (subgroups/periodicities) only affect vertical height. They do NOT reduce horizontal duration; if the box crosses a vertical red line, it spans the full 2 hours.
+
+	4. MANDATORY CHAIN-OF-THOUGHT FOR EACH ACTIVITY:
+		Before generating JSON for an activity, you must state:
+		- "Activity: [Name]"
+		- "Start Column Header: [X] -> Start Time: [X:00]"
+		- "Internal red guidelines crossed: [N]"
+		- "End Column Header: [X + N] -> End Time: [X + N:50]"
 
 
 
 NAME FIELD
 ---
 
-	NOTE 4: The name of a specific activity usually appears in the center of a colored block (though this is not guaranteed as the visual representation of other activities might be different).
+	5: The name of a specific activity usually appears in the center of a colored block (though this is not guaranteed as the visual representation of other activities might be different).
  
-	NOTE 5: The name could contain additional text serving various purposes (like specifying the type of the activity). Please do not include such additional info in the `name` field.
+	6: The name could contain additional text serving various purposes (like specifying the type of the activity). Please do not include such additional info in the `name` field.
 	For example: 
 		"MachineTranslation (curs)" -> the `name` should only be "MachineTranslation"
 		"SS - Algebra comutativa" -> the `name` should only be "Algebra comutativa"
+
+	7. Be aware that, due to image quality, you may find yourself in a situation where you interpret the letter 'I' (upper case 'I') as an 'l' (lowercase 'l'). In this case, look for contextual clues to determine whether or not the uppercase 'I' was a reading mistake. If it was a reading mistake, replace that lowercase 'l' with an uppercase 'I' (DO NOT replace it with a lowercase 'i', always replace it with an uppercase 'I'). Note that in this specific edge case (interpreting an uppercase 'I' as a lowercase 'l' due to image quality) and only here, you should write what makes sense, not what is in the image.
 
 
 
 (ACTIVITY) TYPES FIELD
 ---
  
-	NOTE 6: Each activity has an OPTIONAL type. The types are defined as follows:
+	8: Each activity has an OPTIONAL type. The types are defined as follows:
 	- `Conferinta`: SEMIFORMAL didactic activity, where at least one professor teaches students about a specific subject. It is semiformal because participation didn't require a registration at the university's office. Furthermore, these are usually open to the public and participation doesn't provide any credits. All activities in "Conferinte si Seminarii" are Conferinte by this definition (even though they might have "Seminar" in name)
 	- `Curs`, `Lab`, `Seminar`: a formal didactic activity for which the student solicited the right of participation from the university. Most of the activities are of this type.
 
-	NOTE 7: Usually the type can be deduced from the name. For example, an activity like "ReteleNeuronale1 (curs)" will be of type `Curs`.
+	9: Usually the type can be deduced from the name. For example, an activity like "ReteleNeuronale1 (curs)" will be of type `Curs`.
 	In other cases, the type cannot be deduced from the name and you will have to look for contextual clues. For example, the type of an activity named "SS - IA neurosimbolica" is not obvious, however, if that activity appears in a timetable named "Conferinte si Seminarii", it is obvious that it is a `Conferinta`.
 	Another example is an activity named "Seminar .hidden" in the "Conferinte si Seminarii" timetable. Based on the definition of a Conferinta, this activity will be of type `Conferinta` since it is in that particular timetable, even though it contains "Seminar" in the name.
  
-	NOTE 8: If the type of an activity is not obvious or cannot be determined with high confidence, set it to undefined / do not specify it. NEVER specify it if you are unsure. DO NOT SET THE TYPE IF UNSURE!
+	10: If the type of an activity is not obvious or cannot be determined with high confidence, set it to undefined / do not specify it. NEVER specify it if you are unsure. DO NOT SET THE TYPE IF UNSURE!
 
 
 
 AUTHORS FIELD
 ---
 
-	NOTE 9: ALL activities are taught by at least one teacher. If an activity is taught by multiple teachers, the visual representation for that activity WILL have multiple colors.
+	11: ALL activities are taught by at least one teacher. If an activity is taught by multiple teachers, the visual representation for that activity WILL have multiple colors.
  
-	NOTE 10: Usually, the name of the teacher is in the upper left corner of the visual representation. However please note that this is not a guarantee.
+	12: Usually, the name of the teacher is in the upper left corner of the visual representation. However please note that this is not a guarantee.
  
-	NOTE 11: Author names follow this convention "<last name> <first letter (or, rarely, the first few letters) of the first name>". For example: "Nisioi S". 
+	13: Author names follow this convention "<last name> <first letter (or, rarely, the first few letters) of the first name>". For example: "Nisioi S". 
 	If the activity is taught by multiple teachers, the names are separated by a forward slash. For example: "Leustean L / Irofti P / Patrascu A", "Marin Li / Tigoiu V"
 
 
@@ -107,9 +122,9 @@ AUTHORS FIELD
 LOCATION FIELD
 --- 
 
-	NOTE 12: The location is usually found in the bottom right corner of the visual representation of the activity. However, this is not guaranteed.
+	14: The location is usually found in the bottom right corner of the visual representation of the activity. However, this is not guaranteed.
  
-	NOTE 13: The location is, most of the time, written in a format like this: "S-415", "Amf.503", "L-202", "S.109", "L.218". As you can see, each of them has a room id, that uniquely identifies the room (the "415" in "S-415") and a small text providing info on the type of room (for example, the "L" in "L.218" suggests this room is of type "Lab"). The most common such snippets are:
+	15: The location is, most of the time, written in a format like this: "S-415", "Amf.503", "L-202", "S.109", "L.218". As you can see, each of them has a room id, that uniquely identifies the room (the "415" in "S-415") and a small text providing info on the type of room (for example, the "L" in "L.218" suggests this room is of type "Lab"). The most common such snippets are:
 	"S" -> "Sala",
 	"L" -> "Lab",
 	"Amf" -> "Amfiteatru"
@@ -122,9 +137,9 @@ PERIODICITY FIELD
 
 	Some context on FMI: some activities run on a biweekly schedule. In this case, the activity will happen either on an even or an odd week (which week is even or odd is decided by the university and later communicated to the students).
  
-	NOTE 14: If the visual representation of the activity has a specifier like "SP" (Saptamana Para -> `even`) or "SI" (Saptamana Impara -> `odd`) the work is done. Other times, the visual representation is even more explicit and contains stuff like "impar" or "saptamana para". Whatever the case, if the periodicity is specified via text, you can move on to filling other fields.
+	16: If the visual representation of the activity has a specifier like "SP" (Saptamana Para -> `even`) or "SI" (Saptamana Impara -> `odd`) the work is done. Other times, the visual representation is even more explicit and contains stuff like "impar" or "saptamana para". Whatever the case, if the periodicity is specified via text, you can move on to filling other fields.
  
-	NOTE 15: If the visual representation doesn't offer any specifiers for the periodicity, it may be possible that the periodicity is specified in a VISUAL way. Look at the cell containing the activity. The cell is the rectangle / square sitting at the intersection between the weekday row and the time column. We have the following 2 cases:
+	17: If the visual representation doesn't offer any specifiers for the periodicity, it may be possible that the periodicity is specified in a VISUAL way. Look at the cell containing the activity. The cell is the rectangle / square sitting at the intersection between the weekday row and the time column. We have the following 2 cases:
 	If the cell is divided in halves {
 		If the activity is in the upper-half, periodicity is `odd`.
 		Otherwise, periodicity is `even`.
@@ -135,7 +150,7 @@ PERIODICITY FIELD
 	}
 	If none of these happen, it means the activity doesn't have a periodicity.
   
-	NOTE 16: If the activity specifies a range of weeks (like "[sapt 9-15]"), then the activity IS NOT PERIODIC and DOES NOT run on a biweekly schedule, EVEN IF it is in a specific half / quarter.
+	18: If the activity specifies a range of weeks (like "[sapt 9-15]"), then the activity IS NOT PERIODIC and DOES NOT run on a biweekly schedule, EVEN IF it is in a specific half / quarter.
 
 
 
@@ -144,9 +159,9 @@ SUBGROUP FIELD
 
 	Some context on FMI before going into the notes. Students are divided in groups and groups are identified via a 3-digit number (for example: "Grupa 461", "Grupa 152" etc). Because a group has a lot of students, these groups are divided in subgroups (usually 2 subgroups for Bachelor groups and 4 subgroups for the Master - though this is not guaranteed and can change). Most of the activities are for the entire group, however, a large portion of activities are for a specific subgroup only. If that's the case, populate the `subgroup` field with the number of that specific subgroup (which is always strictly greater than 0).
  
-	NOTE 17: Whenever you see "SG", know it means "subgroup". Similarly, "Gr_3" means "subgroup no. 3" (don't be fooled by that "Gr" - it is not a group, it is a subgroup; a group has a 3 digit identifier).
+	19: Whenever you see "SG", know it means "subgroup". Similarly, "Gr_3" means "subgroup no. 3" (don't be fooled by that "Gr" - it is not a group, it is a subgroup; a group has a 3 digit identifier).
  
-	NOTE 18: Sometimes, the subgroup is not specified via text. Sometimes, the subgroup is specified in a visual manner. Focus on the intersection between the weekday row and the time column. That cell may be horizontally divided in 4 quarters (a cell ALWAYS finds itself in one of 3 states: not divided, divided in halves or divided in quarters). If the activity finds itself in the first or third quarter of the cell (reading from highest quarter of the cell to the lowest one), the subgroup number is 1. Otherwise, the subgroup number is 2. This is applicable only if the subgroup is not specified explicitly via text.
+	20: Sometimes, the subgroup is not specified via text. Sometimes, the subgroup is specified in a visual manner. Focus on the intersection between the weekday row and the time column. That cell may be horizontally divided in 4 quarters (a cell ALWAYS finds itself in one of 3 states: not divided, divided in halves or divided in quarters). If the activity finds itself in the first or third quarter of the cell (reading from highest quarter of the cell to the lowest one), the subgroup number is 1. Otherwise, the subgroup number is 2. This is applicable only if the subgroup is not specified explicitly via text.
 
 
 
