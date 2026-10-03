@@ -1,22 +1,8 @@
-
-# -----------------------------------------------------------------------
-# image_enhancer.py
-# Version: 1.0
-# Author: Vell Void
-# GitHub: https://github.com/VellVoid
-# Twitter: https://twitter.com/VellVoid
-# 
-# This Python script enhances images using the OpenCV and PIL libraries.
-# -----------------------------------------------------------------------
-
-
 import os
 import cv2
-import numpy as np
-from PIL import Image, ImageEnhance
+from PIL import Image
 from tqdm import tqdm
 
-# Function to enhance image sharpness, contrast and apply Gaussian blur
 def enhance_image(image_path, output_path):
     # Load the image
     img = cv2.imread(image_path)
@@ -30,7 +16,6 @@ def enhance_image(image_path, output_path):
     img_enhanced = Image.fromarray(img_res)
     img_enhanced.save(output_path)
 
-
 def process_directory(input_dir, output_dir_name):
     # Create the output directory inside the input directory
     output_dir = os.path.join(input_dir, output_dir_name)
@@ -38,7 +23,7 @@ def process_directory(input_dir, output_dir_name):
         os.makedirs(output_dir)
 
     # Get a list of all images in the input directory
-    image_files = [f for f in os.listdir(input_dir) if f.endswith(".jpg") or f.endswith(".png")]
+    image_files = [f for f in os.listdir(input_dir) if f.endswith(".jpg")]
 
     # Process all images in the input directory
     for filename in tqdm(image_files, desc="Processing images"):
@@ -47,4 +32,4 @@ def process_directory(input_dir, output_dir_name):
         enhance_image(input_path, output_path)
 
 
-process_directory('all_images', '../enchanced')
+process_directory('extracted_images', '../enchanced_images')
