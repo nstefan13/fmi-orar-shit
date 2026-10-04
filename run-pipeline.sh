@@ -19,3 +19,6 @@ uv run 40_ai_processing.py
 
 echo Step 5. AI extracts title for each timetable...
 uv run 50_ai_extraction_of_titles.py
+
+echo LAST Step. Merging all the data
+uv run 90_merge_data.py
