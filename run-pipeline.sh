@@ -8,4 +8,8 @@ cd extract-timetable
 ./main.sh -o ../output/pages/ -s 30 $@
 cd ..
 
-uv run categorize_pages.py
+echo Step 2. Categorizing pages...
+uv run 20_categorize_pages.py
+
+echo Step 3. Preprocessing activities...
+uv run 30_preprocessed_activities.py

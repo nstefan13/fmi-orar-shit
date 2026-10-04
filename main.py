@@ -23,37 +23,7 @@ nest_asyncio.apply()
 
 from IPython import embed
 
-def create_logger():
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-
-    console_handler = colorlog.StreamHandler(sys.stdout)
-    console_handler.setLevel(logging.INFO)
-    console_handler.addFilter(lambda record: record.levelno != logging.DEBUG)
-    console_handler.setFormatter(
-        colorlog.ColoredFormatter(
-            "%(log_color)s[%(asctime)s] %(levelname)s: %(message)s",
-            log_colors={
-                "DEBUG": "cyan",
-                "INFO": "green",
-                "WARNING": "yellow",
-                "ERROR": "red",
-                "CRITICAL": "bold_red",
-            },
-        )
-    )
-    logger.addHandler(console_handler)
-
-    file_handler = logging.FileHandler("debug.log", encoding="utf-8")
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(
-        logging.Formatter("[%(asctime)s] %(levelname)s: %(message)s")
-    )
-    logger.addHandler(file_handler)
-
-    return logger
-
-logger = create_logger()
+logger = utils.create_logger()
 
 
 # VISION_MODEL = "deepseek/deepseek-v4.1-flash"
