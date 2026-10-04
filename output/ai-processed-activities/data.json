@@ -1,0 +1,5889 @@
+[
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/4.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-004_AC-00.png",
+        "id": 0,
+        "name": "Programare competitiva",
+        "type": null,
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-004_AC-01.png",
+        "id": 1,
+        "name": "InfoAducereNivel",
+        "type": null,
+        "authors": [
+          "Obreja C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-004_AC-02.png",
+        "id": 2,
+        "name": "Psih Educ",
+        "type": "Seminar",
+        "authors": [
+          "Constantin V"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-004_AC-03.png",
+        "id": 3,
+        "name": "Psih Educ",
+        "type": "Seminar",
+        "authors": [
+          "Constantin V"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-004_AC-04.png",
+        "id": 4,
+        "name": "Psih Educ",
+        "type": "Curs",
+        "authors": [
+          "Bucur C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-004_AC-05.png",
+        "id": 5,
+        "name": "Psih Educ",
+        "type": "Curs",
+        "authors": [
+          "Bucur C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/5.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-005_AC-00.png",
+        "id": 0,
+        "name": "Franceza",
+        "type": "Seminar",
+        "authors": [
+          "Bordea D"
+        ],
+        "location": "ONLINE",
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-005_AC-01.png",
+        "id": 1,
+        "name": "Engleza",
+        "type": "Seminar",
+        "authors": [
+          "Adascalitei M"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-005_AC-02.png",
+        "id": 2,
+        "name": "Engleza",
+        "type": "Seminar",
+        "authors": [
+          "Adascalitei M"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-005_AC-03.png",
+        "id": 3,
+        "name": "Engleza",
+        "type": "Seminar",
+        "authors": [
+          "Adascalitei M"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-005_AC-04.png",
+        "id": 4,
+        "name": "Engleza",
+        "type": "Seminar",
+        "authors": [
+          "Adascalitei M"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/6.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-006_AC-00.png",
+        "id": 5,
+        "name": "AnalizaMate I",
+        "type": null,
+        "authors": [
+          "Vladoiu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-006_AC-01.png",
+        "id": 0,
+        "name": "AlgLiniara",
+        "type": null,
+        "authors": [
+          "Dascalescu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-006_AC-02.png",
+        "id": 1,
+        "name": "AlgLiniara",
+        "type": null,
+        "authors": [
+          "Vladoiu M"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/7.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-007_AC-00.png",
+        "id": 2,
+        "name": "AnalizaMate I",
+        "type": null,
+        "authors": [
+          "Vladoiu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-007_AC-01.png",
+        "id": 3,
+        "name": "AlgLiniara",
+        "type": null,
+        "authors": [
+          "Dascalescu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/8.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-008_AC-00.png",
+        "id": 4,
+        "name": "AnalizaMate I",
+        "type": null,
+        "authors": [
+          "Vladoiu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-008_AC-01.png",
+        "id": 5,
+        "name": "AlgLiniara",
+        "type": null,
+        "authors": [
+          "Dascalescu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-008_AC-02.png",
+        "id": 0,
+        "name": "Geometrie I",
+        "type": null,
+        "authors": [
+          "Vuletescu V"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/9.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-009_AC-00.png",
+        "id": 1,
+        "name": "AnalizaMate I",
+        "type": null,
+        "authors": [
+          "Vladoiu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-009_AC-01.png",
+        "id": 2,
+        "name": "AlgLiniara",
+        "type": null,
+        "authors": [
+          "Dascalescu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/10.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-010_AC-00.png",
+        "id": 3,
+        "name": "AnalizaMate I",
+        "type": null,
+        "authors": [
+          "Vladoiu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-010_AC-01.png",
+        "id": 4,
+        "name": "AlgLiniara",
+        "type": null,
+        "authors": [
+          "Dascalescu S"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-010_AC-02.png",
+        "id": 5,
+        "name": "AnalizaMate I",
+        "type": null,
+        "authors": [
+          "Manea D"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/11.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-011_AC-00.png",
+        "id": 0,
+        "name": "ProgAlgo",
+        "type": "Seminar",
+        "authors": [
+          "Boriga R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-011_AC-01.png",
+        "id": 1,
+        "name": "TehniciWeb",
+        "type": "Lab",
+        "authors": [
+          "Chirita Ca"
+        ],
+        "location": {
+          "id": 410,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-011_AC-02.png",
+        "id": 2,
+        "name": "Instr&Teh Baz alnfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-011_AC-03.png",
+        "id": 3,
+        "name": "CalcDifer&Integr",
+        "type": "Curs",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-011_AC-04.png",
+        "id": 4,
+        "name": "ProgAlgo",
+        "type": "Lab",
+        "authors": [
+          "Negru M"
+        ],
+        "location": {
+          "id": 506,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/12.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-012_AC-00.png",
+        "id": 5,
+        "name": "TehniciWeb",
+        "type": "Lab",
+        "authors": [
+          "Chirita Ca"
+        ],
+        "location": {
+          "id": 410,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-012_AC-01.png",
+        "id": 0,
+        "name": "ProgAlgo",
+        "type": "Seminar",
+        "authors": [
+          "Boriga R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-012_AC-02.png",
+        "id": 1,
+        "name": "ProgAlgo",
+        "type": "Lab",
+        "authors": [
+          "Negru M"
+        ],
+        "location": {
+          "id": 506,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-012_AC-03.png",
+        "id": 2,
+        "name": "Instr&Teh Baz alinfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-012_AC-04.png",
+        "id": 3,
+        "name": "CalcDifer&Intgr",
+        "type": "Curs",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/13.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-013_AC-00.png",
+        "id": 4,
+        "name": "ProgAlgo",
+        "type": "Seminar",
+        "authors": [
+          "Boriga R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-013_AC-01.png",
+        "id": 5,
+        "name": "CalcDifer&Intgr",
+        "type": "Seminar",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-013_AC-02.png",
+        "id": 0,
+        "name": "Instr&Teh Baz alinfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-013_AC-03.png",
+        "id": 1,
+        "name": "CalcDifer&Integr",
+        "type": "Curs",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-013_AC-04.png",
+        "id": 2,
+        "name": "ProgAlgo",
+        "type": "Lab",
+        "authors": [
+          "Negru M"
+        ],
+        "location": {
+          "id": 506,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/14.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-014_AC-00.png",
+        "id": 3,
+        "name": "ProgAlgo",
+        "type": "Lab",
+        "authors": [
+          "Negru M"
+        ],
+        "location": {
+          "id": 506,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-014_AC-01.png",
+        "id": 4,
+        "name": "ProgAlgo",
+        "type": "Seminar",
+        "authors": [
+          "Boriga R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-014_AC-02.png",
+        "id": 5,
+        "name": "ProgAlgo",
+        "type": "Lab",
+        "authors": [
+          "Negru M"
+        ],
+        "location": {
+          "id": 506,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-014_AC-03.png",
+        "id": 0,
+        "name": "Instr&Teh Baz alinfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-014_AC-04.png",
+        "id": 1,
+        "name": "CalcDifer&Integr",
+        "type": "Curs",
+        "authors": [
+          "Cerneea A"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-014_AC-05.png",
+        "id": 2,
+        "name": "StrAlgebriceInInfo",
+        "type": null,
+        "authors": [
+          "Majeri G"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/15.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-015_AC-00.png",
+        "id": 3,
+        "name": "CalcDifer&Integr",
+        "type": null,
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-015_AC-01.png",
+        "id": 4,
+        "name": "StrAlgebriceInInfo",
+        "type": null,
+        "authors": [
+          "Baetica C",
+          "Grigorescu T"
+        ],
+        "location": {
+          "id": 210,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-015_AC-02.png",
+        "id": 5,
+        "name": "Instr&Teh Baz alinfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-015_AC-03.png",
+        "id": 0,
+        "name": "ProgAlgo",
+        "type": null,
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/16.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-016_AC-00.png",
+        "id": 1,
+        "name": "StrAlgebricInInfo",
+        "type": null,
+        "authors": [
+          "Baetica C",
+          "Grigorescu T"
+        ],
+        "location": {
+          "id": 210,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-016_AC-01.png",
+        "id": 2,
+        "name": "CalcDifer&Intgr",
+        "type": null,
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-016_AC-02.png",
+        "id": 3,
+        "name": "Instr&Teh Baz alinfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-016_AC-03.png",
+        "id": 4,
+        "name": "ProgAlgo",
+        "type": null,
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/17.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-017_AC-00.png",
+        "id": 5,
+        "name": "ProgAlgo",
+        "type": "Seminar",
+        "authors": [
+          "Ceausescu C"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-017_AC-01.png",
+        "id": 0,
+        "name": "CalcDifer&Integr",
+        "type": "Seminar",
+        "authors": [
+          "Sfetcu R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-017_AC-02.png",
+        "id": 1,
+        "name": "Instr&TehBaz alnfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-017_AC-03.png",
+        "id": 2,
+        "name": "ProgAlgo",
+        "type": null,
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/18.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-018_AC-00.png",
+        "id": 3,
+        "name": "ProgAlgo",
+        "type": "Lab",
+        "authors": [
+          "Mincu RS"
+        ],
+        "location": {
+          "id": 404,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-018_AC-01.png",
+        "id": 4,
+        "name": "CalcDifer&Integr",
+        "type": "Seminar",
+        "authors": [
+          "Sfetcu R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-018_AC-02.png",
+        "id": 5,
+        "name": "Instr&TehBaz alnfo",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-018_AC-03.png",
+        "id": 0,
+        "name": "ProgAlgo",
+        "type": null,
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/19.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-019_AC-00.png",
+        "id": 1,
+        "name": "CompSystArchit",
+        "type": null,
+        "authors": [
+          "Rusu C"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/20.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-020_AC-00.png",
+        "id": 2,
+        "name": "AlgorithmProgr",
+        "type": null,
+        "authors": [
+          "Ceausescu C"
+        ],
+        "location": {
+          "id": 411,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-020_AC-01.png",
+        "id": 3,
+        "name": "CalcDifer&Integr",
+        "type": "Seminar",
+        "authors": [
+          "Sfetcu R"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-020_AC-02.png",
+        "id": 4,
+        "name": "AlgorithmProgr",
+        "type": null,
+        "authors": [
+          "Ceausescu C"
+        ],
+        "location": {
+          "id": 411,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-020_AC-03.png",
+        "id": 5,
+        "name": "AlgorithmProgr",
+        "type": null,
+        "authors": [
+          "Ceausescu C"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-020_AC-04.png",
+        "id": 0,
+        "name": "CompSystArchit",
+        "type": null,
+        "authors": [
+          "Rusu C"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/21.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-021_AC-00.png",
+        "id": 1,
+        "name": "Algebra&Geom",
+        "type": "Seminar",
+        "authors": [
+          "Hirica I"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-021_AC-01.png",
+        "id": 2,
+        "name": "Algebra&Geom",
+        "type": "Curs",
+        "authors": [
+          "Hirica I"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-021_AC-02.png",
+        "id": 3,
+        "name": "AnMatem",
+        "type": "Curs",
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-021_AC-03.png",
+        "id": 4,
+        "name": "AnMatem",
+        "type": "Seminar",
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/22.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-022_AC-00.png",
+        "id": 5,
+        "name": "Algebra&Geom",
+        "type": "Curs",
+        "authors": [
+          "Hirica I"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-022_AC-01.png",
+        "id": 0,
+        "name": "ProgrCalc I",
+        "type": "Lab",
+        "authors": [
+          "Mincu RS"
+        ],
+        "location": {
+          "id": 402,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-022_AC-02.png",
+        "id": 1,
+        "name": "Algebra&Geom",
+        "type": "Seminar",
+        "authors": [
+          "Halanan A"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-022_AC-03.png",
+        "id": 2,
+        "name": "AnMatem",
+        "type": "Curs",
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/23.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-023_AC-00.png",
+        "id": 3,
+        "name": "Algebra&Geom",
+        "type": "Curs",
+        "authors": [
+          "Hirica I"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-023_AC-01.png",
+        "id": 4,
+        "name": "ProgrCalc I",
+        "type": "Seminar",
+        "authors": [
+          "Obreja C"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-023_AC-02.png",
+        "id": 5,
+        "name": "Algebra&Geom",
+        "type": "Seminar",
+        "authors": [
+          "Halanan A"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-023_AC-03.png",
+        "id": 0,
+        "name": "AnMatem",
+        "type": "Seminar",
+        "authors": [
+          "Mitre L"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-023_AC-04.png",
+        "id": 1,
+        "name": "AnMatem",
+        "type": "Curs",
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/24.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-024_AC-00.png",
+        "id": 2,
+        "name": "Algebra&Geom",
+        "type": "Curs",
+        "authors": [
+          "Hirica I"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-024_AC-01.png",
+        "id": 3,
+        "name": "ProgrCalc I",
+        "type": "Seminar",
+        "authors": [
+          "Obreja C"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-024_AC-02.png",
+        "id": 4,
+        "name": "Algebra&Geom",
+        "type": "Seminar",
+        "authors": [
+          "Halanay A"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-024_AC-03.png",
+        "id": 5,
+        "name": "AnMatem",
+        "type": "Seminar",
+        "authors": [
+          "Mitre L"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-024_AC-04.png",
+        "id": 0,
+        "name": "UtilizareaSO",
+        "type": "Lab",
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 402,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-024_AC-05.png",
+        "id": 1,
+        "name": "AnMatem",
+        "type": "Curs",
+        "authors": [
+          "Mihail A"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/25.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-025_AC-00.png",
+        "id": 2,
+        "name": "Pedagogie",
+        "type": null,
+        "authors": [
+          "Grecu AE"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-025_AC-01.png",
+        "id": 3,
+        "name": "Pedagogie",
+        "type": null,
+        "authors": [
+          "Grecu AE"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-025_AC-02.png",
+        "id": 4,
+        "name": "Pedagogie",
+        "type": null,
+        "authors": [
+          "Grecu AE"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/26.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-026_AC-00.png",
+        "id": 5,
+        "name": "Franceza",
+        "type": "Seminar",
+        "authors": [
+          "Bordea D"
+        ],
+        "location": "ONLINE",
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-026_AC-01.png",
+        "id": 0,
+        "name": "Engleza",
+        "type": null,
+        "authors": [
+          "Ionita D"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-026_AC-02.png",
+        "id": 1,
+        "name": "Engleza",
+        "type": null,
+        "authors": [
+          "Ionita D"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-026_AC-03.png",
+        "id": 2,
+        "name": "Engleza",
+        "type": null,
+        "authors": [
+          "Ionita D"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-026_AC-04.png",
+        "id": 3,
+        "name": "Engleza",
+        "type": null,
+        "authors": [
+          "Ionita D"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/27.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-027_AC-00.png",
+        "id": 4,
+        "name": "GeomDifer I",
+        "type": null,
+        "authors": [
+          "Gherghe C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-027_AC-01.png",
+        "id": 5,
+        "name": "GeomDifer I",
+        "type": "Seminar",
+        "authors": [
+          "Gherghe C"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-027_AC-02.png",
+        "id": 0,
+        "name": "EcDiferentiale",
+        "type": "Seminar",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/28.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-028_AC-00.png",
+        "id": 1,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/29.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-029_AC-00.png",
+        "id": 2,
+        "name": "GeomDifer I",
+        "type": null,
+        "authors": [
+          "Gherghe C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-029_AC-01.png",
+        "id": 3,
+        "name": "TeorMas&Integr",
+        "type": null,
+        "authors": [
+          "Bereanu C"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-029_AC-02.png",
+        "id": 4,
+        "name": "GeomDifer I",
+        "type": "Seminar",
+        "authors": [
+          "Ghisoiu V"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-029_AC-03.png",
+        "id": 5,
+        "name": "EcDiferentiale",
+        "type": "Seminar",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/30.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/31.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-031_AC-00.png",
+        "id": 0,
+        "name": "GeomDifer I",
+        "type": "Curs",
+        "authors": [
+          "Gherghe C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-031_AC-01.png",
+        "id": 1,
+        "name": "EcDiferentiale",
+        "type": "Seminar",
+        "authors": [
+          "Cernea A"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-031_AC-02.png",
+        "id": 2,
+        "name": "TeorMas&Integr",
+        "type": "Seminar",
+        "authors": [
+          "Bereanu C"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-031_AC-03.png",
+        "id": 3,
+        "name": "GeomDifer I",
+        "type": "Seminar",
+        "authors": [
+          "Ghisoiu V"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/32.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-032_AC-00.png",
+        "id": 4,
+        "name": "GeomDifer I",
+        "type": "Curs",
+        "authors": [
+          "Gherghe C"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-032_AC-01.png",
+        "id": 5,
+        "name": "GeomDifer I",
+        "type": "Seminar",
+        "authors": [
+          "Ghisoiu V"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-032_AC-02.png",
+        "id": 0,
+        "name": "TeorMas&Integr",
+        "type": "Seminar",
+        "authors": [
+          "Munteanu R"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/33.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-033_AC-00.png",
+        "id": 1,
+        "name": "OptDezvAplWeb Django",
+        "type": "Lab",
+        "authors": [
+          "Ciocan I"
+        ],
+        "location": {
+          "id": 508,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 21,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-033_AC-01.png",
+        "id": 2,
+        "name": "OptDezvAplWeb Django",
+        "type": "Lab",
+        "authors": [
+          "Ciocan I"
+        ],
+        "location": {
+          "id": 508,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 23,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-033_AC-02.png",
+        "id": 3,
+        "name": "OptDezvAplWeb Django",
+        "type": null,
+        "authors": [
+          "Ciocan I"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-033_AC-03.png",
+        "id": 4,
+        "name": "OptDezvAplWeb Django",
+        "type": "Lab",
+        "authors": [
+          "Ciocan I"
+        ],
+        "location": {
+          "id": 508,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 22,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/34.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-034_AC-00.png",
+        "id": 5,
+        "name": "SistAvansBD",
+        "type": "Curs",
+        "authors": [
+          "Mihai G"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-034_AC-01.png",
+        "id": 0,
+        "name": "ProgFunc",
+        "type": null,
+        "authors": [
+          "Iova A"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-034_AC-02.png",
+        "id": 1,
+        "name": "Prob&Stat",
+        "type": "Lab",
+        "authors": [
+          "Grecu A"
+        ],
+        "location": {
+          "id": 401,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-034_AC-03.png",
+        "id": 2,
+        "name": "AlgFundam",
+        "type": null,
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-034_AC-04.png",
+        "id": 3,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-034_AC-05.png",
+        "id": 4,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 210,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/35.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-035_AC-00.png",
+        "id": 5,
+        "name": "SistAvansBD",
+        "type": "Curs",
+        "authors": [
+          "Mihai G"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-035_AC-01.png",
+        "id": 0,
+        "name": "Prob&Stat",
+        "type": null,
+        "authors": [
+          "Grecu A"
+        ],
+        "location": {
+          "id": 401,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-035_AC-02.png",
+        "id": 1,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-035_AC-03.png",
+        "id": 2,
+        "name": "AlgFundam",
+        "type": null,
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-035_AC-04.png",
+        "id": 3,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/36.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-036_AC-00.png",
+        "id": 4,
+        "name": "SistAvansBD",
+        "type": "Curs",
+        "authors": [
+          "Mihai G"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-036_AC-01.png",
+        "id": 5,
+        "name": "ProgFunc",
+        "type": null,
+        "authors": [
+          "Iova A"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-036_AC-02.png",
+        "id": 0,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-036_AC-03.png",
+        "id": 1,
+        "name": "AlgFundam",
+        "type": null,
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-036_AC-04.png",
+        "id": 2,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/37.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-037_AC-00.png",
+        "id": 3,
+        "name": "SistAvansBD",
+        "type": "Curs",
+        "authors": [
+          "Mihai G"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-037_AC-01.png",
+        "id": 4,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Obreja C"
+        ],
+        "location": {
+          "id": 413,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-037_AC-02.png",
+        "id": 5,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Obreja C"
+        ],
+        "location": {
+          "id": 413,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-037_AC-03.png",
+        "id": 0,
+        "name": "AlgFundam",
+        "type": null,
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-037_AC-04.png",
+        "id": 1,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-037_AC-05.png",
+        "id": 2,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [],
+        "location": {
+          "id": 210,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/38.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-038_AC-00.png",
+        "id": 3,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 401,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-038_AC-01.png",
+        "id": 4,
+        "name": "SistOper",
+        "type": "Curs",
+        "authors": [
+          "Olaru V"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-038_AC-02.png",
+        "id": 5,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 401,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-038_AC-03.png",
+        "id": 0,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 209,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/39.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-039_AC-00.png",
+        "id": 1,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 410,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-039_AC-01.png",
+        "id": 2,
+        "name": "SistOper",
+        "type": "Lab",
+        "authors": [
+          "Olaru V"
+        ],
+        "location": {
+          "id": 402,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-039_AC-02.png",
+        "id": 3,
+        "name": "SistOper",
+        "type": "Curs",
+        "authors": [
+          "Olaru V"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-039_AC-03.png",
+        "id": 4,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 410,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-039_AC-04.png",
+        "id": 5,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Marinescu R"
+        ],
+        "location": {
+          "id": 209,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/40.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-040_AC-00.png",
+        "id": 0,
+        "name": "SistOper",
+        "type": "Curs",
+        "authors": [
+          "Olaru V"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-040_AC-01.png",
+        "id": 1,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Miclaus A"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/41.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-041_AC-00.png",
+        "id": 2,
+        "name": "SistOper",
+        "type": "Curs",
+        "authors": [
+          "Olaru V"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-041_AC-01.png",
+        "id": 3,
+        "name": "SistOper",
+        "type": "Lab",
+        "authors": [
+          "Olaru V"
+        ],
+        "location": {
+          "id": 402,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-041_AC-02.png",
+        "id": 4,
+        "name": "AlgFundam",
+        "type": "Seminar",
+        "authors": [
+          "Miclaus A"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/42.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-042_AC-00.png",
+        "id": 5,
+        "name": "SistAvansBD",
+        "type": null,
+        "authors": [
+          "Vasile SL"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-042_AC-01.png",
+        "id": 0,
+        "name": "AlgFundam",
+        "type": "Curs",
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-042_AC-02.png",
+        "id": 1,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Miclaus A"
+        ],
+        "location": {
+          "id": 411,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-042_AC-03.png",
+        "id": 2,
+        "name": "AlgFundam",
+        "type": "Lab",
+        "authors": [
+          "Miclaus A"
+        ],
+        "location": {
+          "id": 411,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/43.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-043_AC-00.png",
+        "id": 3,
+        "name": "SistAvansBD",
+        "type": null,
+        "authors": [
+          "Vasile SL"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-043_AC-01.png",
+        "id": 4,
+        "name": "ProgFunc",
+        "type": null,
+        "authors": [
+          "Iova A"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-043_AC-02.png",
+        "id": 5,
+        "name": "AlgFundam",
+        "type": "Curs",
+        "authors": [
+          "Dumitran M"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/44.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-044_AC-00.png",
+        "id": 0,
+        "name": "ElemElectrAnalogue",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Location 'Magurele, lab.' does not contain a numeric room ID, so cannot be mapped to the Room interface."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-044_AC-01.png",
+        "id": 1,
+        "name": "TeorSist",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Location 'Magurele, lab.' does not contain a numeric room ID, so cannot be mapped to the Room interface."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-044_AC-02.png",
+        "id": 2,
+        "name": "ElemElectrAnalogue",
+        "type": "Curs",
+        "authors": [
+          "Radu A",
+          "Bita B"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Location 'Fac.Fizica -Magurele' does not contain a numeric room ID, so cannot be mapped to the Room interface."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-044_AC-03.png",
+        "id": 3,
+        "name": "TeorSist",
+        "type": "Curs",
+        "authors": [
+          "Dinca M"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Location 'Fac.Fizica -Magurele' does not contain a numeric room ID, so cannot be mapped to the Room interface."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-044_AC-04.png",
+        "id": 4,
+        "name": "LimbajulC++",
+        "type": null,
+        "authors": [
+          "Dobrovat A"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-044_AC-05.png",
+        "id": 5,
+        "name": "FundamIngSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/45.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-045_AC-00.png",
+        "id": 0,
+        "name": "TeorSist",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Raw location text: Magurele, lab."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-045_AC-01.png",
+        "id": 1,
+        "name": "ElemElectrAnal",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Raw location text: Magurele, lab."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-045_AC-02.png",
+        "id": 2,
+        "name": "ElemElectrAnal",
+        "type": "Curs",
+        "authors": [
+          "Radu A",
+          "Bita B"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Raw location text: Fac.Fizica -Magurele"
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-045_AC-03.png",
+        "id": 3,
+        "name": "TeorSist",
+        "type": "Curs",
+        "authors": [
+          "Dinca M"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Raw location text: Fac.Fizica -Magurele"
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-045_AC-04.png",
+        "id": 4,
+        "name": "LimbajulC++",
+        "type": null,
+        "authors": [
+          "Dobrovat A"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-045_AC-05.png",
+        "id": 5,
+        "name": "FundamIngSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/46.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-046_AC-00.png",
+        "id": 0,
+        "name": "ElemElectrAnalog",
+        "type": "Curs",
+        "authors": [
+          "Radu A",
+          "Bita B"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-046_AC-01.png",
+        "id": 1,
+        "name": "TeorSist",
+        "type": "Curs",
+        "authors": [
+          "Dinca M"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-046_AC-02.png",
+        "id": 2,
+        "name": "ElemElectrAnalog",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-046_AC-03.png",
+        "id": 3,
+        "name": "TeorSist",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-046_AC-04.png",
+        "id": 4,
+        "name": "LimbajulC++",
+        "type": null,
+        "authors": [
+          "Dobrovat A"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-046_AC-05.png",
+        "id": 5,
+        "name": "FundamIngSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/47.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-047_AC-00.png",
+        "id": 0,
+        "name": "ElemElectrAnalog",
+        "type": "Curs",
+        "authors": [
+          "Radu A",
+          "Bita B"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Fac.Fizica - Magurele"
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-047_AC-01.png",
+        "id": 1,
+        "name": "TeorSist",
+        "type": "Curs",
+        "authors": [
+          "Dinca M"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Fac.Fizica - Magurele"
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-047_AC-02.png",
+        "id": 2,
+        "name": "TeorSist",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Magurele, lab."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-047_AC-03.png",
+        "id": 3,
+        "name": "ElemElectrAnalog",
+        "type": "Lab",
+        "authors": [],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": "Magurele, lab."
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-047_AC-04.png",
+        "id": 4,
+        "name": "LimbajulC++",
+        "type": null,
+        "authors": [
+          "Dobrovat A"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-047_AC-05.png",
+        "id": 5,
+        "name": "FundamIngSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/48.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-048_AC-00.png",
+        "id": 0,
+        "name": "InstrAsistCalc",
+        "type": "Curs",
+        "authors": [
+          "Lazar I"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-048_AC-01.png",
+        "id": 1,
+        "name": "InstrAsistCalc",
+        "type": "Seminar",
+        "authors": [
+          "Lazar I"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-048_AC-02.png",
+        "id": 2,
+        "name": "InstrAsistCalc",
+        "type": "Seminar",
+        "authors": [
+          "Lazar I"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": 3,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-048_AC-03.png",
+        "id": 3,
+        "name": "InstrAsistCalc",
+        "type": "Seminar",
+        "authors": [
+          "Lazar I"
+        ],
+        "location": {
+          "id": 213,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/49.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-049_AC-00.png",
+        "id": 4,
+        "name": "ElemAnClasica",
+        "type": null,
+        "authors": [
+          "Preda O"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-049_AC-01.png",
+        "id": 5,
+        "name": "ElemAnClasica",
+        "type": null,
+        "authors": [
+          "Preda O"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-049_AC-02.png",
+        "id": 0,
+        "name": "GrupTransfGeom",
+        "type": "Curs",
+        "authors": [
+          "Stanciu M"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-049_AC-03.png",
+        "id": 1,
+        "name": "GrupTransfGeom",
+        "type": "Seminar",
+        "authors": [
+          "Stanciu M"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-049_AC-04.png",
+        "id": 2,
+        "name": "GrupFin&ElemTeorGalois",
+        "type": null,
+        "authors": [
+          "Spiridon C"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/50.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/51.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-051_AC-00.png",
+        "id": 3,
+        "name": "ElemAnClasica",
+        "type": null,
+        "authors": [
+          "Preda O"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-051_AC-01.png",
+        "id": 4,
+        "name": "ElemAnClasica",
+        "type": null,
+        "authors": [
+          "Preda O"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-051_AC-02.png",
+        "id": 5,
+        "name": "GrupTransfGeom",
+        "type": "Curs",
+        "authors": [
+          "Stanciu M"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-051_AC-03.png",
+        "id": 0,
+        "name": "GrupTransfGeom",
+        "type": "Seminar",
+        "authors": [
+          "Stanciu M"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-051_AC-04.png",
+        "id": 1,
+        "name": "GrupFin&ElemTeorGalois",
+        "type": null,
+        "authors": [
+          "Spiridon C"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/52.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-052_AC-00.png",
+        "id": 2,
+        "name": "IntrProgrJocCalc",
+        "type": "Curs",
+        "authors": [
+          "Popescu S"
+        ],
+        "location": {
+          "id": 415,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-052_AC-01.png",
+        "id": 3,
+        "name": "IntrReinfLearn",
+        "type": null,
+        "authors": [
+          "Iordache S"
+        ],
+        "location": {
+          "id": 511,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-052_AC-02.png",
+        "id": 4,
+        "name": "PrelucrSemnal",
+        "type": null,
+        "authors": [
+          "Majeri G"
+        ],
+        "location": {
+          "id": 415,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-052_AC-03.png",
+        "id": 5,
+        "name": "ArhMasinIntelig",
+        "type": "Curs",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-052_AC-04.png",
+        "id": 0,
+        "name": "PrelucrSemnal",
+        "type": "Lab",
+        "authors": [
+          "Rusu C"
+        ],
+        "location": {
+          "id": 404,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-052_AC-05.png",
+        "id": 1,
+        "name": "PrelucrSemnal",
+        "type": null,
+        "authors": [
+          "Rusu C"
+        ],
+        "location": {
+          "id": 411,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/53.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/54.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-054_AC-00.png",
+        "id": 2,
+        "name": "Mod&MetInCercetOperat",
+        "type": null,
+        "authors": [
+          "Patriche M"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-054_AC-01.png",
+        "id": 3,
+        "name": "Mod&MetInCercetOperat",
+        "type": null,
+        "authors": [
+          "Patriche M"
+        ],
+        "location": {
+          "id": 209,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-054_AC-02.png",
+        "id": 4,
+        "name": "Mod&MetInCercetOperat",
+        "type": null,
+        "authors": [
+          "Patriche M"
+        ],
+        "location": {
+          "id": 209,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/55.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-055_AC-00.png",
+        "id": 5,
+        "name": "ModMatSistMater II",
+        "type": null,
+        "authors": [
+          "Pascan R"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-055_AC-01.png",
+        "id": 0,
+        "name": "ModMatSistMater II",
+        "type": "Seminar",
+        "authors": [
+          "Pascan R"
+        ],
+        "location": {
+          "id": 209,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-055_AC-02.png",
+        "id": 1,
+        "name": "Statistica",
+        "type": "Lab",
+        "authors": [
+          "Cojocea S"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-055_AC-03.png",
+        "id": 2,
+        "name": "ModMatSistMater II",
+        "type": "Lab",
+        "authors": [
+          "Pascan R"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/56.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-056_AC-00.png",
+        "id": 3,
+        "name": "ModMatSistMater II",
+        "type": null,
+        "authors": [
+          "Pascan R"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-056_AC-01.png",
+        "id": 4,
+        "name": "Statistica",
+        "type": null,
+        "authors": [
+          "Cojocea S"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-056_AC-02.png",
+        "id": 5,
+        "name": "ModMatSistMater II",
+        "type": null,
+        "authors": [
+          "Pascan R"
+        ],
+        "location": {
+          "id": 209,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-056_AC-03.png",
+        "id": 0,
+        "name": "ModMatSistMater II",
+        "type": null,
+        "authors": [
+          "Pascan R"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/57.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-057_AC-00.png",
+        "id": 1,
+        "name": "IntrProgrJocCalc",
+        "type": "Curs",
+        "authors": [
+          "Popescu S"
+        ],
+        "location": {
+          "id": 415,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-057_AC-01.png",
+        "id": 2,
+        "name": "ImplConcLbProg",
+        "type": null,
+        "authors": [
+          "Leustean I"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-057_AC-02.png",
+        "id": 3,
+        "name": "PrelucrSemnal",
+        "type": null,
+        "authors": [
+          "Majeri G"
+        ],
+        "location": {
+          "id": 415,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-057_AC-03.png",
+        "id": 4,
+        "name": "ArhMasiniIntelig",
+        "type": "Curs",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/58.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-058_AC-00.png",
+        "id": 5,
+        "name": "IntrReinfLearn",
+        "type": null,
+        "authors": [
+          "Iordache S"
+        ],
+        "location": {
+          "id": 511,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-058_AC-01.png",
+        "id": 0,
+        "name": "ImplConcLbProg",
+        "type": null,
+        "authors": [
+          "Macovei B"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-058_AC-02.png",
+        "id": 1,
+        "name": "PrelucrSemnal",
+        "type": "Lab",
+        "authors": [
+          "Rusu C"
+        ],
+        "location": {
+          "id": 404,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-058_AC-03.png",
+        "id": 2,
+        "name": "PrelucrSemnal",
+        "type": null,
+        "authors": [
+          "Rusu C"
+        ],
+        "location": {
+          "id": 411,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/59.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/60.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/61.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/62.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/63.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-063_AC-00.png",
+        "id": 3,
+        "name": "Calc&Complex",
+        "type": null,
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-063_AC-01.png",
+        "id": 4,
+        "name": "InginerieSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-063_AC-02.png",
+        "id": 5,
+        "name": "Calc&Complex",
+        "type": "Seminar",
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/64.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-064_AC-00.png",
+        "id": 0,
+        "name": "Calc&Complex",
+        "type": null,
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-064_AC-01.png",
+        "id": 1,
+        "name": "InginerieSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-064_AC-02.png",
+        "id": 2,
+        "name": "Calc&Complex",
+        "type": "Seminar",
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/65.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-065_AC-00.png",
+        "id": 3,
+        "name": "Calc&Complex",
+        "type": null,
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-065_AC-01.png",
+        "id": 4,
+        "name": "InginerieSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-065_AC-02.png",
+        "id": 5,
+        "name": "Calc&Complex",
+        "type": "Seminar",
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/66.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-066_AC-00.png",
+        "id": 0,
+        "name": "Calc&Complex",
+        "type": null,
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-066_AC-01.png",
+        "id": 1,
+        "name": "InginerieSoft",
+        "type": null,
+        "authors": [
+          "Soviany P"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-066_AC-02.png",
+        "id": 2,
+        "name": "Calc&Complex",
+        "type": "Seminar",
+        "authors": [
+          "Dumitru B"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/67.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/68.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/69.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-069_AC-00.png",
+        "id": 3,
+        "name": "InteligArtificiala",
+        "type": null,
+        "authors": [
+          "Alexe B"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-069_AC-01.png",
+        "id": 4,
+        "name": "SistAvansBD",
+        "type": null,
+        "authors": [
+          "Predut S"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-069_AC-02.png",
+        "id": 5,
+        "name": "Compilatoare",
+        "type": null,
+        "authors": [
+          "Georgescu Gi"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-069_AC-03.png",
+        "id": 0,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/70.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-070_AC-00.png",
+        "id": 1,
+        "name": "InteligArtificiala",
+        "type": null,
+        "authors": [
+          "Alexe B"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-070_AC-01.png",
+        "id": 2,
+        "name": "SistAvansBD",
+        "type": null,
+        "authors": [
+          "Predut S"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-070_AC-02.png",
+        "id": 3,
+        "name": "Compilatoare",
+        "type": null,
+        "authors": [
+          "Georgescu Gi"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-070_AC-03.png",
+        "id": 4,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-070_AC-04.png",
+        "id": 5,
+        "name": "SistOper",
+        "type": "Lab",
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 402,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/71.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-071_AC-00.png",
+        "id": 0,
+        "name": "InteligArtificiala",
+        "type": null,
+        "authors": [
+          "Alexe B"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-071_AC-01.png",
+        "id": 1,
+        "name": "SistAvansBD",
+        "type": null,
+        "authors": [
+          "Predut S"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-071_AC-02.png",
+        "id": 2,
+        "name": "Compilatoare",
+        "type": null,
+        "authors": [
+          "Georgescu Gi"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-071_AC-03.png",
+        "id": 3,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-071_AC-04.png",
+        "id": 4,
+        "name": "SistOper",
+        "type": "Lab",
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 402,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/72.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-072_AC-00.png",
+        "id": 5,
+        "name": "InteligArtificiala",
+        "type": null,
+        "authors": [
+          "Alexe B"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-072_AC-01.png",
+        "id": 0,
+        "name": "SistAvansBD",
+        "type": null,
+        "authors": [
+          "Predut S"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-072_AC-02.png",
+        "id": 1,
+        "name": "Compilatoare",
+        "type": null,
+        "authors": [
+          "Georgescu Gi"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-072_AC-03.png",
+        "id": 2,
+        "name": "SistOper",
+        "type": null,
+        "authors": [
+          "Dragulici D"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/73.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-073_AC-00.png",
+        "id": 3,
+        "name": "IntrReinfLearn",
+        "type": null,
+        "authors": [
+          "Iordache S"
+        ],
+        "location": {
+          "id": 511,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-073_AC-01.png",
+        "id": 4,
+        "name": "ImplConclbProg",
+        "type": null,
+        "authors": [
+          "Macovei B"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-073_AC-02.png",
+        "id": 5,
+        "name": "ImplConclbProg",
+        "type": null,
+        "authors": [
+          "Leustean I"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-073_AC-03.png",
+        "id": 0,
+        "name": "ArhMasiniIntelig",
+        "type": "Curs",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/74.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-074_AC-00.png",
+        "id": 1,
+        "name": "Cripto&Secu",
+        "type": null,
+        "authors": [
+          "Georgescu A"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-074_AC-01.png",
+        "id": 2,
+        "name": "IngProgr",
+        "type": null,
+        "authors": [
+          "Gramatovici R"
+        ],
+        "location": {
+          "id": 413,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/75.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-075_AC-00.png",
+        "id": 3,
+        "name": "Cripto&Secu",
+        "type": null,
+        "authors": [
+          "Georgescu A"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/76.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-076_AC-00.png",
+        "id": 4,
+        "name": "Cripto&Secu",
+        "type": null,
+        "authors": [
+          "Georgescu A"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/77.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-077_AC-00.png",
+        "id": 5,
+        "name": "Cripto&Secu",
+        "type": "Lab",
+        "authors": [
+          "Georgescu A"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-077_AC-01.png",
+        "id": 0,
+        "name": "Cripto&Secu",
+        "type": null,
+        "authors": [
+          "Georgescu A"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-077_AC-02.png",
+        "id": 1,
+        "name": "IngProgr",
+        "type": null,
+        "authors": [
+          "Gramatovici R"
+        ],
+        "location": {
+          "id": 413,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/78.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-078_AC-00.png",
+        "id": 2,
+        "name": "ElemAn&FourierAn",
+        "type": null,
+        "authors": [
+          "Paunescu L"
+        ],
+        "location": {
+          "id": 412,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-078_AC-01.png",
+        "id": 3,
+        "name": "IntrModuleTh eory",
+        "type": null,
+        "authors": [
+          "Dascalescu S"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-078_AC-02.png",
+        "id": 4,
+        "name": "IntrModuleTh eory",
+        "type": null,
+        "authors": [
+          "Spiridon C"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-078_AC-03.png",
+        "id": 5,
+        "name": "Ethics&AcadIntegr",
+        "type": null,
+        "authors": [
+          "Savu B"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/79.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-079_AC-00.png",
+        "id": 0,
+        "name": "Rez&PropPbMate",
+        "type": null,
+        "authors": [
+          "Baetica C",
+          "Mincu G"
+        ],
+        "location": {
+          "id": 102,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-079_AC-01.png",
+        "id": 1,
+        "name": "Met&AlgoCalcul",
+        "type": null,
+        "authors": [
+          "Vuletescu V"
+        ],
+        "location": {
+          "id": 211,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/80.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-080_AC-00.png",
+        "id": 2,
+        "name": "RetBayes&ModMarkovAsc",
+        "type": null,
+        "authors": [
+          "Cimpean I"
+        ],
+        "location": {
+          "id": 107,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/81.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/82.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-082_AC-00.png",
+        "id": 3,
+        "name": "LLMs&Cognition",
+        "type": "Curs",
+        "authors": [
+          "Uban A",
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-082_AC-01.png",
+        "id": 4,
+        "name": "LLMs&Cognition",
+        "type": null,
+        "authors": [
+          "Creanga C"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-082_AC-02.png",
+        "id": 5,
+        "name": "LLMs&Cognition",
+        "type": null,
+        "authors": [
+          "Creanga C"
+        ],
+        "location": {
+          "id": 508,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/83.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-083_AC-00.png",
+        "id": 0,
+        "name": "ProgrWebTehJava",
+        "type": null,
+        "authors": [
+          "industrie",
+          "Farcas A"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-083_AC-01.png",
+        "id": 1,
+        "name": "DataMining & KnowDisc",
+        "type": "Curs",
+        "authors": [
+          "Tache A"
+        ],
+        "location": "ONLINE",
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/84.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-084_AC-00.png",
+        "id": 2,
+        "name": "An&ModSistSoft",
+        "type": "Curs",
+        "authors": [
+          "Serbanuta T"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-084_AC-01.png",
+        "id": 3,
+        "name": "An&ModSistSoft",
+        "type": "Lab",
+        "authors": [
+          "Serbanuta T"
+        ],
+        "location": {
+          "id": 509,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-084_AC-02.png",
+        "id": 4,
+        "name": "An&ModSistSoft",
+        "type": "Lab",
+        "authors": [
+          "Serbanuta T"
+        ],
+        "location": {
+          "id": 509,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/85.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-00.png",
+        "id": 5,
+        "name": "ProbProgr",
+        "type": null,
+        "authors": [
+          "Popescu M"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-01.png",
+        "id": 0,
+        "name": "PractMachLearn",
+        "type": null,
+        "authors": [
+          "Ionescu R"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-02.png",
+        "id": 1,
+        "name": "ProbProg",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-03.png",
+        "id": 2,
+        "name": "ProbProg",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 3,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-04.png",
+        "id": 3,
+        "name": "KnowRepr&Reason",
+        "type": "Lab",
+        "authors": [
+          "Cidota M"
+        ],
+        "location": {
+          "id": 401,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 3,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-05.png",
+        "id": 4,
+        "name": "ProbProg",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 4,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-06.png",
+        "id": 5,
+        "name": "ProbProg",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-085_AC-07.png",
+        "id": 0,
+        "name": "Ethics&AcadIntegr",
+        "type": null,
+        "authors": [
+          "Savu B"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/86.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/87.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-087_AC-00.png",
+        "id": 1,
+        "name": "LogicMultiagSys",
+        "type": "Curs",
+        "authors": [
+          "Leustean L"
+        ],
+        "location": {
+          "id": 512,
+          "type": "Sala"
+        },
+        "periodicity": "range",
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-087_AC-01.png",
+        "id": 2,
+        "name": "LogicMultiagSys",
+        "type": "Lab",
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 509,
+          "type": "Lab"
+        },
+        "periodicity": "range",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-087_AC-02.png",
+        "id": 3,
+        "name": "LogicMultiagSys",
+        "type": "Lab",
+        "authors": [
+          "Cheval H"
+        ],
+        "location": {
+          "id": 509,
+          "type": "Lab"
+        },
+        "periodicity": "range",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-087_AC-03.png",
+        "id": 4,
+        "name": "AdvancedCrypto",
+        "type": "Seminar",
+        "authors": [
+          "Dumitru N"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": "range",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-087_AC-04.png",
+        "id": 5,
+        "name": "AdvancedCrypto",
+        "type": "Seminar",
+        "authors": [
+          "Dumitru N"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": "range",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-087_AC-05.png",
+        "id": 0,
+        "name": "Ethics&AcadIntegr",
+        "type": null,
+        "authors": [
+          "Savu B"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/88.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-00.png",
+        "id": 1,
+        "name": "ProbProgr",
+        "type": null,
+        "authors": [
+          "Popescu M"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-01.png",
+        "id": 2,
+        "name": "PractMachLearn",
+        "type": null,
+        "authors": [
+          "Ionescu R"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-02.png",
+        "id": 3,
+        "name": "ProbProgr",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-03.png",
+        "id": 4,
+        "name": "ProbProgr",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 3,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-04.png",
+        "id": 5,
+        "name": "ProbProgr",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 4,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-05.png",
+        "id": 0,
+        "name": "ProbProg",
+        "type": "Lab",
+        "authors": [
+          "Marogel M"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-088_AC-06.png",
+        "id": 1,
+        "name": "Ethics&AcadIntegr",
+        "type": null,
+        "authors": [
+          "Savu B"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/89.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-089_AC-00.png",
+        "id": 2,
+        "name": "PractMachLearn",
+        "type": null,
+        "authors": [
+          "Ionescu R"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-089_AC-01.png",
+        "id": 3,
+        "name": "Ethics&AcadIntegr",
+        "type": null,
+        "authors": [
+          "Savu B"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/90.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-090_AC-00.png",
+        "id": 4,
+        "name": "Local Fields",
+        "type": null,
+        "authors": [
+          "Barcau M",
+          "Pasol V"
+        ],
+        "location": {
+          "id": 414,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-090_AC-01.png",
+        "id": 5,
+        "name": "2ndAlgebraGeometry",
+        "type": null,
+        "authors": [
+          "Aprodu M"
+        ],
+        "location": {
+          "id": 414,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/91.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-091_AC-00.png",
+        "id": 0,
+        "name": "DidactAnMatem",
+        "type": null,
+        "authors": [
+          "Vladoiu S"
+        ],
+        "location": {
+          "id": 108,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/92.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-092_AC-00.png",
+        "id": 1,
+        "name": "MatFinAplic",
+        "type": null,
+        "authors": [
+          "Constantinescu V"
+        ],
+        "location": {
+          "id": 309,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/93.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/94.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-094_AC-00.png",
+        "id": 2,
+        "name": "CloudComputing",
+        "type": null,
+        "authors": [
+          "Kevorhian C"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-094_AC-01.png",
+        "id": 3,
+        "name": "CloudComputing",
+        "type": null,
+        "authors": [
+          "Kevorhian C"
+        ],
+        "location": {
+          "id": 106,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/95.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-00.png",
+        "id": 4,
+        "name": "TestSistSoft",
+        "type": "Lab",
+        "authors": [
+          "Bobe R"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-01.png",
+        "id": 5,
+        "name": "TestSistSoft",
+        "type": "Lab",
+        "authors": [
+          "Bobe R"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-02.png",
+        "id": 0,
+        "name": "TestSistSoft",
+        "type": "Lab",
+        "authors": [
+          "Bobe R"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 3,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-03.png",
+        "id": 1,
+        "name": "TestSistSoft",
+        "type": null,
+        "authors": [
+          "Bobe R"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 4,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-04.png",
+        "id": 2,
+        "name": "TopSpIngSoft I",
+        "type": "Lab",
+        "authors": [
+          "Majeri G"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 3,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-05.png",
+        "id": 3,
+        "name": "TopSpIngSoft I",
+        "type": "Curs",
+        "authors": [
+          "Bouruc L"
+        ],
+        "location": {
+          "id": 503,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-06.png",
+        "id": 4,
+        "name": "TopSpIngSoft I",
+        "type": null,
+        "authors": [
+          "Bouruc L"
+        ],
+        "location": {
+          "id": 401,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-07.png",
+        "id": 5,
+        "name": "TopSpIngSoft I",
+        "type": "Lab",
+        "authors": [
+          "Bouruc L"
+        ],
+        "location": {
+          "id": 509,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-095_AC-08.png",
+        "id": 0,
+        "name": "TopSpIngSoft",
+        "type": null,
+        "authors": [
+          "Majeri G"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 4,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/96.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-096_AC-00.png",
+        "id": 1,
+        "name": "DeepLearning",
+        "type": null,
+        "authors": [
+          "Ionescu R"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-096_AC-01.png",
+        "id": 2,
+        "name": "DeepLearning",
+        "type": null,
+        "authors": [
+          "Balmus S"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 4,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-096_AC-02.png",
+        "id": 3,
+        "name": "NatLangProc 2",
+        "type": "Lab",
+        "authors": [
+          "Creanga C"
+        ],
+        "location": {
+          "id": 508,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-096_AC-03.png",
+        "id": 4,
+        "name": "NatLangProc 2",
+        "type": "Lab",
+        "authors": [
+          "Creanga C"
+        ],
+        "location": {
+          "id": 508,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-096_AC-04.png",
+        "id": 5,
+        "name": "DeepLearning",
+        "type": null,
+        "authors": [
+          "Dura B"
+        ],
+        "location": {
+          "id": 404,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/97.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-097_AC-00.png",
+        "id": 0,
+        "name": "AlgPar&distrib",
+        "type": null,
+        "authors": [
+          "Patrascu A"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-097_AC-01.png",
+        "id": 1,
+        "name": "CloudComputing",
+        "type": "Curs",
+        "authors": [
+          "Kevorchian C"
+        ],
+        "location": {
+          "id": 701,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-097_AC-02.png",
+        "id": 2,
+        "name": "CloudComputing",
+        "type": "Lab",
+        "authors": [
+          "Kevorchian C"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-097_AC-03.png",
+        "id": 3,
+        "name": "CloudComputing",
+        "type": "Lab",
+        "authors": [
+          "Kevorchian C"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/98.jpeg",
+    "activities": []
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/99.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-099_AC-00.png",
+        "id": 4,
+        "name": "DeepLearning",
+        "type": null,
+        "authors": [
+          "Ionescu R"
+        ],
+        "location": {
+          "id": 501,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-099_AC-01.png",
+        "id": 5,
+        "name": "DeepLearning",
+        "type": null,
+        "authors": [
+          "Balmus S"
+        ],
+        "location": {
+          "id": 507,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 4,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-099_AC-02.png",
+        "id": 0,
+        "name": "DeepLearning",
+        "type": null,
+        "authors": [
+          "Dura B"
+        ],
+        "location": {
+          "id": 404,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/100.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-100_AC-00.png",
+        "id": 1,
+        "name": "MachineTranslation",
+        "type": "Curs",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-100_AC-01.png",
+        "id": 2,
+        "name": "MachineTranslation",
+        "type": "Lab",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "odd",
+        "subgroup": 1,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-100_AC-02.png",
+        "id": 3,
+        "name": "MachineTranslation",
+        "type": "Lab",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 202,
+          "type": "Lab"
+        },
+        "periodicity": "even",
+        "subgroup": 2,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/101.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-00.png",
+        "id": 4,
+        "name": "Algebra comutativa",
+        "type": "Seminar",
+        "authors": [
+          "Vladoiu M",
+          "Stamate D"
+        ],
+        "location": {
+          "id": 111,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-01.png",
+        "id": 5,
+        "name": "Logica, Optimizare si Securitate",
+        "type": "Seminar",
+        "authors": [
+          "Leustean L",
+          "Irofti P",
+          "Patrascu"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-02.png",
+        "id": 0,
+        "name": "Teoria potentialului",
+        "type": "Seminar",
+        "authors": [
+          "Bucur G",
+          "Beznea L"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-03.png",
+        "id": 1,
+        "name": "Seminar .hidden",
+        "type": "Seminar",
+        "authors": [
+          "Radu SO"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-04.png",
+        "id": 2,
+        "name": "IA neurosimbolica",
+        "type": "Seminar",
+        "authors": [
+          "Leustean L"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-05.png",
+        "id": 3,
+        "name": "Seminarul de logica",
+        "type": "Seminar",
+        "authors": [
+          "Leustean L",
+          "Sipos A"
+        ],
+        "location": {
+          "id": 203,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-06.png",
+        "id": 4,
+        "name": "Mecanica mediilor deformabile",
+        "type": "Seminar",
+        "authors": [
+          "Marin Li",
+          "Tigoiu V"
+        ],
+        "location": null,
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-101_AC-07.png",
+        "id": 5,
+        "name": "Informatica teoretica",
+        "type": "Seminar",
+        "authors": [
+          "Popa A"
+        ],
+        "location": {
+          "id": 109,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/102.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-102_AC-00.png",
+        "id": 0,
+        "name": "InteligArtificiala",
+        "type": null,
+        "authors": [
+          "Alexe B"
+        ],
+        "location": {
+          "id": 703,
+          "type": "Amf"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-102_AC-01.png",
+        "id": 1,
+        "name": "InteligArtificiala",
+        "type": "Lab",
+        "authors": [
+          "Ciocan I"
+        ],
+        "location": {
+          "id": 506,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/103.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-103_AC-00.png",
+        "id": 2,
+        "name": "ReteleNeuronale1",
+        "type": "Curs",
+        "authors": [
+          "Nisioi S"
+        ],
+        "location": {
+          "id": 214,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-103_AC-01.png",
+        "id": 3,
+        "name": "ReteleNeuronale1",
+        "type": null,
+        "authors": [
+          "Marin M"
+        ],
+        "location": {
+          "id": 413,
+          "type": "Lab"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  },
+  {
+    "timetable_path": "/Users/nstefan/Downloads/OrarShit/output/pages/104.jpeg",
+    "activities": [
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-104_AC-00.png",
+        "id": 4,
+        "name": "SistExpertInRobotica",
+        "type": null,
+        "authors": [
+          "Dumitriu A"
+        ],
+        "location": {
+          "id": 415,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      },
+      {
+        "path": "/Users/nstefan/Downloads/OrarShit/output/preprocessed-activities/images/IMG-104_AC-01.png",
+        "id": 5,
+        "name": "SistExpertInRobotica",
+        "type": null,
+        "authors": [
+          "Pascu A"
+        ],
+        "location": {
+          "id": 415,
+          "type": "Sala"
+        },
+        "periodicity": null,
+        "subgroup": null,
+        "observations": null
+      }
+    ]
+  }
+]

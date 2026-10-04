@@ -113,7 +113,7 @@ logger = utils.create_logger()
 PIPELINE_DATA_DIR = Path(os.getenv("PIPELINE_DATA_DIR", "output"))
 OUTPUT_DIR = PIPELINE_DATA_DIR / "ai-processed-activities"
 VISION_MODEL = os.getenv("VISION_MODEL", "dots-studio/dots-3-note-preview:free")
-BATCH_SIZE = int(os.getenv("BATCH_SIZE", "3"))
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", "6"))
 MAX_CONCURRENT = int(os.getenv("MAX_CONCURRENT", "30"))
 
 
@@ -146,21 +146,18 @@ class Activity(BaseModel):
     """
     Semantic information extracted from an individual timetable activity crop.
     """
-    id: Optional[int] = Field(
-        default=None,
+    id: int = Field(
         description="Sequential index identifier of the activity within the batch prompt (0, 1, 2, ...).",
     )
     name: str = Field(
-        default="",
         description="Name or title of the subject/activity (with extraneous type info removed).",
+    )
+    authors: list[str] = Field(
+        description="List of professors, lecturers, or instructors teaching the activity.",
     )
     type: Optional[Literal["Curs", "Lab", "Seminar", "Conferinta"]] = Field(
         default=None,
         description="Didactic classification of the activity.",
-    )
-    authors: list[str] = Field(
-        default_factory=list,
-        description="List of professors, lecturers, or instructors teaching the activity.",
     )
     location: Optional[Location] = Field(
         default=None,
@@ -184,15 +181,23 @@ class Activity(BaseModel):
 VisionResponse = Activity
 
 
-class VisionBatchResponse(BaseModel):
+def create_batch_schema(batch_size: int) -> type[BaseModel]:
     """
-    Schema for the multimodal vision LLM batch response, containing parsed activities.
-    MUST stay synchronized with the Response interface in VISION_PROMPT.jinja.
+    Dynamically creates a VisionBatchResponse schema locking min_length and max_length
+    to the exact batch size. This constrains the decoding grammar (e.g. Outlines, XGrammar)
+    so it physically cannot exit the array early until all N activities are generated.
     """
-    parsed_activities: list[VisionResponse] = Field(
-        default_factory=list,
-        description="A list of entries in the timetable representing conferences, labs, etc.",
-    )
+    class VisionBatchResponse(BaseModel):
+        parsed_activities: list[VisionResponse] = Field(
+            min_length=batch_size,
+            max_length=batch_size,
+            description="A list of entries in the timetable representing conferences, labs, etc.",
+        )
+    return VisionBatchResponse
+
+
+# Default fallback schema for BATCH_SIZE
+VisionBatchResponse = create_batch_schema(BATCH_SIZE)
 
 
 class ProcessedActivity(BaseModel):
@@ -285,14 +290,15 @@ async def _process_single_batch(paths: list[Path]) -> list[VisionResponse]:
 
     messages = [HumanMessage(content=content_parts)]
 
-    # Configure client with structured JSON schema output
+    # Configure client with structured JSON schema output constrained to exact batch size
+    batch_schema = create_batch_schema(len(paths))
     model = ChatOpenRouter(
         model=VISION_MODEL,
         max_retries=3,
         reasoning={"summary": "auto"},
     )
     structured_model = model.with_structured_output(
-        VisionBatchResponse, method="json_schema", include_raw=True
+        batch_schema, method="json_schema", include_raw=True
     )
 
     logger.debug(
@@ -312,10 +318,8 @@ async def _process_single_batch(paths: list[Path]) -> list[VisionResponse]:
     resp = await _invoke()
 
     # Validate parsed AI output and verify clear 1:1 mapping
-    parsed_batch: Optional[VisionBatchResponse] = (
-        resp.get("parsed") if isinstance(resp, dict) else None
-    )
-    parsed_activities = parsed_batch.parsed_activities if parsed_batch else []
+    parsed_batch = resp.get("parsed") if isinstance(resp, dict) else None
+    parsed_activities = getattr(parsed_batch, "parsed_activities", []) if parsed_batch else []
 
     expected_ids = set(range(len(paths)))
     id_to_activity = {act.id: act for act in parsed_activities if act.id is not None}
@@ -467,7 +471,9 @@ async def main():
                     f"Missing parsed AI result for activity image '{act_path_str}'. "
                     f"Every preprocessed activity must be parsed by AI."
                 )
-            act_dict = {"path": act_path_str, **parsed.model_dump()}
+            parsed_dict = parsed.model_dump()
+            prompt_id = parsed_dict.pop("id", None)
+            act_dict = {"path": act_path_str, "_id": prompt_id, **parsed_dict}
             tt_activities.append(act_dict)
 
         output_timetables.append({
@@ -475,18 +481,12 @@ async def main():
             "activities": tt_activities,
         })
 
-    # Validate output schema consistency
-    validated_timetables = [
-        TimetableActivities.model_validate(tt).model_dump()
-        for tt in output_timetables
-    ]
-
     summary_output_file.write_text(
-        json.dumps(validated_timetables, indent=2, ensure_ascii=False),
+        json.dumps(output_timetables, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
     logger.info(
-        f"AI Processing complete: successfully saved {len(validated_timetables)} timetable "
+        f"AI Processing complete: successfully saved {len(output_timetables)} timetable "
         f"records with parsed activities to {summary_output_file}."
     )
 
