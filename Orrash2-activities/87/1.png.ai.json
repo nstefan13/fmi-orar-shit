@@ -1,0 +1,15 @@
+{
+  "id": 7,
+  "name": "LogicMultiagSys",
+  "type": "Curs",
+  "authors": [
+    "Leustean L"
+  ],
+  "location": {
+    "id": 512,
+    "type": "Sala"
+  },
+  "periodicity": "range",
+  "subgroup": null,
+  "observations": null
+}

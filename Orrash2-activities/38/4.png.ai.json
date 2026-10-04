@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "AlgFundam",
+  "type": "Seminar",
+  "authors": [
+    "Marinescu R"
+  ],
+  "location": {
+    "id": 209,
+    "type": "Sala"
+  },
+  "periodicity": "odd",
+  "subgroup": null,
+  "observations": null
+}

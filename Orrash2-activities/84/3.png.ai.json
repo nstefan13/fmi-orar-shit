@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "An&ModSistSoft",
+  "type": "Lab",
+  "authors": [
+    "Serbanuta T"
+  ],
+  "location": {
+    "id": 509,
+    "type": "Lab"
+  },
+  "periodicity": "even",
+  "subgroup": 2,
+  "observations": null
+}

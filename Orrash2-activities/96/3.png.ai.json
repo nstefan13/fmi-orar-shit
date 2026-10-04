@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "NatLangProc 2",
+  "type": "Lab",
+  "authors": [
+    "Creanga C"
+  ],
+  "location": {
+    "id": 508,
+    "type": "Lab"
+  },
+  "periodicity": "odd",
+  "subgroup": 1,
+  "observations": null
+}

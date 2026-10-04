@@ -1,0 +1,12 @@
+{
+  "id": 5,
+  "name": "Franceza",
+  "type": "Seminar",
+  "authors": [
+    "Bordea D"
+  ],
+  "location": "ONLINE",
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

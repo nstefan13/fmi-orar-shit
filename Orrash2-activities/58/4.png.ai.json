@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "name": "PrelucrSemnal",
+  "type": null,
+  "authors": [
+    "Rusu C"
+  ],
+  "location": {
+    "id": 411,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 2,
+  "observations": null
+}

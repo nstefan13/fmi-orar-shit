@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "name": "SistOper",
+  "type": "Curs",
+  "authors": [
+    "Olaru V"
+  ],
+  "location": {
+    "id": 501,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

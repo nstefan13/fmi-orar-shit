@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "TehniciWeb",
+  "type": "Lab",
+  "authors": [
+    "Chirita Ca"
+  ],
+  "location": {
+    "id": 410,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 1,
+  "observations": ""
+}

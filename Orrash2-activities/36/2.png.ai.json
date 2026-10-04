@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "ProgFunc",
+  "type": null,
+  "authors": [
+    "Iova A"
+  ],
+  "location": {
+    "id": 106,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

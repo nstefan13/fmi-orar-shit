@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "ProgAlgo",
+  "type": null,
+  "authors": [
+    "Marinescu R"
+  ],
+  "location": {
+    "id": 501,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

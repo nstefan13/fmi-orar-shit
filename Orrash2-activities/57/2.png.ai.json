@@ -1,0 +1,15 @@
+{
+  "id": 8,
+  "name": "ImplConclbProg",
+  "type": null,
+  "authors": [
+    "Leustean I"
+  ],
+  "location": {
+    "id": 203,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

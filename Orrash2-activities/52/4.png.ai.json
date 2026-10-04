@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "ArhMasinIntelig",
+  "type": "Curs",
+  "authors": [
+    "Nisioi S"
+  ],
+  "location": {
+    "id": 214,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

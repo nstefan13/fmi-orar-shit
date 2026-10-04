@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "name": "StrAlgebraInInfo",
+  "type": null,
+  "authors": [
+    "Baetica C",
+    "Grigorescu T"
+  ],
+  "location": {
+    "id": 210,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

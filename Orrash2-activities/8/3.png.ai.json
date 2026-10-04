@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "Geometrie I",
+  "type": null,
+  "authors": [
+    "Vuletescu V"
+  ],
+  "location": {
+    "id": 107,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

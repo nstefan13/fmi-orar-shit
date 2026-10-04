@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "CalcDifer&Integr",
+  "type": "Seminar",
+  "authors": [
+    "Sfetcu R"
+  ],
+  "location": {
+    "id": 211,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

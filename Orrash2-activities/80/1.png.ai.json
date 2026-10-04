@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "name": "RetBayes&ModMarkovAsc",
+  "type": "Curs",
+  "authors": [
+    "Cimpean I"
+  ],
+  "location": {
+    "id": 107,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "Hybrid 'curs+seminar' activity; type set to Curs based on primary keyword, but could also be Seminar."
+}

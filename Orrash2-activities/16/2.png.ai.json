@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "name": "CalcDifer&Intgr",
+  "type": null,
+  "authors": [
+    "Mihail A"
+  ],
+  "location": {
+    "id": 111,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

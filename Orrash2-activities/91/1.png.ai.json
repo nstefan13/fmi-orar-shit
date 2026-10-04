@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "DidactAnMatem",
+  "type": null,
+  "authors": [
+    "Vladoiu S"
+  ],
+  "location": {
+    "id": 108,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "Ambiguous type 'curs+seminar' in the name; type omitted."
+}

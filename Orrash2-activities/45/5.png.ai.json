@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "LimbajulC++",
+  "type": null,
+  "authors": [
+    "Dobrovat A"
+  ],
+  "location": {
+    "id": 512,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

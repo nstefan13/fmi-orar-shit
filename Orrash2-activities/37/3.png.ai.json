@@ -1,0 +1,15 @@
+{
+  "id": 11,
+  "name": "AlgFundam",
+  "type": "Lab",
+  "authors": [
+    "Obreja C"
+  ],
+  "location": {
+    "id": 413,
+    "type": "Lab"
+  },
+  "periodicity": "even",
+  "subgroup": 2,
+  "observations": null
+}

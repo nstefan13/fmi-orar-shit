@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "InstrAsistCalc",
+  "type": "Curs",
+  "authors": [
+    "Lazar I"
+  ],
+  "location": {
+    "id": 214,
+    "type": "Sala"
+  },
+  "periodicity": "odd",
+  "subgroup": 1,
+  "observations": null
+}

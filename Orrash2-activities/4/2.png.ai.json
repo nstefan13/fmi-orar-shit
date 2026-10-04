@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "InfoAducereNivel",
+  "type": null,
+  "authors": [
+    "Obreja C"
+  ],
+  "location": {
+    "id": 501,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

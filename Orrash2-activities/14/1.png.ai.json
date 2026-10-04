@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "ProgAlgo",
+  "type": "Lab",
+  "authors": [
+    "Negru M"
+  ],
+  "location": {
+    "id": 506,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 1,
+  "observations": null
+}

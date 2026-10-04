@@ -1,0 +1,15 @@
+{
+  "id": 4,
+  "name": "LLMs&Cognition",
+  "type": "Lab",
+  "authors": [
+    "Creanga C"
+  ],
+  "location": {
+    "id": 202,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 1,
+  "observations": null
+}

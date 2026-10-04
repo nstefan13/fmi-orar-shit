@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "ProbProgr",
+  "type": "Lab",
+  "authors": [
+    "Marogel M"
+  ],
+  "location": {
+    "id": 106,
+    "type": "Lab"
+  },
+  "periodicity": "even",
+  "subgroup": 2,
+  "observations": null
+}

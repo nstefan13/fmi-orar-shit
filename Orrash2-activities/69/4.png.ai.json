@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "SistOper",
+  "type": null,
+  "authors": [
+    "Dragulici D"
+  ],
+  "location": {
+    "id": 503,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

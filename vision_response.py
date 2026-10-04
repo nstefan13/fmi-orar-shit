@@ -21,18 +21,17 @@ class Time(BaseModel):
 
 # An entry in the timetable representing a course, lab etc
 class Activity(BaseModel):
-    start: Time
-    end: Time
+    id: int
     name: str
     type: Optional[Literal["Curs", "Lab", "Seminar", "Conferinta"]] = None
     authors: List[str]
     location: Optional[Location] = None
-    periodicity: Optional[Literal["even", "odd"]] = None
+    periodicity: Optional[Literal["even", "odd", "range"]] = None
     subgroup: Optional[int] = None
     observations: Optional[str] = None
 
 
 class VisionResponse(BaseModel):
-    activities: list[Activity] = Field(
+    parsed_activities: list[Activity] = Field(
         description="A list of entries in the timetable representing conferences, labs, etc.",
     )

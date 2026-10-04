@@ -1,0 +1,15 @@
+{
+  "id": 4,
+  "name": "SistExpertInRobotica",
+  "type": null,
+  "authors": [
+    "Dumitriu A"
+  ],
+  "location": {
+    "id": 415,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

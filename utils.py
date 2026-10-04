@@ -19,7 +19,7 @@ def loadEnv():
     if not os.getenv("OPENROUTER_API_KEY"):
         os.environ["OPENROUTER_API_KEY"] = getpass.getpass("Enter your OpenRouter API key: ")
 
-def imageURL(path):
+def imagePath2imageURL(path):
     mimeType = 'image/' + path.split('.')[-1]
 
     with open(path, 'rb') as image:

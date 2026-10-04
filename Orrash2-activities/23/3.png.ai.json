@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "Algebra&Geom",
+  "type": "Seminar",
+  "authors": [
+    "Halanay A"
+  ],
+  "location": {
+    "id": 107,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

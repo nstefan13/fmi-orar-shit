@@ -1,0 +1,15 @@
+{
+  "id": 11,
+  "name": "AnalizaMate I",
+  "type": null,
+  "authors": [
+    "Manea D"
+  ],
+  "location": {
+    "id": 211,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

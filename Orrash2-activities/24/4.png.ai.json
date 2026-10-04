@@ -1,0 +1,15 @@
+{
+  "id": 11,
+  "name": "AnMatem",
+  "type": "Seminar",
+  "authors": [
+    "Mitre L"
+  ],
+  "location": {
+    "id": 111,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

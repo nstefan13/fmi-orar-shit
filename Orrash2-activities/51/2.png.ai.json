@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "ElemAnClasica",
+  "type": null,
+  "authors": [
+    "Preda O"
+  ],
+  "location": {
+    "id": 109,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

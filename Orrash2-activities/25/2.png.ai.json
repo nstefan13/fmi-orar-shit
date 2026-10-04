@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "Pedagogie",
+  "type": null,
+  "authors": [
+    "Grecu AE"
+  ],
+  "location": {
+    "id": 512,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

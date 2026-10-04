@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "ProgAlgo",
+  "type": "Seminar",
+  "authors": [
+    "Boriga R"
+  ],
+  "location": {
+    "id": 211,
+    "type": "Sala"
+  },
+  "periodicity": "odd",
+  "subgroup": null,
+  "observations": ""
+}

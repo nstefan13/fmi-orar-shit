@@ -1,0 +1,15 @@
+{
+  "id": 4,
+  "name": "ProgrCalc I",
+  "type": "Seminar",
+  "authors": [
+    "Obreja C"
+  ],
+  "location": {
+    "id": 102,
+    "type": "Sala"
+  },
+  "periodicity": "odd",
+  "subgroup": null,
+  "observations": null
+}

@@ -1,0 +1,15 @@
+{
+  "id": 11,
+  "name": "ProbProgr",
+  "type": null,
+  "authors": [
+    "Popescu M"
+  ],
+  "location": {
+    "id": 503,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

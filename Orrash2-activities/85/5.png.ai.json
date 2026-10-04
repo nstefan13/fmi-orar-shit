@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "KnowRepr&Reason",
+  "type": "Lab",
+  "authors": [
+    "Cidota M"
+  ],
+  "location": {
+    "id": 401,
+    "type": "Lab"
+  },
+  "periodicity": "even",
+  "subgroup": 3,
+  "observations": null
+}

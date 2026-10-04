@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "AnMatem",
+  "type": "Curs",
+  "authors": [
+    "Mihail A"
+  ],
+  "location": {
+    "id": 501,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

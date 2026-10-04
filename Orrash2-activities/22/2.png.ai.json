@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "ProgrCalc I",
+  "type": "Lab",
+  "authors": [
+    "Mincu RS"
+  ],
+  "location": {
+    "id": 402,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

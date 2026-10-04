@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "Statistica",
+  "type": "Lab",
+  "authors": [
+    "Cojocea S"
+  ],
+  "location": {
+    "id": 507,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

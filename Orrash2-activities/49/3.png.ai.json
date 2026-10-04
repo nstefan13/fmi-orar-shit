@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "GrupTransfGeom",
+  "type": "Curs",
+  "authors": [
+    "Stanciu M"
+  ],
+  "location": {
+    "id": 108,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

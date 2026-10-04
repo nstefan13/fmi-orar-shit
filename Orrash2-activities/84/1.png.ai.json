@@ -1,0 +1,15 @@
+{
+  "id": 8,
+  "name": "An&ModSistSoft",
+  "type": "Curs",
+  "authors": [
+    "Serbanuta T"
+  ],
+  "location": {
+    "id": 503,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "TeorMas&Integr",
+  "type": "Seminar",
+  "authors": [
+    "Munteanu R"
+  ],
+  "location": {
+    "id": 107,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

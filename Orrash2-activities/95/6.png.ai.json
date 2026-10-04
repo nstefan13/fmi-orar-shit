@@ -1,0 +1,15 @@
+{
+  "id": 9,
+  "name": "TopSplngSoft I",
+  "type": "Curs",
+  "authors": [
+    "Bouruc L"
+  ],
+  "location": {
+    "id": 503,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

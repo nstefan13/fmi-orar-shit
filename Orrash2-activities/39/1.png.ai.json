@@ -1,0 +1,15 @@
+{
+  "id": 7,
+  "name": "AlgFundam",
+  "type": "Lab",
+  "authors": [
+    "Marinescu R"
+  ],
+  "location": {
+    "id": 410,
+    "type": "Lab"
+  },
+  "periodicity": "odd",
+  "subgroup": 1,
+  "observations": null
+}

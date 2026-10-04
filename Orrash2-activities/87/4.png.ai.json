@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "AdvancedCrypto",
+  "type": "Seminar",
+  "authors": [
+    "Dumitru N"
+  ],
+  "location": {
+    "id": 108,
+    "type": "Sala"
+  },
+  "periodicity": "range",
+  "subgroup": 1,
+  "observations": null
+}

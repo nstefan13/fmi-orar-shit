@@ -1,0 +1,15 @@
+{
+  "id": 7,
+  "name": "Algebra&Geom",
+  "type": "Seminar",
+  "authors": [
+    "Hirica I"
+  ],
+  "location": {
+    "id": 111,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

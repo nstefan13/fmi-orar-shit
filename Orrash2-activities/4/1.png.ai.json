@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "Programare competitiva",
+  "type": null,
+  "authors": [
+    "Dumitran M"
+  ],
+  "location": {
+    "id": 703,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

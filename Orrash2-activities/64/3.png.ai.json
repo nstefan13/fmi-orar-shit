@@ -1,0 +1,15 @@
+{
+  "id": 8,
+  "name": "Calc&Complex",
+  "type": "Seminar",
+  "authors": [
+    "Dumitru B"
+  ],
+  "location": {
+    "id": 203,
+    "type": "Sala"
+  },
+  "periodicity": "even",
+  "subgroup": null,
+  "observations": null
+}

@@ -1,0 +1,15 @@
+{
+  "id": 7,
+  "name": "IngProgr",
+  "type": null,
+  "authors": [
+    "Gramatovici R"
+  ],
+  "location": {
+    "id": 413,
+    "type": "Lab"
+  },
+  "periodicity": "even",
+  "subgroup": null,
+  "observations": null
+}

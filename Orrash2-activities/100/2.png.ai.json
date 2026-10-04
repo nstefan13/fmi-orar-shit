@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "name": "MachineTranslation",
+  "type": "Lab",
+  "authors": [
+    "Nisioi S"
+  ],
+  "location": {
+    "id": 202,
+    "type": "Lab"
+  },
+  "periodicity": "odd",
+  "subgroup": 1,
+  "observations": null
+}

@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "TopSplngSoft I",
+  "type": null,
+  "authors": [
+    "Majeri G"
+  ],
+  "location": {
+    "id": 202,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 4,
+  "observations": null
+}

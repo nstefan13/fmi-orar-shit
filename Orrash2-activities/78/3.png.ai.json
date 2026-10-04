@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "IntrModuleTheory",
+  "type": null,
+  "authors": [
+    "Spiridon C"
+  ],
+  "location": {
+    "id": 109,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

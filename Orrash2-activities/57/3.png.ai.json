@@ -1,0 +1,15 @@
+{
+  "id": 9,
+  "name": "PrelucrSemnal",
+  "type": null,
+  "authors": [
+    "Majeri G"
+  ],
+  "location": {
+    "id": 415,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

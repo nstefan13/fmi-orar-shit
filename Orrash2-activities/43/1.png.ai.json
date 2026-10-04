@@ -1,0 +1,15 @@
+{
+  "id": 9,
+  "name": "SistAvansBD",
+  "type": null,
+  "authors": [
+    "Vasile SL"
+  ],
+  "location": {
+    "id": 512,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

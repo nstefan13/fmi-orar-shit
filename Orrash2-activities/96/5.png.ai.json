@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "DeepLearning",
+  "type": null,
+  "authors": [
+    "Dura B"
+  ],
+  "location": {
+    "id": 404,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 2,
+  "observations": null
+}

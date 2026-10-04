@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "AlgFundam",
+  "type": "Seminar",
+  "authors": [
+    "Dumitran M"
+  ],
+  "location": {
+    "id": 107,
+    "type": "Sala"
+  },
+  "periodicity": "even",
+  "subgroup": null,
+  "observations": null
+}

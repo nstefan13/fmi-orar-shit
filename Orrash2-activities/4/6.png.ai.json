@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "Psih Educ",
+  "type": "Curs",
+  "authors": [
+    "Bucur C"
+  ],
+  "location": {
+    "id": 501,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

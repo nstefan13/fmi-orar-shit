@@ -14,7 +14,7 @@ from pydantic import BaseModel
 from vision_response import Time
 
 IMAGES_PATH = "./Orar-Shi2/extracted_images"
-OUTPUT_PATH = "./Orrash 2 extracted activities"
+OUTPUT_PATH = "./Orrash2-activities"
 MAX_CONCURRENT = os.cpu_count() or 8
 
 HIERARCHY_COLORS = [

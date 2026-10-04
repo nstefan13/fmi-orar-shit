@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "Instr&TehBaz alnfo",
+  "type": null,
+  "authors": [
+    "Cheval H"
+  ],
+  "location": {
+    "id": 501,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "The second line of the name reads 'alnfo', where the 'l' might be a visual misreading of a capital 'I' (e.g., 'aInfo' or 'alInfo') due to image quality."
+}

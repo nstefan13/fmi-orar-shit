@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "TopSplngSoft I",
+  "type": "Lab",
+  "authors": [
+    "Bouruc L"
+  ],
+  "location": {
+    "id": 401,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 2,
+  "observations": null
+}

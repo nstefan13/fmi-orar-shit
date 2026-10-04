@@ -1,0 +1,15 @@
+{
+  "id": 9,
+  "name": "CalcDifer&Intgr",
+  "type": "Curs",
+  "authors": [
+    "Cernea A"
+  ],
+  "location": {
+    "id": 503,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": ""
+}

@@ -1,0 +1,15 @@
+{
+  "id": 11,
+  "name": "GeomDifer I",
+  "type": "Seminar",
+  "authors": [
+    "Gherghe C"
+  ],
+  "location": {
+    "id": 102,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

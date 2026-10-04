@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "ReteleNeuronale1",
+  "type": null,
+  "authors": [
+    "Marin M"
+  ],
+  "location": {
+    "id": 413,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

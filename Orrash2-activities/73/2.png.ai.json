@@ -1,0 +1,15 @@
+{
+  "id": 10,
+  "name": "ImplConclbProg",
+  "type": null,
+  "authors": [
+    "Macovei B"
+  ],
+  "location": {
+    "id": 507,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

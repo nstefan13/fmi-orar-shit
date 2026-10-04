@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "name": "ModMatSistMater II",
+  "type": null,
+  "authors": [
+    "Pascan R"
+  ],
+  "location": {
+    "id": 209,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

@@ -1,0 +1,15 @@
+{
+  "id": 9,
+  "name": "IntrModuleTheory",
+  "type": null,
+  "authors": [
+    "Dascalescu S"
+  ],
+  "location": {
+    "id": 109,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

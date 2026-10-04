@@ -1,0 +1,15 @@
+{
+  "id": 9,
+  "name": "ProgAlgo",
+  "type": "Lab",
+  "authors": [
+    "Mincu RS"
+  ],
+  "location": {
+    "id": 404,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 1,
+  "observations": null
+}

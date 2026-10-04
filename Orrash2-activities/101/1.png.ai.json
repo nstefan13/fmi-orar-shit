@@ -1,0 +1,16 @@
+{
+  "id": 4,
+  "name": "Algebra comutativa",
+  "type": "Conferinta",
+  "authors": [
+    "Vladoiu M",
+    "Stamate D"
+  ],
+  "location": {
+    "id": 111,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "Classified as Conferinta based on 'SS - ' prefix representing a scientific seminar, but could be a formal Seminar."
+}

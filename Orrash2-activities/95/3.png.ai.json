@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "TestSistSoft",
+  "type": "Lab",
+  "authors": [
+    "Bobe R"
+  ],
+  "location": {
+    "id": 202,
+    "type": "Lab"
+  },
+  "periodicity": "even",
+  "subgroup": 3,
+  "observations": null
+}

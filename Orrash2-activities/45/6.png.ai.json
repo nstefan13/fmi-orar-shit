@@ -1,0 +1,15 @@
+{
+  "id": 11,
+  "name": "FundamIngSoft",
+  "type": null,
+  "authors": [
+    "Soviany P"
+  ],
+  "location": {
+    "id": 512,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

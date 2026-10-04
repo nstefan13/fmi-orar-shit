@@ -1,0 +1,15 @@
+{
+  "id": 7,
+  "name": "Seminar .hidden",
+  "type": "Seminar",
+  "authors": [
+    "Radu SO"
+  ],
+  "location": {
+    "id": 703,
+    "type": "Amf"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "The name contains '.hidden', which seems like a placeholder or system artifact. Type set to Seminar based on the name."
+}

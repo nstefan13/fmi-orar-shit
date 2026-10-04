@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "name": "CloudComputing",
+  "type": null,
+  "authors": [
+    "Kevorchanian C"
+  ],
+  "location": {
+    "id": 106,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": 1,
+  "observations": null
+}

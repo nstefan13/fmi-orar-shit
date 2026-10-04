@@ -1,0 +1,15 @@
+{
+  "id": 0,
+  "name": "Prob&Stat",
+  "type": null,
+  "authors": [
+    "Grecu A"
+  ],
+  "location": {
+    "id": 401,
+    "type": "Lab"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

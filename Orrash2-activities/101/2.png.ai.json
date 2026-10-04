@@ -1,0 +1,17 @@
+{
+  "id": 5,
+  "name": "Logica, Optimizare si Securitate",
+  "type": "Conferinta",
+  "authors": [
+    "Leustean L",
+    "Irofti P",
+    "Patrascu A"
+  ],
+  "location": {
+    "id": 203,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "Classified as Conferinta based on 'SS - ' prefix."
+}

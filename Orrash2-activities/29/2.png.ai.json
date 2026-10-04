@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "name": "TeorMas&Integr",
+  "type": null,
+  "authors": [
+    "Bereanu C"
+  ],
+  "location": {
+    "id": 111,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

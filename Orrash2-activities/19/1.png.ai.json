@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "CompSystArchit",
+  "type": null,
+  "authors": [
+    "Rusu C"
+  ],
+  "location": {
+    "id": 214,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

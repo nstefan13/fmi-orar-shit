@@ -1,0 +1,13 @@
+{
+  "id": 0,
+  "name": "ElemElectrAnalogs",
+  "type": "Curs",
+  "authors": [
+    "Radu A",
+    "Bita B"
+  ],
+  "location": null,
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "Location 'Fac.Fizica -Magurele' does not match the Room schema (no numeric room ID)."
+}

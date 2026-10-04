@@ -1,0 +1,15 @@
+{
+  "id": 6,
+  "name": "AlgPar&distrib",
+  "type": null,
+  "authors": [
+    "Patrascu A"
+  ],
+  "location": {
+    "id": 111,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": null
+}

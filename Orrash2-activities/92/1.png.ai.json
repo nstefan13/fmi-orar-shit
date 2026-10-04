@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "MatFinAplic",
+  "type": null,
+  "authors": [
+    "Constantinescu V"
+  ],
+  "location": {
+    "id": 309,
+    "type": "Sala"
+  },
+  "periodicity": null,
+  "subgroup": null,
+  "observations": "Location written as 'IMAR (sala 309)'; parsed as room 309 of type Sala."
+}
