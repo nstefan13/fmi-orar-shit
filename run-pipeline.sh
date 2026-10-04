@@ -16,3 +16,6 @@ uv run 30_preprocessed_activities.py
 
 echo Step 4. AI processing activities...
 uv run 40_ai_processing.py
+
+echo Step 5. AI extracts title for each timetable...
+uv run 50_ai_extraction_of_titles.py
