@@ -8,31 +8,33 @@ Overview
 --------
 This module represents the final synthesis stage of the automated university timetable
 extraction pipeline. It merges the deterministic computer vision measurements produced
-in Step 3 (`30_preprocessed_activities.py`) with the multimodal vision language model (LLM)
-semantic extractions produced in Step 4 (`40_ai_processing.py`).
+in Step 3 (`30_preprocessed_activities.py`), the multimodal vision language model (LLM)
+semantic extractions produced in Step 4 (`40_ai_processing.py`), and the verbatim timetable
+sheet titles extracted in Step 5 (`50_ai_extraction_of_titles.py`).
 
 While Step 3 deterministically identifies temporal bounds (weekdays, start/end times),
 grid coordinates, and slot covering topologies (full, halves, quarters) without hallucination,
 Step 4 extracts textual semantics (course titles, didactic types, instructor lists, room numbers,
-and special notes).
+and special notes), and Step 5 extracts the verbatim title of each timetable page.
 
 This module automates:
-  1. Relational ingestion and cross-referencing of geometric and semantic manifests.
+  1. Relational ingestion and cross-referencing of geometric, semantic, and title manifests.
   2. Spatial-to-temporal recurrence parity derivation (odd/even weeks) from grid topology.
   3. Spatial subgroup partition derivation (subgroups 1 & 2) from quarter subdivisions.
   4. Hierarchical conflict resolution between deterministic geometry and AI interpretation.
-  5. Schema-strict Pydantic validation of unified `Timetable` and `Activity` records.
+  5. Schema-strict Pydantic validation of unified `Timetable` (including title) and `Activity` records.
   6. Final persistence of the synthesized dataset to `OUTPUT.json`.
 
 Under the Hood: Architecture & Mechanics
 -----------------------------------------
-1. Relational Ingestion & Dual Source Manifest Alignment:
-   The pipeline ingests two complementary data artifacts:
+1. Relational Ingestion & Multi-Source Manifest Alignment:
+   The pipeline ingests three complementary data artifacts:
      - Geometric manifest: `<PIPELINE_DATA_DIR>/preprocessed-activities/data.json`
      - Semantic manifest:  `<PIPELINE_DATA_DIR>/ai-processed-activities/data.json`
-   Both manifests index activities by parent timetable sheet (`timetable_path`) and individual
-   cell crop file path (`path`). An in-memory indexed hash map is constructed to achieve
-   O(1) lookups and guarantee 1-to-1 parity across all timetable sheets and activities.
+     - Titles manifest:    `<PIPELINE_DATA_DIR>/timetable_titles.json`
+   All manifests index entities by parent timetable sheet (`timetable_path`). In-memory indexed
+   hash maps are constructed to achieve O(1) lookups and guarantee 1-to-1 parity across all
+   timetable sheets, titles, and activity cell crops.
    If any activity crop or timetable is missing from either source, a strict failure is
    triggered (zero-fallback principle).
 
@@ -94,6 +96,7 @@ logger = utils.create_logger()
 PIPELINE_DATA_DIR = Path(os.getenv("PIPELINE_DATA_DIR", "output"))
 PREPROCESSED_DATA_FILE = PIPELINE_DATA_DIR / "preprocessed-activities" / "data.json"
 AI_PROCESSED_DATA_FILE = PIPELINE_DATA_DIR / "ai-processed-activities" / "data.json"
+TITLES_DATA_FILE = PIPELINE_DATA_DIR / "timetable_titles.json"
 OUTPUT_FILE = Path(os.getenv("OUTPUT_FILE", PIPELINE_DATA_DIR / "OUTPUT.json"))
 OUTPUT_DIR = OUTPUT_FILE  # Backwards compatibility alias
 
@@ -162,6 +165,7 @@ class Timetable(BaseModel):
     Top-level timetable record representing a single sheet and its associated activities.
     """
     path: str = Field(description="Path to the original timetable image file.")
+    title: str = Field(description="Verbatim extracted title of the timetable.")
     activities: list[Activity] = Field(
         default_factory=list,
         description="List of synthesized activities belonging to this timetable.",
@@ -288,17 +292,28 @@ def resolve_activity(prep_act: dict, ai_act: dict) -> Activity:
     )
 
 
-def merge_datasets(prep_data: list[dict], ai_data: list[dict]) -> list[Timetable]:
+def merge_datasets(
+    prep_data: list[dict],
+    ai_data: list[dict],
+    titles_data: list[dict],
+) -> list[Timetable]:
     """
-    Fuses the preprocessed geometric dataset with the AI-processed semantic dataset.
+    Fuses the preprocessed geometric dataset, AI-processed semantic dataset,
+    and timetable title extractions into a unified list of Timetable objects.
 
     Args:
         prep_data: List of preprocessed timetable dicts from Step 3.
         ai_data: List of AI-processed timetable dicts from Step 4.
+        titles_data: List of timetable title dicts from Step 5.
 
     Returns:
         list[Timetable]: Validated list of complete Timetable instances.
     """
+    # Index titles by timetable_path for O(1) lookups
+    titles_map: dict[str, str] = {
+        entry["timetable_path"]: entry["title"] for entry in titles_data
+    }
+
     # Index AI activities by timetable_path and activity path for O(1) lookups
     ai_timetables: dict[str, dict[str, dict]] = {}
     for entry in ai_data:
@@ -315,7 +330,12 @@ def merge_datasets(prep_data: list[dict], ai_data: list[dict]) -> list[Timetable
             raise ValueError(
                 f"Timetable '{t_path}' found in preprocessed-activities but missing from ai-processed-activities!"
             )
+        if t_path not in titles_map:
+            raise ValueError(
+                f"Timetable '{t_path}' found in preprocessed-activities but missing from timetable_titles.json!"
+            )
 
+        title = titles_map[t_path]
         ai_acts_map = ai_timetables[t_path]
         prep_activities = prep_entry.get("preprocessed_activities", [])
         synthesized_activities: list[Activity] = []
@@ -333,6 +353,7 @@ def merge_datasets(prep_data: list[dict], ai_data: list[dict]) -> list[Timetable
         merged_timetables.append(
             Timetable(
                 path=t_path,
+                title=title,
                 activities=synthesized_activities,
             )
         )
@@ -361,6 +382,10 @@ async def main():
         logger.error(f"AI-processed activities manifest not found at: {AI_PROCESSED_DATA_FILE}")
         raise FileNotFoundError(f"Missing required input file: {AI_PROCESSED_DATA_FILE}")
 
+    if not TITLES_DATA_FILE.exists():
+        logger.error(f"Timetable titles manifest not found at: {TITLES_DATA_FILE}")
+        raise FileNotFoundError(f"Missing required input file: {TITLES_DATA_FILE}")
+
     logger.info(f"Loading preprocessed activities from: {PREPROCESSED_DATA_FILE}")
     with open(PREPROCESSED_DATA_FILE, "r", encoding="utf-8") as f:
         prep_data = json.load(f)
@@ -369,13 +394,18 @@ async def main():
     with open(AI_PROCESSED_DATA_FILE, "r", encoding="utf-8") as f:
         ai_data = json.load(f)
 
+    logger.info(f"Loading timetable titles from: {TITLES_DATA_FILE}")
+    with open(TITLES_DATA_FILE, "r", encoding="utf-8") as f:
+        titles_data = json.load(f)
+
     logger.info(
-        f"Ingested {len(prep_data)} preprocessed timetables and {len(ai_data)} AI-processed timetables."
+        f"Ingested {len(prep_data)} preprocessed timetables, {len(ai_data)} AI-processed timetables, "
+        f"and {len(titles_data)} timetable titles."
     )
 
     # Perform reconciliation and synthesis
     logger.info("Performing relational fusion and resolving conflicts...")
-    timetables = merge_datasets(prep_data, ai_data)
+    timetables = merge_datasets(prep_data, ai_data, titles_data)
 
     total_activities = sum(len(t.activities) for t in timetables)
     logger.info(

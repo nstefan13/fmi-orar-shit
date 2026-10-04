@@ -87,7 +87,7 @@ PIPELINE_DATA_DIR = Path(os.getenv("PIPELINE_DATA_DIR", "output"))
 OUTPUT_FILE = PIPELINE_DATA_DIR / "timetable_titles.json"
 CATEGORIZATION_FILE = PIPELINE_DATA_DIR / "categorization.json"
 VISION_MODEL = os.getenv("VISION_MODEL", "dots-studio/dots-3-note-preview:free")
-MAX_CONCURRENT = int(os.getenv("MAX_CONCURRENT", "30"))
+MAX_CONCURRENT = int(os.getenv("MAX_CONCURRENT", "20"))
 
 
 # ---------------------------------------------------------------------------
@@ -175,7 +175,7 @@ async def extract_title_for_timetable(
     @backoff.on_exception(
         backoff.expo,
         errors.TooManyRequestsResponseError,
-        max_tries=5,
+        max_tries=30,
         logger=logger,
     )
     async def _invoke():
