@@ -1,1 +1,0 @@
-{"activities":[{"start":{"weekday":"Joi","hour":17,"minute":0},"end":{"weekday":"Joi","hour":19,"minute":50},"name":"RetBayes&ModMarkovAsc","type":null,"authors":["Cimpean I"],"location":{"id":107,"type":"Sala"},"periodicity":null,"subgroup":null,"observations":"Activity has combined type 'curs+seminar'; schema does not support multiple types, so type left undefined."}]}

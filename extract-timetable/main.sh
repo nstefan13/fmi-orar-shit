@@ -14,5 +14,5 @@ fi
 uv init
 uv venv
 uv add -r requirements.txt
-uv run getImages.py $1 -s 1000 -o extracted_images --headless
+uv run getImages.py -s 1000 -o extracted_images --headless $@
 rm -rf pyproject.toml README.md src uv.lock .venv .python-version

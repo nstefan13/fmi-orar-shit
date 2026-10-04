@@ -1,6 +1,7 @@
 import os
 import getpass
 import pickle
+from pathlib import Path
 import data_url
 from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader
@@ -26,3 +27,6 @@ def imagePath2imageURL(path):
         data = image.read()
 
     return str(data_url.construct_data_url(mime_type=mimeType, base64_encoded=True, data=data))
+
+def is_image(path: Path):
+    return Path(path).suffix.lower() in {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp', '.tiff', '.tif', '.svg', '.ico', '.heic', '.avif'}
