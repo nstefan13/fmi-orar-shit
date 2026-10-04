@@ -1,9 +1,44 @@
-from vision_response import *
 from dataclasses import dataclass
 import itertools
+from typing import List, Literal, Optional, Union
 
+import utils
 from utils import loadPrompt, loadEnv, imagePath2imageURL, picklefy
 from openrouter import errors
+from pydantic import BaseModel, Field
+
+
+class Room(BaseModel):
+    id: int
+    type: Literal["Amf", "Lab", "Sala"]
+
+
+Location = Union[Literal["ONLINE"], Room]
+
+
+class Time(BaseModel):
+    weekday: Literal["Luni", "Marti", "Miercuri", "Joi", "Vineri"]
+    hour: int
+    minute: int
+
+
+# An entry in the timetable representing a course, lab etc
+class Activity(BaseModel):
+    id: int
+    name: str
+    type: Optional[Literal["Curs", "Lab", "Seminar", "Conferinta"]] = None
+    authors: List[str]
+    location: Optional[Location] = None
+    periodicity: Optional[Literal["even", "odd", "range"]] = None
+    subgroup: Optional[int] = None
+    observations: Optional[str] = None
+
+
+class VisionResponse(BaseModel):
+    parsed_activities: list[Activity] = Field(
+        description="A list of entries in the timetable representing conferences, labs, etc.",
+    )
+
 import logging
 import functools
 import json

@@ -10,8 +10,15 @@ import aiometer
 import cv2 as cv
 import numpy as np
 from enum import Enum
+from typing import Literal
 from pydantic import BaseModel
-from vision_response import Time
+
+
+class Time(BaseModel):
+    weekday: Literal["Luni", "Marti", "Miercuri", "Joi", "Vineri"]
+    hour: int
+    minute: int
+
 
 IMAGES_PATH = "./Orar-Shi2/extracted_images"
 OUTPUT_PATH = "./Orrash2-activities"

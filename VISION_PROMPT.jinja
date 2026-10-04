@@ -1,6 +1,6 @@
 {# 
   ⚠️ !!!!!! READ THIS DEAR DEVELOPER / AGENT !!!!!! ⚠️
-  MUST be in sync with the schema from vision_response.py
+  MUST be in sync with the schema from 40_ai_processing.py
   The schema here is the source of truth.
 #}
 
@@ -12,7 +12,9 @@ I will also give you a schema that your final answer should follow and a set of 
 
 Consider that schema as a form that needs to be filled out using the information in the timetable.
 
-Schema for the final answer, written as TypeScript code. The answer should be a JSON object that follows the shape of the Response interface:
+Schema for the final answer, written as TypeScript code. The answer must be ONLY a valid JSON object matching the Response interface, without any markdown formatting, preambles, or explanations outside the JSON:
+
+The final answer MUST contain exactly N items inside `parsed_activities` matching all N input images (IDs 0 to N-1). Never truncate, omit items, or return a partial array.
 
 <Schema>
 interface Response {
@@ -21,7 +23,7 @@ interface Response {
 
 // An entry in the timetable representing a course, lab etc
 interface Activity {
-   id: number;
+	id: number;
 	name: string;
 	type?: "Curs" | "Lab" | "Seminar" | "Conferinta";
 	authors: string[];
@@ -39,9 +41,7 @@ interface Room {
 }
 </Schema>
 
-
-
-Your answers should include snippets from the provided images. Do not ever add / remove diacritics.
+Do not ever add / remove diacritics.
 
 Please follow the guidelines below. They contain notes on how to properly fill out each field for each activity of the final answer. Thank you very much for your work!!
 
@@ -133,16 +133,6 @@ Some context on FMI before going into the notes. Students are divided in groups 
 Now the actual guidelines:
 
 Whenever you see "SG", know it means "subgroup". Similarly, "Gr_3" means "subgroup no. 3" (don't be fooled by that "Gr" - it is not a group, it is a subgroup; a group has a 3 digit identifier).
-
-
-
-OBSERVATIONS FIELD
----
-
-We are still developing the rules for how to properly parse the timetable. 
-If you encounter any inconsistencies between the rules specified here (or the response specs) and the actual data (for example, if you find an activity that is not taught by a professor, even though we specified that every activity should be taught by at least one professor OR you encounter a new type of location that wasn't specified in the schema), record them in the optional `observations` field.
-Moreover, in order to optimize the rules, if you were ever faced with a hard decision (like choosing between the `Conferinta` type and the `Seminar` type) that required you to think more than usual, complain about it in the `observations` field.
-If neither of these happened, leave the `observations` field blank.
 
 
 

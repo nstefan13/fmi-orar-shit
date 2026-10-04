@@ -13,3 +13,6 @@ uv run 20_categorize_pages.py
 
 echo Step 3. Preprocessing activities...
 uv run 30_preprocessed_activities.py
+
+echo Step 4. AI processing activities...
+uv run 40_ai_processing.py
