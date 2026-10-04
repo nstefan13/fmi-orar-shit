@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "page": "94",
+  "weekday": "Joi",
+  "time_interval": "16:00 - 17:50",
+  "covering": "halves",
+  "index_in_covering": 0,
+  "start_time": {
+    "weekday": "Joi",
+    "hour": 16,
+    "minute": 0
+  },
+  "end_time": {
+    "weekday": "Joi",
+    "hour": 17,
+    "minute": 50
+  },
+  "corners": [
+    [
+      1097,
+      717
+    ],
+    [
+      1337,
+      717
+    ],
+    [
+      1097,
+      806
+    ],
+    [
+      1337,
+      806
+    ]
+  ]
+}

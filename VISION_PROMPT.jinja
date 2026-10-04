@@ -15,8 +15,6 @@ interface Response {
 
 // An entry in the timetable representing a course, lab etc
 interface Activity {
-	start: Time;
-	end: Time;
 	name: string;
 	type?: "Curs" | "Lab" | "Seminar" | "Conferinta";
 	authors: string[];

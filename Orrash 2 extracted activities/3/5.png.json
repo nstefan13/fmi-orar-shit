@@ -1,0 +1,36 @@
+{
+  "id": 5,
+  "page": "3",
+  "weekday": "Miercuri",
+  "time_interval": "10:00 - 10:50",
+  "covering": "full",
+  "index_in_covering": 0,
+  "start_time": {
+    "weekday": "Miercuri",
+    "hour": 10,
+    "minute": 0
+  },
+  "end_time": {
+    "weekday": "Miercuri",
+    "hour": 10,
+    "minute": 50
+  },
+  "corners": [
+    [
+      921,
+      235
+    ],
+    [
+      1163,
+      235
+    ],
+    [
+      921,
+      268
+    ],
+    [
+      1163,
+      268
+    ]
+  ]
+}

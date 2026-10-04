@@ -1,0 +1,36 @@
+{
+  "id": 2,
+  "page": "102",
+  "weekday": "Luni",
+  "time_interval": "11:00 - 12:50",
+  "covering": "full",
+  "index_in_covering": 0,
+  "start_time": {
+    "weekday": "Luni",
+    "hour": 11,
+    "minute": 0
+  },
+  "end_time": {
+    "weekday": "Luni",
+    "hour": 12,
+    "minute": 50
+  },
+  "corners": [
+    [
+      617,
+      181
+    ],
+    [
+      857,
+      181
+    ],
+    [
+      617,
+      360
+    ],
+    [
+      857,
+      360
+    ]
+  ]
+}

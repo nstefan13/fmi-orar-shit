@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "page": "3",
+  "weekday": "Marti",
+  "time_interval": "8:00 - 8:50",
+  "covering": "full",
+  "index_in_covering": 0,
+  "start_time": {
+    "weekday": "Marti",
+    "hour": 8,
+    "minute": 0
+  },
+  "end_time": {
+    "weekday": "Marti",
+    "hour": 8,
+    "minute": 50
+  },
+  "corners": [
+    [
+      503,
+      201
+    ],
+    [
+      664,
+      201
+    ],
+    [
+      503,
+      235
+    ],
+    [
+      664,
+      235
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": 4,
+  "page": "95",
+  "weekday": "Joi",
+  "time_interval": "18:00 - 19:50",
+  "covering": "quarters",
+  "index_in_covering": 3,
+  "start_time": {
+    "weekday": "Joi",
+    "hour": 18,
+    "minute": 0
+  },
+  "end_time": {
+    "weekday": "Joi",
+    "hour": 19,
+    "minute": 50
+  },
+  "corners": [
+    [
+      1337,
+      850
+    ],
+    [
+      1576,
+      850
+    ],
+    [
+      1337,
+      895
+    ],
+    [
+      1576,
+      895
+    ]
+  ]
+}

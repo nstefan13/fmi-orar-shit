@@ -1,0 +1,36 @@
+{
+  "id": 43,
+  "page": "3",
+  "weekday": "Vineri",
+  "time_interval": "10:00 - 10:50",
+  "covering": "full",
+  "index_in_covering": 0,
+  "start_time": {
+    "weekday": "Vineri",
+    "hour": 10,
+    "minute": 0
+  },
+  "end_time": {
+    "weekday": "Vineri",
+    "hour": 10,
+    "minute": 50
+  },
+  "corners": [
+    [
+      921,
+      703
+    ],
+    [
+      1163,
+      703
+    ],
+    [
+      921,
+      736
+    ],
+    [
+      1163,
+      736
+    ]
+  ]
+}
