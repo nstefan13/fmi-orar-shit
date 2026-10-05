@@ -242,7 +242,7 @@ def resolve_pages_directory(base_dir: Path) -> tuple[Path, Path]:
 @backoff.on_exception(
     backoff.expo,
     errors.TooManyRequestsResponseError,
-    max_tries=3,
+    max_tries=5,
     logger=logger,
 )
 async def categorize_file(file_path: Path | str) -> CategorizationResponse:

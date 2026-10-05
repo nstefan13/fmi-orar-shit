@@ -114,7 +114,7 @@ class Room(BaseModel):
     )
 
 
-Location = Union[Literal["ONLINE"], Room]
+Location = Union[str, Room]
 
 
 class Time(BaseModel):
