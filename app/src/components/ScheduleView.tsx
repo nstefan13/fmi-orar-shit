@@ -182,6 +182,13 @@ export function ScheduleView({
             }}
             nowIndicator={true}
             headerToolbar={false}
+            dayHeaderContent={(info) => {
+              const d = info.date
+              const weekday = d.toLocaleDateString('en-US', { weekday: 'long' })
+              const day = d.getDate()
+              const month = d.toLocaleDateString('en-US', { month: 'long' })
+              return `${weekday}, ${day} ${month}`
+            }}
             height="100%"
             expandRows={true}
             eventClick={(info) => {
