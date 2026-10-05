@@ -35,8 +35,6 @@ export function SettingsView({
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedActivityForModal, setSelectedActivityForModal] =
     React.useState<Activity | null>(null)
-  const [selectedSessionsForModal, setSelectedSessionsForModal] =
-    React.useState<Activity[]>([])
 
   // Fast O(1) lookup of activity by unique activity ID
   const activityMap = React.useMemo(() => {
@@ -57,13 +55,7 @@ export function SettingsView({
   const handleOpenActivityModal = (activityId: string) => {
     const target = activityMap.get(activityId)
     if (target) {
-      const tt = data.find((t) => t.id === target._timetableId)
-      const matchingSessions = tt?.activities
-        .filter((a) => a.name === target.name && a.type === target.type)
-        .map((a) => ({ ...a, _timetableId: tt.id, _timetableTitle: tt.title })) || [target]
-
       setSelectedActivityForModal(target)
-      setSelectedSessionsForModal(matchingSessions.length > 0 ? matchingSessions : [target])
     }
   }
 
@@ -310,12 +302,10 @@ export function SettingsView({
       {/* Activity Details Dialog */}
       <ActivityDetailsDialog
         activity={selectedActivityForModal}
-        allSessions={selectedSessionsForModal}
         open={Boolean(selectedActivityForModal)}
         onOpenChange={(open) => {
           if (!open) {
             setSelectedActivityForModal(null)
-            setSelectedSessionsForModal([])
           }
         }}
       />

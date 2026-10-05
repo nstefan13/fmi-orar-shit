@@ -128,6 +128,8 @@ If the visual representation of the activity has a specifier like "SP" (Saptaman
 
 If the activity specifies a range of weeks (like "[sapt 9-15]"), then the activity IS NOT PERIODIC and DOES NOT run on a biweekly schedule. In this case, do NOT leave the field as null. Instead, you MUST set it to "range". This is the only time you set this field to "range". In no other case, should this value be used. 
 
+If none of this cases happen, the activity is not periodic and you MUST set the `periodicity` field to `null`.
+
 
 
 SUBGROUP FIELD
@@ -138,6 +140,8 @@ Some context on FMI before going into the notes. Students are divided in groups 
 Now the actual guidelines:
 
 Whenever you see "SG", know it means "subgroup". Similarly, "Gr_3" means "subgroup no. 3" (don't be fooled by that "Gr" - it is not a group, it is a subgroup; a group has a 3 digit identifier).
+
+If you cannot determine the subgroup with certainty, do NOT set / set it to `null`.
 
 
 

@@ -22,20 +22,16 @@ function pad(n: number): string {
 
 export interface ActivityDetailsDialogProps {
   activity: Activity | null
-  allSessions?: Activity[]
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
 export function ActivityDetailsDialog({
   activity,
-  allSessions,
   open,
   onOpenChange,
 }: ActivityDetailsDialogProps) {
   if (!activity) return null
-
-  const sessions = allSessions && allSessions.length > 0 ? allSessions : [activity]
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -57,23 +53,23 @@ export function ActivityDetailsDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-3 py-2 text-sm">
-          {/* Time sessions */}
-          <div className="flex flex-col gap-1 text-muted-foreground">
-            {sessions.map((sess, idx) => (
-              <div key={idx} className="flex items-center gap-2.5">
-                <ClockIcon className="size-4 shrink-0 text-foreground" />
-                <span>
-                  {sess.weekday && <strong className="font-semibold text-foreground mr-1">{sess.weekday}:</strong>}
-                  {pad(sess.start_time.hour)}:{pad(sess.start_time.minute)} –{' '}
-                  {pad(sess.end_time.hour)}:{pad(sess.end_time.minute)}
-                  {sess.periodicity && (
-                    <span className="ml-1.5 text-xs text-muted-foreground font-normal">
-                      ({sess.periodicity})
-                    </span>
-                  )}
+          {/* Time session */}
+          <div className="flex items-center gap-2.5 text-muted-foreground">
+            <ClockIcon className="size-4 shrink-0 text-foreground" />
+            <span>
+              {activity.weekday && (
+                <strong className="font-semibold text-foreground mr-1">
+                  {activity.weekday}:
+                </strong>
+              )}
+              {pad(activity.start_time.hour)}:{pad(activity.start_time.minute)} –{' '}
+              {pad(activity.end_time.hour)}:{pad(activity.end_time.minute)}
+              {activity.periodicity && (
+                <span className="ml-1.5 text-xs text-muted-foreground font-normal">
+                  ({activity.periodicity})
                 </span>
-              </div>
-            ))}
+              )}
+            </span>
           </div>
 
           {/* Location */}

@@ -164,12 +164,16 @@ def extract_table_grid(gray: np.ndarray, thresh_val: int = 130) -> np.ndarray:
     """
     Extracts only the horizontal and vertical grid lines of the timetable,
     filtering out all text, numbers, and letter characters using morphological operations.
+    Preserves vertical line dividers in hour header cells and horizontal dividers in day cells.
     """
     _, thresh_inv = cv.threshold(gray, thresh_val, 255, cv.THRESH_BINARY_INV)
 
-    # Structuring element kernels long enough to eliminate letters while preserving grid borders
-    h_kernel_len = max(gray.shape[1] // 30, 80)
-    v_kernel_len = max(gray.shape[0] // 20, 80)
+    # Structuring element kernels proportional to image dimensions, but bounded so that:
+    # 1. v_kernel_len does not exceed hour header cell height (~67px), preserving 1-hour column dividers
+    # 2. h_kernel_len does not exceed day header cell width (~114px)
+    # 3. kernels remain long enough to eliminate alphanumeric text characters (height <= 35-45px)
+    h_kernel_len = max(min(gray.shape[1] // 40, 50), 30)
+    v_kernel_len = max(min(gray.shape[0] // 35, 40), 25)
 
     h_kernel = cv.getStructuringElement(cv.MORPH_RECT, (h_kernel_len, 1))
     v_kernel = cv.getStructuringElement(cv.MORPH_RECT, (1, v_kernel_len))
@@ -320,38 +324,125 @@ def snap_to_grid(points: list[tuple[int, int]], threshold: int = 10) -> list[tup
     return sorted(set(snapped), key=lambda p: (p[1], p[0]))
 
 
+def extract_grid_structure(
+    contours,
+    hierarchy,
+    snapped_intersections: list[tuple[int, int]],
+    image_shape: tuple[int, int],
+) -> tuple[list[int], list[tuple[int, int]], tuple[float, float]]:
+    """
+    Identifies the canonical hour cells in the top header row and day cells in the left header column.
+
+    Returns:
+        col_dividers: list of X-coordinates bounding the 1-hour columns (8:00 to 19:50).
+        day_intervals: list of (y_top, y_bottom) tuples for Monday through Friday.
+        (atomic_width, atomic_height): base modular unit dimensions.
+    """
+    if hierarchy is None or len(hierarchy) == 0 or not contours:
+        return [], [], (0.0, 0.0)
+
+    h = hierarchy[0]
+    depths = []
+    for idx in range(len(contours)):
+        depth = 0
+        p = h[idx][3]
+        while p != -1:
+            depth += 1
+            p = h[p][3]
+        depths.append(depth)
+
+    l2_cnts = [contours[i] for i, d in enumerate(depths) if d == 2]
+    if not l2_cnts:
+        return [], [], (0.0, 0.0)
+
+    boxes = [cv.boundingRect(c) for c in l2_cnts]
+    min_x = min(b[0] for b in boxes)
+    min_y = min(b[1] for b in boxes)
+
+    # 1. Header cells (hours in top row)
+    top_cells = [b for b in boxes if abs(b[1] - min_y) <= 15]
+    header_h = float(np.median([b[3] for b in top_cells])) if top_cells else 0.0
+    hour_cells = sorted([b for b in top_cells if b[0] > min_x + 50], key=lambda b: b[0])
+
+    # 2. Day cells (weekdays in leftmost column)
+    day_cells = sorted(
+        [b for b in boxes if abs(b[0] - min_x) <= 20 and b[1] >= min_y + header_h - 10],
+        key=lambda b: b[1],
+    )
+
+    xs = sorted(set(p[0] for p in snapped_intersections)) if snapped_intersections else []
+    ys = sorted(set(p[1] for p in snapped_intersections)) if snapped_intersections else []
+
+    # Build col_dividers from hour cells
+    if hour_cells:
+        raw_dividers = [hour_cells[0][0]] + [c[0] + c[2] for c in hour_cells]
+        if xs:
+            col_dividers = [min(xs, key=lambda x: abs(x - div)) for div in raw_dividers]
+        else:
+            col_dividers = raw_dividers
+        cleaned_divs = [col_dividers[0]]
+        for d in col_dividers[1:]:
+            if d > cleaned_divs[-1]:
+                cleaned_divs.append(d)
+        col_dividers = cleaned_divs
+        atomic_w = float(
+            np.mean([col_dividers[i + 1] - col_dividers[i] for i in range(len(col_dividers) - 1)])
+        )
+    else:
+        col_dividers = []
+        atomic_w = 0.0
+
+    # Build day_intervals from day cells
+    if day_cells:
+        raw_intervals = [(c[1], c[1] + c[3]) for c in day_cells]
+        if ys:
+            day_intervals = [
+                (min(ys, key=lambda y: abs(y - d[0])), min(ys, key=lambda y: abs(y - d[1])))
+                for d in raw_intervals
+            ]
+        else:
+            day_intervals = raw_intervals
+        avg_day_h = float(np.mean([d[1] - d[0] for d in day_intervals]))
+        atomic_h = avg_day_h / 4.0
+    else:
+        day_intervals = []
+        atomic_h = 0.0
+
+    return col_dividers, day_intervals, (round(atomic_w, 2), round(atomic_h, 2))
+
+
 def atomic_activity_dimensions(
     img_orig: np.ndarray,
     intersections: list[tuple[int, int]] | None = None,
 ) -> tuple[float, float]:
     """
     Computes the base modular unit dimensions `(atomic_width, atomic_height)` of timetable cells.
-    Uses the snapped intersection points:
-      - from the far left (minimum X, different Y) representing weekdays;
-        their average distance gives the weekday height, which divided by 4 gives `atomic_height`.
-      - from the top (minimum Y, different X) representing time intervals;
-        their average distance gives `atomic_width`.
+    Uses canonical hour cells (8..19) and day cells (Monday..Friday) when available,
+    falling back to snapped intersection diffs.
     """
-    if intersections is None:
-        if img_orig is None:
-            return (0.0, 0.0)
-
+    if img_orig is not None:
         gray = cv.cvtColor(img_orig, cv.COLOR_BGR2GRAY) if img_orig.ndim == 3 else img_orig
         thresh = extract_table_grid(gray, thresh_val=130)
         contours, hierarchy = cv.findContours(thresh, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-        raw_intersections = find_contour_intersections(contours, hierarchy)
-        snapped = snap_to_grid(raw_intersections)
+        if intersections is None:
+            raw_intersections = find_contour_intersections(contours, hierarchy)
+            snapped = snap_to_grid(raw_intersections)
+        else:
+            snapped = snap_to_grid(intersections)
+
+        _, _, dims = extract_grid_structure(contours, hierarchy, snapped, img_orig.shape[:2])
+        if dims[0] > 0 and dims[1] > 0:
+            return dims
     else:
-        snapped = snap_to_grid(intersections)
+        snapped = snap_to_grid(intersections) if intersections else []
 
     if not snapped or len(snapped) < 2:
         return (0.0, 0.0)
 
-    # Top row intersections (minimum Y, varying X) -> Time interval column headers
+    # Fallback to top row and far left diffs
     min_y = min(p[1] for p in snapped)
     top_row = sorted([p for p in snapped if p[1] == min_y], key=lambda p: p[0])
 
-    # Left column intersections (minimum X, varying Y) -> Weekday row headers
     min_x = min(p[0] for p in snapped)
     far_left = sorted([p for p in snapped if p[0] == min_x], key=lambda p: p[1])
 
@@ -371,12 +462,28 @@ def atomic_activity_dimensions(
     return (round(atomic_width, 2), round(atomic_height, 2))
 
 
-def get_timetable_corners(intersections: list[tuple[int, int]]) -> list[tuple[int, int]]:
+def get_timetable_corners(
+    intersections: list[tuple[int, int]],
+    col_dividers: list[int] | None = None,
+    day_intervals: list[tuple[int, int]] | None = None,
+) -> list[tuple[int, int]]:
     """
     Finds the four corner intersection points bounding the actual timetable activity area,
     excluding the day header column on the left and the hour header row on top.
     Returns: [top-left, top-right, bottom-left, bottom-right].
     """
+    if col_dividers and day_intervals and len(col_dividers) >= 2 and len(day_intervals) >= 1:
+        left_x = col_dividers[0]
+        right_x = col_dividers[-1]
+        top_y = day_intervals[0][0]
+        bottom_y = day_intervals[-1][1]
+        return [
+            (left_x, top_y),
+            (right_x, top_y),
+            (left_x, bottom_y),
+            (right_x, bottom_y),
+        ]
+
     if not intersections:
         return []
     xs = sorted(set(p[0] for p in intersections))
@@ -395,7 +502,13 @@ def get_timetable_corners(intersections: list[tuple[int, int]]) -> list[tuple[in
     ]
 
 
-def filter_activity_contours(contours, hierarchy=None, image_shape=None) -> list:
+def filter_activity_contours(
+    contours,
+    hierarchy=None,
+    image_shape=None,
+    col_dividers: list[int] | None = None,
+    day_intervals: list[tuple[int, int]] | None = None,
+) -> list:
     """
     Filters out outer page borders, the top header row (hours), and the left
     header column (days), preserving contours for activity cells.
@@ -426,14 +539,21 @@ def filter_activity_contours(contours, hierarchy=None, image_shape=None) -> list
     if not candidate_contours:
         return []
 
-    min_x = min(cv.boundingRect(c)[0] for c in candidate_contours)
-    min_y = min(cv.boundingRect(c)[1] for c in candidate_contours)
+    if col_dividers and day_intervals and len(col_dividers) >= 2 and len(day_intervals) >= 1:
+        min_act_x = col_dividers[0] - 5
+        min_act_y = day_intervals[0][0] - 5
+        activity_contours = [
+            c for c in candidate_contours
+            if cv.boundingRect(c)[0] >= min_act_x and cv.boundingRect(c)[1] >= min_act_y
+        ]
+    else:
+        min_x = min(cv.boundingRect(c)[0] for c in candidate_contours)
+        min_y = min(cv.boundingRect(c)[1] for c in candidate_contours)
+        activity_contours = [
+            c for c in candidate_contours
+            if cv.boundingRect(c)[0] > min_x + 50 and cv.boundingRect(c)[1] > min_y + 40
+        ]
 
-    # Exclude leftmost day column (x <= min_x + 50) and top hour header row (y <= min_y + 40)
-    activity_contours = [
-        c for c in candidate_contours
-        if cv.boundingRect(c)[0] > min_x + 50 and cv.boundingRect(c)[1] > min_y + 40
-    ]
     return activity_contours
 
 
@@ -517,56 +637,83 @@ def activity_boundry_to_activity_info(
     timetable_intersection_points: list[tuple[int, int]],
     activity_boundry_as_intersection_points: list[tuple[int, int]],
     atomic_size: tuple[float, float],
+    col_dividers: list[int] | None = None,
+    day_intervals: list[tuple[int, int]] | None = None,
 ) -> ActivityInfo:
     """
     Calculates the schedule information for a single activity from its grid geometry.
 
     Determines:
-      - Weekday (Monday-Friday) from vertical row placement.
-      - Start and end time from horizontal column coverage (Column 0 = 8:00 - 8:50).
+      - Weekday (Monday-Friday) from vertical row placement or explicit day cells.
+      - Start and end time from horizontal column coverage or canonical hour dividers.
       - Vertical covering ('full', 'halves', 'quarters') and vertical slot index.
     """
     atomic_width, atomic_height = atomic_size
-
-    tt_left_x = min(p[0] for p in timetable_intersection_points)
-    tt_top_y = min(p[1] for p in timetable_intersection_points)
 
     act_left_x = min(p[0] for p in activity_boundry_as_intersection_points)
     act_top_y = min(p[1] for p in activity_boundry_as_intersection_points)
     act_right_x = max(p[0] for p in activity_boundry_as_intersection_points)
     act_bottom_y = max(p[1] for p in activity_boundry_as_intersection_points)
 
-    # Column 0 corresponds to 8:00 - 8:50
-    start_col = max(0, int(round((act_left_x - tt_left_x) / atomic_width)))
-    num_cols = max(1, int(round((act_right_x - act_left_x) / atomic_width)))
-    end_col = start_col + num_cols - 1
+    # 1. Determine Start & End Hour
+    if col_dividers and len(col_dividers) >= 2:
+        start_idx = min(range(len(col_dividers) - 1), key=lambda i: abs(col_dividers[i] - act_left_x))
+        end_idx = min(range(start_idx + 1, len(col_dividers)), key=lambda i: abs(col_dividers[i] - act_right_x))
+        start_hour = 8 + start_idx
+        end_hour = 8 + end_idx - 1
+    else:
+        tt_left_x = min(p[0] for p in timetable_intersection_points)
+        start_col = max(0, int(round((act_left_x - tt_left_x) / atomic_width))) if atomic_width > 0 else 0
+        num_cols = max(1, int(round((act_right_x - act_left_x) / atomic_width))) if atomic_width > 0 else 1
+        end_col = start_col + num_cols - 1
+        start_hour = 8 + start_col
+        end_hour = 8 + end_col
 
-    start_hour = 8 + start_col
-    end_hour = 8 + end_col
-
-    day_height = 4.0 * atomic_height
-    day_index = max(0, min(4, int((act_top_y - tt_top_y + 0.1 * atomic_height) // day_height)))
-    weekday = WEEKDAYS[day_index]
-
-    start_time = Time(weekday=weekday, hour=start_hour, minute=0)
-    end_time = Time(weekday=weekday, hour=end_hour, minute=50)
-
+    # 2. Determine Weekday and Vertical Covering
     act_h = act_bottom_y - act_top_y
-    num_quarters = max(1, int(round(act_h / atomic_height)))
+    if day_intervals and len(day_intervals) > 0:
+        y_mid = (act_top_y + act_bottom_y) / 2.0
+        day_index = min(
+            range(len(day_intervals)),
+            key=lambda d: abs((day_intervals[d][0] + day_intervals[d][1]) / 2.0 - y_mid),
+        )
+        day_index = max(0, min(len(WEEKDAYS) - 1, day_index))
+        weekday = WEEKDAYS[day_index]
 
-    day_top_y = tt_top_y + day_index * day_height
-    offset_y = act_top_y - day_top_y
-    quarter_offset = max(0, min(3, int(round(offset_y / atomic_height))))
+        day_top_y, day_bottom_y = day_intervals[day_index]
+        day_h = max(1.0, float(day_bottom_y - day_top_y))
+        atomic_quarter_h = day_h / 4.0
 
-    if num_quarters >= 4:
+        num_quarters = max(1, int(round(act_h / atomic_quarter_h)))
+        offset_y = act_top_y - day_top_y
+        quarter_offset = max(0, min(3, int(round(offset_y / atomic_quarter_h))))
+        full_threshold = 0.70 * day_h
+        half_threshold = 0.35 * day_h
+    else:
+        tt_top_y = min(p[1] for p in timetable_intersection_points)
+        day_height = 4.0 * atomic_height if atomic_height > 0 else 1.0
+        day_index = max(0, min(4, int((act_top_y - tt_top_y + 0.1 * atomic_height) // day_height)))
+        weekday = WEEKDAYS[day_index]
+
+        num_quarters = max(1, int(round(act_h / atomic_height))) if atomic_height > 0 else 1
+        day_top_y = tt_top_y + day_index * day_height
+        offset_y = act_top_y - day_top_y
+        quarter_offset = max(0, min(3, int(round(offset_y / atomic_height)))) if atomic_height > 0 else 0
+        full_threshold = 0.70 * day_height
+        half_threshold = 0.35 * day_height
+
+    if num_quarters >= 4 or act_h >= full_threshold:
         covering = ActivityCovering.FULL
         index_in_covering = 0
-    elif num_quarters >= 2:
+    elif num_quarters >= 2 or act_h >= half_threshold:
         covering = ActivityCovering.HALVES
         index_in_covering = 0 if quarter_offset < 2 else 1
     else:
         covering = ActivityCovering.QUARTERS
         index_in_covering = quarter_offset
+
+    start_time = Time(weekday=weekday, hour=start_hour, minute=0)
+    end_time = Time(weekday=weekday, hour=end_hour, minute=50)
 
     return ActivityInfo(
         start_time=start_time,
@@ -623,8 +770,17 @@ def _process_timetable_sync(path_to_timetable: Path, output_dir: Path) -> dict[s
             "preprocessed_activities": [],
         }
 
-    # 3. Compute atomic modular cell dimensions (hour column width, quarter slot height)
-    atomic_w, atomic_h = atomic_activity_dimensions(im_orig, intersections)
+    # 3. Extract canonical hour column dividers and weekday intervals
+    col_dividers, day_intervals, struct_dims = extract_grid_structure(
+        contours, hierarchy, intersections, im_orig.shape[:2]
+    )
+
+    # Base modular cell dimensions (hour column width, quarter slot height)
+    if struct_dims[0] > 0 and struct_dims[1] > 0:
+        atomic_w, atomic_h = struct_dims
+    else:
+        atomic_w, atomic_h = atomic_activity_dimensions(im_orig, intersections)
+
     if atomic_w <= 0 or atomic_h <= 0:
         logger.warning(f"Invalid atomic dimensions ({atomic_w}x{atomic_h}) on page: {path_to_timetable.name}")
         return {
@@ -633,10 +789,16 @@ def _process_timetable_sync(path_to_timetable: Path, output_dir: Path) -> dict[s
         }
 
     # 4. Get the four corner bounds of the activity table area
-    tt_corners = get_timetable_corners(intersections)
+    tt_corners = get_timetable_corners(intersections, col_dividers=col_dividers, day_intervals=day_intervals)
 
     # 5. Filter activity cell contours (excluding table borders and headers)
-    activity_cnts = filter_activity_contours(contours, hierarchy, image_shape=im_orig.shape[:2])
+    activity_cnts = filter_activity_contours(
+        contours,
+        hierarchy,
+        image_shape=im_orig.shape[:2],
+        col_dividers=col_dividers,
+        day_intervals=day_intervals,
+    )
     if not activity_cnts:
         logger.info(f"No activity contours identified on page: {path_to_timetable.name}")
         return {
@@ -670,7 +832,13 @@ def _process_timetable_sync(path_to_timetable: Path, output_dir: Path) -> dict[s
 
         seen_bounds.add(bound_key)
         full_crop = im_orig[y1:y2, x1:x2]
-        info = activity_boundry_to_activity_info(tt_corners, bound, (atomic_w, atomic_h))
+        info = activity_boundry_to_activity_info(
+            tt_corners,
+            bound,
+            (atomic_w, atomic_h),
+            col_dividers=col_dividers,
+            day_intervals=day_intervals,
+        )
 
         activities.append({
             "bound": bound,

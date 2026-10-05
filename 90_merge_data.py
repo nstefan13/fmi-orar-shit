@@ -81,6 +81,7 @@ import asyncio
 import json
 import os
 from pathlib import Path
+import re
 from typing import Any, List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
@@ -133,6 +134,7 @@ class Activity(BaseModel):
     Synthesized timetable activity combining geometric spatiotemporal coordinates
     with AI-extracted semantic details.
     """
+    id: str = Field(description="Unique activity identifier (e.g. IMG-104_AC-12).")
     path: str = Field(description="Path to the cropped activity image file.")
     weekday: str = Field(description="Weekday on which the activity takes place.")
     start_time: Time = Field(description="Starting time of the activity.")
@@ -164,6 +166,7 @@ class Timetable(BaseModel):
     """
     Top-level timetable record representing a single sheet and its associated activities.
     """
+    id: str = Field(description="Unique timetable identifier, e.g. IMG-001, IMG-024.")
     path: str = Field(description="Path to the original timetable image file.")
     title: str = Field(description="Verbatim extracted title of the timetable.")
     activities: list[Activity] = Field(
@@ -230,7 +233,23 @@ def derive_geometric_metadata(
         raise ValueError(f"Unsupported slot covering type: '{covering}'")
 
 
-def resolve_activity(prep_act: dict, ai_act: dict) -> Activity:
+def generate_timetable_id(path_str: str) -> str:
+    """
+    Generates a canonical timetable ID of the form IMG-001, IMG-024, etc.
+    from the digits in the timetable filename.
+    """
+    stem = Path(path_str).stem
+    digits = re.findall(r"\d+", stem)
+    if digits:
+        return f"IMG-{int(digits[-1]):03d}"
+    return f"IMG-{stem.zfill(3)}"
+
+
+def resolve_activity(
+    prep_act: dict,
+    ai_act: dict,
+    activity_id: Optional[str] = None,
+) -> Activity:
     """
     Merges deterministic geometric metadata with semantic AI attributes for an activity.
 
@@ -248,6 +267,7 @@ def resolve_activity(prep_act: dict, ai_act: dict) -> Activity:
     Args:
         prep_act: Dictionary representing preprocessed geometric activity from Step 3.
         ai_act: Dictionary representing AI-parsed semantic activity from Step 4.
+        activity_id: Optional unique activity identifier (e.g. IMG-104_AC-12).
 
     Returns:
         Activity: Validated, unified Activity instance.
@@ -278,7 +298,12 @@ def resolve_activity(prep_act: dict, ai_act: dict) -> Activity:
     else:
         final_subgroup = prep_subgroup
 
+    if activity_id is None:
+        p_name = Path(prep_act.get("path", "")).stem
+        activity_id = p_name if p_name else "AC-00"
+
     return Activity(
+        id=activity_id,
         path=prep_act["path"],
         weekday=prep_act["weekday"],
         start_time=Time(**prep_act["start_time"]),
@@ -340,18 +365,22 @@ def merge_datasets(
         prep_activities = prep_entry.get("preprocessed_activities", [])
         synthesized_activities: list[Activity] = []
 
-        for p_act in prep_activities:
+        timetable_id = generate_timetable_id(t_path)
+
+        for act_idx, p_act in enumerate(prep_activities):
             a_path = p_act["path"]
             if a_path not in ai_acts_map:
                 raise ValueError(
                     f"Activity '{a_path}' in timetable '{t_path}' missing from ai-processed-activities!"
                 )
             a_act = ai_acts_map[a_path]
-            synthesized_act = resolve_activity(p_act, a_act)
+            act_id = f"{timetable_id}_AC-{act_idx:02d}"
+            synthesized_act = resolve_activity(p_act, a_act, activity_id=act_id)
             synthesized_activities.append(synthesized_act)
 
         merged_timetables.append(
             Timetable(
+                id=timetable_id,
                 path=t_path,
                 title=title,
                 activities=synthesized_activities,
