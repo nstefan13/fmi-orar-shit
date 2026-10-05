@@ -3,7 +3,6 @@ import type { Activity, Timetable } from '@/types/timetable'
 import {
   buildSearchIndex,
   searchTimetables,
-  getActivityKey,
   saveSelectedActivityKeys,
   formatActivityName,
   type SearchIndex,
@@ -39,17 +38,32 @@ export function SettingsView({
   const [selectedSessionsForModal, setSelectedSessionsForModal] =
     React.useState<Activity[]>([])
 
-  const handleOpenActivityModal = (timetableTitle: string, actName: string) => {
-    const tt = data.find((t) => t.title === timetableTitle)
-    if (tt) {
-      const matchingSessions = tt.activities
-        .filter((a) => formatActivityName(a) === actName)
-        .map((a) => ({ ...a, _timetableTitle: timetableTitle }))
+  // Fast O(1) lookup of activity by unique activity ID
+  const activityMap = React.useMemo(() => {
+    const map = new Map<string, Activity>()
+    data.forEach((t) => {
+      t.activities.forEach((a) => {
+        map.set(a.id, {
+          ...a,
+          _timetableId: t.id,
+          _timetableTitle: t.title,
+        })
+      })
+    })
+    return map
+  }, [data])
 
-      if (matchingSessions.length > 0) {
-        setSelectedActivityForModal(matchingSessions[0])
-        setSelectedSessionsForModal(matchingSessions)
-      }
+  // Open modal using activity ID
+  const handleOpenActivityModal = (activityId: string) => {
+    const target = activityMap.get(activityId)
+    if (target) {
+      const tt = data.find((t) => t.id === target._timetableId)
+      const matchingSessions = tt?.activities
+        .filter((a) => a.name === target.name && a.type === target.type)
+        .map((a) => ({ ...a, _timetableId: tt.id, _timetableTitle: tt.title })) || [target]
+
+      setSelectedActivityForModal(target)
+      setSelectedSessionsForModal(matchingSessions.length > 0 ? matchingSessions : [target])
     }
   }
 
@@ -63,35 +77,30 @@ export function SettingsView({
     return searchTimetables(data, searchQuery, searchIndex)
   }, [data, searchQuery, searchIndex])
 
-  // Helper to toggle a single activity
-  const handleToggleActivity = (timetableTitle: string, activityFormattedName: string) => {
-    const key = getActivityKey(timetableTitle, activityFormattedName)
+  // Helper to toggle a single activity using its ID
+  const handleToggleActivity = (activityId: string) => {
     const next = new Set(selectedActivityKeys)
-    if (next.has(key)) {
-      next.delete(key)
+    if (next.has(activityId)) {
+      next.delete(activityId)
     } else {
-      next.add(key)
+      next.add(activityId)
     }
     saveSelectedActivityKeys(next)
     onSelectionChange(next)
   }
 
   // Helper to toggle an entire timetable (Level 1)
-  const handleToggleTimetable = (timetableTitle: string, activities: string[]) => {
+  const handleToggleTimetable = (activityIds: string[]) => {
     const next = new Set(selectedActivityKeys)
-    const allSelected = activities.every((actName) =>
-      selectedActivityKeys.has(getActivityKey(timetableTitle, actName))
-    )
+    const allSelected = activityIds.every((id) => next.has(id))
 
     if (allSelected) {
-      // If all are selected, deselect all for this timetable
-      activities.forEach((actName) => {
-        next.delete(getActivityKey(timetableTitle, actName))
+      activityIds.forEach((id) => {
+        next.delete(id)
       })
     } else {
-      // If some or none are selected, select all for this timetable
-      activities.forEach((actName) => {
-        next.add(getActivityKey(timetableTitle, actName))
+      activityIds.forEach((id) => {
+        next.add(id)
       })
     }
 
@@ -103,8 +112,8 @@ export function SettingsView({
   const handleSelectAllVisible = () => {
     const next = new Set(selectedActivityKeys)
     displayGroups.forEach((group) => {
-      group.activities.forEach((actName) => {
-        next.add(getActivityKey(group.timetableTitle, actName))
+      group.activities.forEach((act) => {
+        next.add(act.id)
       })
     })
     saveSelectedActivityKeys(next)
@@ -138,14 +147,15 @@ export function SettingsView({
 
         {/* Search Box - Fuzzy search on underlying JSON */}
         <div className="flex items-center gap-2">
-          <InputGroup className="h-10 flex-1">
+          <InputGroup className="w-full">
             <InputGroupAddon align="inline-start">
               <SearchIcon className="size-4 text-muted-foreground" />
             </InputGroupAddon>
             <InputGroupInput
+              type="text"
+              placeholder="Search by course, room, professor, group..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search timetables, activities, professors..."
               className="text-sm"
             />
             {searchQuery && (
@@ -209,10 +219,8 @@ export function SettingsView({
             {displayGroups.map((group) => {
               const activities = group.activities
               const totalCount = activities.length
-              const selectedCount = activities.filter((actName) =>
-                selectedActivityKeys.has(
-                  getActivityKey(group.timetableTitle, actName)
-                )
+              const selectedCount = activities.filter((act) =>
+                selectedActivityKeys.has(act.id)
               ).length
 
               const isAllSelected = totalCount > 0 && selectedCount === totalCount
@@ -220,22 +228,22 @@ export function SettingsView({
 
               return (
                 <div
-                  key={group.timetableTitle}
+                  key={group.timetableId}
                   className="flex flex-col gap-2 rounded-lg border border-border/50 bg-card p-3 shadow-xs transition-colors hover:border-border"
                 >
                   {/* Level 1: Timetable name & parent checkbox */}
                   <div className="flex items-center gap-2.5">
                     <Checkbox
-                      id={`tt-${group.timetableTitle}`}
+                      id={`tt-${group.timetableId}`}
                       checked={isAllSelected}
                       indeterminate={isSomeSelected}
                       onCheckedChange={() =>
-                        handleToggleTimetable(group.timetableTitle, activities)
+                        handleToggleTimetable(activities.map((a) => a.id))
                       }
                       className="size-4.5"
                     />
                     <label
-                      htmlFor={`tt-${group.timetableTitle}`}
+                      htmlFor={`tt-${group.timetableId}`}
                       className="flex-1 cursor-pointer font-heading text-sm font-bold tracking-tight text-foreground select-none"
                     >
                       {group.timetableTitle}
@@ -247,33 +255,30 @@ export function SettingsView({
 
                   {/* Level 2: Activities indented under timetable */}
                   <div className="flex flex-col gap-2 pl-6 pt-1 border-l-2 border-border/40 ml-2">
-                    {activities.map((actName) => {
-                      const key = getActivityKey(group.timetableTitle, actName)
-                      const isChecked = selectedActivityKeys.has(key)
+                    {activities.map((act) => {
+                      const isChecked = selectedActivityKeys.has(act.id)
 
                       return (
                         <div
-                          key={key}
+                          key={act.id}
                           className="flex items-center justify-between gap-2 py-0.5 group"
                         >
                           <div className="flex flex-1 items-center gap-2.5 min-w-0">
                             <Checkbox
-                              id={key}
+                              id={act.id}
                               checked={isChecked}
-                              onCheckedChange={() =>
-                                handleToggleActivity(group.timetableTitle, actName)
-                              }
+                              onCheckedChange={() => handleToggleActivity(act.id)}
                               className="size-4 shrink-0"
                             />
                             <label
-                              htmlFor={key}
+                              htmlFor={act.id}
                               className={`cursor-pointer text-xs font-medium select-none transition-colors break-words ${
                                 isChecked
                                   ? 'text-foreground font-semibold'
                                   : 'text-muted-foreground hover:text-foreground'
                               }`}
                             >
-                              {actName}
+                              {formatActivityName(act)}
                             </label>
                           </div>
                           <Button
@@ -283,11 +288,11 @@ export function SettingsView({
                             onClick={(e) => {
                               e.preventDefault()
                               e.stopPropagation()
-                              handleOpenActivityModal(group.timetableTitle, actName)
+                              handleOpenActivityModal(act.id)
                             }}
                             className="size-6 shrink-0 rounded-full text-muted-foreground hover:text-foreground"
-                            title={`Details for ${actName}`}
-                            aria-label={`Details for ${actName}`}
+                            title={`Details for ${formatActivityName(act)}`}
+                            aria-label={`Details for ${formatActivityName(act)}`}
                           >
                             <InfoIcon className="size-3.5" />
                           </Button>

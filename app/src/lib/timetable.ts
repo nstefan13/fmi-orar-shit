@@ -30,23 +30,7 @@ export function formatActivityName(activity: {
 }
 
 /**
- * Unique identifier for an activity under a timetable.
- */
-export function getActivityKey(
-  timetableTitle: string,
-  activityOrFormattedName:
-    | string
-    | { name: string; type?: string | null; subgroup?: string | number | null }
-): string {
-  const formatted =
-    typeof activityOrFormattedName === 'string'
-      ? activityOrFormattedName
-      : formatActivityName(activityOrFormattedName)
-  return `${timetableTitle}:::${formatted}`
-}
-
-/**
- * Read selected activity keys from localStorage.
+ * Read selected activity IDs from localStorage.
  */
 export function getSelectedActivityKeys(): Set<string> {
   if (typeof window === 'undefined') return new Set()
@@ -54,7 +38,12 @@ export function getSelectedActivityKeys(): Set<string> {
     const raw = localStorage.getItem(STORAGE_KEY_SELECTED_ACTIVITIES)
     if (!raw) return new Set()
     const parsed = JSON.parse(raw)
-    return new Set(Array.isArray(parsed) ? parsed : [])
+    if (!Array.isArray(parsed)) return new Set()
+    // Discard any obsolete non-ID keys (e.g. keys containing ":::")
+    const valid = parsed.filter(
+      (k) => typeof k === 'string' && k.startsWith('IMG-') && k.includes('_AC-')
+    )
+    return new Set(valid)
   } catch (e) {
     console.error('Failed to load selected activities from localStorage', e)
     return new Set()
@@ -62,7 +51,7 @@ export function getSelectedActivityKeys(): Set<string> {
 }
 
 /**
- * Save selected activity keys to localStorage.
+ * Save selected activity IDs to localStorage.
  */
 export function saveSelectedActivityKeys(keys: Set<string> | string[]): void {
   if (typeof window === 'undefined') return
@@ -115,11 +104,10 @@ export function activitiesForToday(
   for (const timetable of data) {
     for (const activity of timetable.activities) {
       if (activity.weekday === weekdayName) {
-        const key = getActivityKey(timetable.title, activity)
-        if (selectedKeys.has(key)) {
-          // Return the activity as found in DATA, with optional timetable title reference
+        if (selectedKeys.has(activity.id)) {
           activities.push({
             ...activity,
+            _timetableId: timetable.id,
             _timetableTitle: timetable.title,
           })
         }
@@ -131,6 +119,8 @@ export function activitiesForToday(
 }
 
 export interface PreparedSearchItem {
+  id: string
+  timetableId: string
   timetableTitle: string
   formattedName: string
   name: string
@@ -141,9 +131,11 @@ export interface PreparedSearchItem {
   weekday: string
   activityJson: string
   timetableJson: string
+  activity: Activity
 }
 
 export interface PreparedTimetableItem {
+  id: string
   title: string
   timetableJson: string
 }
@@ -162,28 +154,31 @@ export function buildSearchIndex(data: Timetable[]): SearchIndex {
 
   data.forEach((t) => {
     timetables.push({
+      id: t.id,
       title: t.title,
       timetableJson: JSON.stringify(t),
     })
 
-    const seenInTimetable = new Set<string>()
     t.activities.forEach((a) => {
-      const formatted = formatActivityName(a)
-      if (!seenInTimetable.has(formatted)) {
-        seenInTimetable.add(formatted)
-        activities.push({
-          timetableTitle: t.title,
-          formattedName: formatted,
-          name: a.name,
-          type: a.type || '',
-          authors: (a.authors || []).join(' '),
-          locationStr: a.location ? `${a.location.type} ${a.location.id}` : '',
-          subgroupStr: a.subgroup ? `SG-${a.subgroup}` : '',
-          weekday: a.weekday,
-          activityJson: JSON.stringify(a),
-          timetableJson: JSON.stringify({ timetable: t.title, ...a }),
-        })
-      }
+      activities.push({
+        id: a.id,
+        timetableId: t.id,
+        timetableTitle: t.title,
+        formattedName: formatActivityName(a),
+        name: a.name,
+        type: a.type || '',
+        authors: (a.authors || []).join(' '),
+        locationStr: a.location
+          ? typeof a.location === 'string'
+            ? a.location
+            : `${a.location.type} ${a.location.id}`
+          : '',
+        subgroupStr: a.subgroup ? `SG-${a.subgroup}` : '',
+        weekday: a.weekday,
+        activityJson: JSON.stringify(a),
+        timetableJson: JSON.stringify({ timetableId: t.id, timetable: t.title, ...a }),
+        activity: a,
+      })
     })
   })
 
@@ -191,8 +186,9 @@ export function buildSearchIndex(data: Timetable[]): SearchIndex {
 }
 
 export interface TimetableDisplayGroup {
+  timetableId: string
   timetableTitle: string
-  activities: string[] // List of distinct formatted activity names
+  activities: Activity[]
 }
 
 /**
@@ -205,33 +201,30 @@ export function searchTimetables(
 ): TimetableDisplayGroup[] {
   const q = query.trim()
 
-  // When query is empty, return all timetables with all their unique activity formatted names
+  // When query is empty, return all timetables with all their activities
   if (!q) {
-    return data.map((t) => {
-      const uniqueNames = Array.from(
-        new Set(t.activities.map((a) => formatActivityName(a)))
-      )
-      return {
-        timetableTitle: t.title,
-        activities: uniqueNames,
-      }
-    })
+    return data.map((t) => ({
+      timetableId: t.id,
+      timetableTitle: t.title,
+      activities: t.activities,
+    }))
   }
 
   // 1. Search timetables by title or full timetable JSON
-  const matchedTimetableTitles = new Set<string>()
+  const matchedTimetableIds = new Set<string>()
   const timetableMatches = fuzzysort.go(q, index.timetables, {
     keys: ['title', 'timetableJson'],
   })
   timetableMatches.forEach((r) => {
-    matchedTimetableTitles.add(r.obj.title)
+    matchedTimetableIds.add(r.obj.id)
   })
 
   // 2. Search activities by individual fields AND raw JSON
-  const matchedActivitiesByTimetable = new Map<string, Set<string>>()
+  const matchedActivitiesByTimetable = new Map<string, Activity[]>()
   const activityMatches = fuzzysort.go(q, index.activities, {
     keys: [
       'name',
+      'formattedName',
       'timetableTitle',
       'authors',
       'locationStr',
@@ -244,33 +237,30 @@ export function searchTimetables(
   })
 
   activityMatches.forEach((r) => {
-    const tt = r.obj.timetableTitle
-    if (!matchedActivitiesByTimetable.has(tt)) {
-      matchedActivitiesByTimetable.set(tt, new Set())
+    const tId = r.obj.timetableId
+    if (!matchedActivitiesByTimetable.has(tId)) {
+      matchedActivitiesByTimetable.set(tId, [])
     }
-    matchedActivitiesByTimetable.get(tt)!.add(r.obj.formattedName)
+    matchedActivitiesByTimetable.get(tId)!.push(r.obj.activity)
   })
 
   // 3. Assemble results preserving data ordering
   const results: TimetableDisplayGroup[] = []
   data.forEach((t) => {
-    const isTimetableMatched = matchedTimetableTitles.has(t.title)
-    const matchedActs = matchedActivitiesByTimetable.get(t.title)
+    const isTimetableMatched = matchedTimetableIds.has(t.id)
+    const matchedActs = matchedActivitiesByTimetable.get(t.id)
 
     if (isTimetableMatched) {
-      // If the timetable itself matched, show all its activities
-      const allActivities = Array.from(
-        new Set(t.activities.map((a) => formatActivityName(a)))
-      )
       results.push({
+        timetableId: t.id,
         timetableTitle: t.title,
-        activities: allActivities,
+        activities: t.activities,
       })
-    } else if (matchedActs && matchedActs.size > 0) {
-      // Show only matching activities under this timetable
+    } else if (matchedActs && matchedActs.length > 0) {
       results.push({
+        timetableId: t.id,
         timetableTitle: t.title,
-        activities: Array.from(matchedActs),
+        activities: matchedActs,
       })
     }
   })

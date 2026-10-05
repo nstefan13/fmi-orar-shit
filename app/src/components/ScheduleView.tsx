@@ -94,7 +94,7 @@ export function ScheduleView({
 
   // Convert activities to FullCalendar events
   const calendarEvents = React.useMemo(() => {
-    return todaysActivities.map((act, idx) => {
+    return todaysActivities.map((act) => {
       const startTimeStr = `${activeDateStr}T${pad(act.start_time.hour)}:${pad(act.start_time.minute)}:00`
 
       // For display only, round end time up to the next full hour (e.g. 10:50 -> 11:00)
@@ -104,7 +104,7 @@ export function ScheduleView({
       const displayEndTimeStr = `${activeDateStr}T${pad(endHour)}:${pad(endMinute)}:00`
 
       return {
-        id: `act-${idx}-${act.name}-${act.start_time.hour}-${act.start_time.minute}`,
+        id: act.id,
         title: formatActivityName(act),
         start: startTimeStr,
         end: displayEndTimeStr,

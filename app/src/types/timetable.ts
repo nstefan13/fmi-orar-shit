@@ -10,6 +10,7 @@ export interface ActivityLocation {
 }
 
 export interface Activity {
+  id: string
   weekday: string // 'Luni' | 'Marti' | 'Miercuri' | 'Joi' | 'Vineri'
   start_time: TimeSpec
   end_time: TimeSpec
@@ -19,10 +20,12 @@ export interface Activity {
   location: ActivityLocation | null
   periodicity: string | null
   subgroup: string | number | null
+  _timetableId?: string
   _timetableTitle?: string
 }
 
 export interface Timetable {
+  id: string
   title: string
   activities: Activity[]
 }
