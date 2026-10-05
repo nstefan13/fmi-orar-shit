@@ -93,7 +93,7 @@ export function SettingsView({
   }
 
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-background">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
       {/* Section Header */}
       <div className="flex flex-col gap-3 border-b border-border/70 p-4 sm:p-5">
         <div className="flex items-center justify-between gap-2">
@@ -171,7 +171,7 @@ export function SettingsView({
       </div>
 
       {/* 2-Level Hierarchical Checkbox List */}
-      <ScrollArea className="flex-1 px-4 py-3 sm:px-5">
+      <ScrollArea className="flex-1 min-h-0 px-4 py-3 sm:px-5">
         {displayGroups.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 py-16 text-center text-muted-foreground">
             <SearchIcon className="size-8 opacity-40" />
