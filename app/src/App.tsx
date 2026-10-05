@@ -5,7 +5,6 @@ import { getSelectedActivityKeys } from '@/lib/timetable'
 import { ScheduleView } from '@/components/ScheduleView'
 import { SettingsView } from '@/components/SettingsView'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import {
   CalendarIcon,
   SettingsIcon,
@@ -89,14 +88,6 @@ export function App() {
             >
               <SettingsIcon className="size-3.5" />
               Settings
-              {selectedActivityKeys.size > 0 && (
-                <Badge
-                  variant="secondary"
-                  className="ml-0.5 px-1.5 py-0 text-[10px] font-bold"
-                >
-                  {selectedActivityKeys.size}
-                </Badge>
-              )}
             </Button>
           ) : (
             <Button
