@@ -214,9 +214,8 @@ export function ScheduleView({
               const isBlurred = Boolean(act.should_blur)
               return (
                 <div
-                  className={`flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-l-4 border-l-primary bg-primary/10 p-1.5 text-xs text-foreground transition-all hover:bg-primary/20 ${
-                    isBlurred ? 'opacity-40' : ''
-                  }`}
+                  className={`flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-l-4 border-l-primary bg-primary/10 p-1.5 text-xs text-foreground transition-all hover:bg-primary/20 ${isBlurred ? 'opacity-40' : ''
+                    }`}
                 >
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-center justify-between gap-1">
@@ -273,9 +272,8 @@ export function ScheduleView({
                 key={wd.key}
                 variant={isSelected ? 'default' : 'outline'}
                 size="sm"
-                className={`flex-1 font-medium transition-all ${
-                  isSelected ? 'shadow-sm font-semibold' : 'text-muted-foreground'
-                }`}
+                className={`flex-1 font-medium transition-all ${isSelected ? 'shadow-sm font-semibold' : 'text-muted-foreground'
+                  }`}
                 onClick={() => setSelectedWeekdayIndex(wd.key)}
               >
                 {wd.label}

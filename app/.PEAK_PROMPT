@@ -1,0 +1,12 @@
+Now is time to work on the app. So I want the app to be a very very simple app. it MUST be mobile first. it will simply be a nice viewer for DATA.json and will store everything in localStorage.
+
+you will use shadcn components. you will refrain from creating your own components. your code is responsible only for layout and functionality. the ui is handled by shadcn. feel free to adjust the shadcn components if you need extra funcitonality (like a half-selected state on a checkbox). before creating a ui you will ALWAYS research the shadcn registry for the components that fit best and you will install them
+
+there will be 2 screens: 
+- one "Settings" screen. There we will have a section "Activities" with description "Select which activities you want to see you your schedule".  Look at the image given. Notice how the checkboxes form a hierarchy with 2 levels, where the first level is the timetable name and second the name of an activity formed like this "{name} ({type}) SG-{subgroup}" (of course, if the type is null, the string will be "{name} SG-{subgroup}" and similar for the subgroup part or when both are missing). The search box will run a fuzzy search with the fuzzysort library. Important: the search will run on the underlying json, not the text. Please note that the search is not only for activities. The user will also be able to search the name of a timetable and see it there (this is because you search on the json that also contains timetable info). 
+Note in the image that if an activity is selected at level 2, but not all activities from that level 2 are selected, the parent is in a half-selected state with "-"
+- one "Your Schedule" screen the user will have 5 buttons at the bottom of the screen, centered: Lu, Ma, Mi, Jo, Vi. the remaining screen will be a daily calendar view (similar to Google Calendar's) where you will put all the activities for that day there. to find out which activities belong to a day you will have a method activitiesForToday(data, today), where data is the content of the entire DATA.json and today is a Date. it will return a list of activities, as they are found in the DATA. You will use FullCalendar React for this view. No drag and drop and slotEventOverlap should be set to false.
+
+to do before starting coding:
+1. you will load the [shadcn](slashCommand;shadcn) skill
+2. you will read the most important parts from https://fullcalendar.io/docs/llms.txt to understand how to properly use full calendar react

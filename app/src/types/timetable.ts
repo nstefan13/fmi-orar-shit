@@ -1,12 +1,7 @@
-export interface TimeSpec {
-  weekday: string
-  hour: number
-  minute: number
-}
-
-export interface ActivityLocation {
-  id: number | string
-  type: string
+export interface Timetable {
+  id: string
+  title: string
+  activities: Activity[]
 }
 
 export interface Activity {
@@ -25,14 +20,19 @@ export interface Activity {
   should_blur?: boolean
 }
 
+export interface TimeSpec {
+  weekday: string
+  hour: number
+  minute: number
+}
+
+export interface ActivityLocation {
+  id: number | string
+  type: string
+}
+
 export interface DidacticWeekSpec {
   id: string
   date: string // 'YYYY-MM-DD'
   weekNumber: number
-}
-
-export interface Timetable {
-  id: string
-  title: string
-  activities: Activity[]
 }

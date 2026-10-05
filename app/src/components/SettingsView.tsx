@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
+import { cn } from '@/lib/utils'
 import {
   SearchIcon,
   XIcon,
@@ -24,6 +25,7 @@ import {
   RotateCcwIcon,
   InfoIcon,
   Trash2Icon,
+  ChevronDownIcon,
 } from 'lucide-react'
 
 interface SettingsViewProps {
@@ -44,6 +46,50 @@ export function SettingsView({
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedActivityForModal, setSelectedActivityForModal] =
     React.useState<Activity | null>(null)
+
+  // Track manually uncollapsed timetable IDs when not searching (default is collapsed)
+  const [manualExpandedIds, setManualExpandedIds] = React.useState<Set<string>>(() => new Set())
+  // Track manually collapsed timetable IDs when searching (default in search is expanded)
+  const [manualCollapsedInSearchIds, setManualCollapsedInSearchIds] = React.useState<Set<string>>(() => new Set())
+
+  const isSearching = searchQuery.trim().length > 0
+
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val)
+    setManualCollapsedInSearchIds(new Set())
+  }
+
+  const handleClearSearch = () => {
+    setSearchQuery('')
+    setManualCollapsedInSearchIds(new Set())
+  }
+
+  const toggleTimetableExpanded = React.useCallback(
+    (timetableId: string) => {
+      if (isSearching) {
+        setManualCollapsedInSearchIds((prev) => {
+          const next = new Set(prev)
+          if (next.has(timetableId)) {
+            next.delete(timetableId)
+          } else {
+            next.add(timetableId)
+          }
+          return next
+        })
+      } else {
+        setManualExpandedIds((prev) => {
+          const next = new Set(prev)
+          if (next.has(timetableId)) {
+            next.delete(timetableId)
+          } else {
+            next.add(timetableId)
+          }
+          return next
+        })
+      }
+    },
+    [isSearching]
+  )
 
   const [internalDidacticWeeks, setInternalDidacticWeeks] = React.useState<DidacticWeekSpec[]>(() =>
     getDidacticWeeks()
@@ -308,7 +354,7 @@ export function SettingsView({
                   type="text"
                   placeholder="Search by course, room, professor, group..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
                   className="text-sm"
                 />
                 {searchQuery && (
@@ -316,7 +362,7 @@ export function SettingsView({
                     <Button
                       variant="ghost"
                       size="icon-xs"
-                      onClick={() => setSearchQuery('')}
+                      onClick={handleClearSearch}
                       className="size-5 rounded-full p-0"
                     >
                       <XIcon className="size-3" />
@@ -368,7 +414,7 @@ export function SettingsView({
                 <p className="text-xs">Try searching by course name, professor, room, or group number.</p>
               </div>
             ) : (
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-2.5 sm:gap-3">
                 {displayGroups.map((group) => {
                   const activities = group.activities
                   const totalCount = activities.length
@@ -379,10 +425,17 @@ export function SettingsView({
                   const isAllSelected = totalCount > 0 && selectedCount === totalCount
                   const isSomeSelected = selectedCount > 0 && selectedCount < totalCount
 
+                  const isExpanded = isSearching
+                    ? !manualCollapsedInSearchIds.has(group.timetableId)
+                    : manualExpandedIds.has(group.timetableId)
+
                   return (
                     <div
                       key={group.timetableId}
-                      className="flex flex-col gap-2 rounded-lg border border-border/50 bg-card p-3 shadow-xs transition-colors hover:border-border"
+                      className={cn(
+                        "flex flex-col rounded-lg border border-border/50 bg-card p-3 shadow-xs transition-colors hover:border-border",
+                        isExpanded && "gap-2"
+                      )}
                     >
                       {/* Level 1: Timetable name & parent checkbox */}
                       <div className="flex items-center gap-2.5">
@@ -393,66 +446,92 @@ export function SettingsView({
                           onCheckedChange={() =>
                             handleToggleTimetable(activities.map((a) => a.id))
                           }
-                          className="size-4.5"
+                          className="size-4.5 shrink-0"
                         />
                         <label
                           htmlFor={`tt-${group.timetableId}`}
-                          className="flex-1 cursor-pointer font-heading text-sm font-bold tracking-tight text-foreground select-none"
+                          className="flex-1 min-w-0 cursor-pointer font-heading text-sm font-bold tracking-tight text-foreground select-none"
                         >
                           {group.timetableTitle}
                         </label>
-                        <span className="text-[11px] text-muted-foreground font-mono">
+                        <span className="text-[11px] text-muted-foreground font-mono shrink-0 select-none">
                           {selectedCount}/{totalCount}
                         </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-xs"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            toggleTimetableExpanded(group.timetableId)
+                          }}
+                          aria-label={
+                            isExpanded
+                              ? `Collapse ${group.timetableTitle}`
+                              : `Expand ${group.timetableTitle}`
+                          }
+                          aria-expanded={isExpanded}
+                          className="size-6 shrink-0 text-muted-foreground hover:text-foreground hover:bg-muted/80 rounded-md -mr-1"
+                        >
+                          <ChevronDownIcon
+                            className={cn(
+                              "size-3.5 transition-transform duration-200",
+                              !isExpanded && "-rotate-90"
+                            )}
+                          />
+                        </Button>
                       </div>
 
-                      {/* Level 2: Activities indented under timetable */}
-                      <div className="flex flex-col gap-2 pl-6 pt-1 border-l-2 border-border/40 ml-2">
-                        {activities.map((act) => {
-                          const isChecked = selectedActivityKeys.has(act.id)
+                      {/* Level 2: Activities indented under timetable (only rendered if uncollapsed) */}
+                      {isExpanded && (
+                        <div className="flex flex-col gap-2 pl-6 pt-1 border-l-2 border-border/40 ml-2">
+                          {activities.map((act) => {
+                            const isChecked = selectedActivityKeys.has(act.id)
 
-                          return (
-                            <div
-                              key={act.id}
-                              className="flex items-center justify-between gap-2 py-0.5 group"
-                            >
-                              <div className="flex flex-1 items-center gap-2.5 min-w-0">
-                                <Checkbox
-                                  id={act.id}
-                                  checked={isChecked}
-                                  onCheckedChange={() => handleToggleActivity(act.id)}
-                                  className="size-4 shrink-0"
-                                />
-                                <label
-                                  htmlFor={act.id}
-                                  className={`cursor-pointer text-xs font-medium select-none transition-colors break-words ${
-                                    isChecked
-                                      ? 'text-foreground font-semibold'
-                                      : 'text-muted-foreground hover:text-foreground'
-                                  }`}
-                                >
-                                  {formatActivityName(act)}
-                                </label>
-                              </div>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="icon-xs"
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  e.stopPropagation()
-                                  handleOpenActivityModal(act.id)
-                                }}
-                                className="size-6 shrink-0 rounded-full text-muted-foreground hover:text-foreground"
-                                title={`Details for ${formatActivityName(act)}`}
-                                aria-label={`Details for ${formatActivityName(act)}`}
+                            return (
+                              <div
+                                key={act.id}
+                                className="flex items-center justify-between gap-2 py-0.5 group"
                               >
-                                <InfoIcon className="size-3.5" />
-                              </Button>
-                            </div>
-                          )
-                        })}
-                      </div>
+                                <div className="flex flex-1 items-center gap-2.5 min-w-0">
+                                  <Checkbox
+                                    id={act.id}
+                                    checked={isChecked}
+                                    onCheckedChange={() => handleToggleActivity(act.id)}
+                                    className="size-4 shrink-0"
+                                  />
+                                  <label
+                                    htmlFor={act.id}
+                                    className={`cursor-pointer text-xs font-medium select-none transition-colors break-words ${
+                                      isChecked
+                                        ? 'text-foreground font-semibold'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                    }`}
+                                  >
+                                    {formatActivityName(act)}
+                                  </label>
+                                </div>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon-xs"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    handleOpenActivityModal(act.id)
+                                  }}
+                                  className="size-6 shrink-0 rounded-full text-muted-foreground hover:text-foreground"
+                                  title={`Details for ${formatActivityName(act)}`}
+                                  aria-label={`Details for ${formatActivityName(act)}`}
+                                >
+                                  <InfoIcon className="size-3.5" />
+                                </Button>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
                     </div>
                   )
                 })}
