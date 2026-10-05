@@ -88,7 +88,10 @@ export function ActivityDetailsDialog({
             <div className="flex items-center gap-2.5 text-muted-foreground">
               <MapPinIcon className="size-4 shrink-0 text-foreground" />
               <span>
-                Location: {activity.location.type} {activity.location.id}
+                Location:{' '}
+                {typeof activity.location === 'string'
+                  ? activity.location
+                  : `${activity.location.type} ${activity.location.id}`}
               </span>
             </div>
           )}

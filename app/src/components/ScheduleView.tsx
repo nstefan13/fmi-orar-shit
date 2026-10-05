@@ -1,7 +1,7 @@
 import * as React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/react/timegrid'
-import type { Activity, Timetable, DidacticWeekSpec } from '@/types/timetable'
+import type { Activity, Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
 import { activitiesForToday, formatActivityName, getDidacticWeekForDate } from '@/lib/timetable'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -18,6 +18,7 @@ interface ScheduleViewProps {
   selectedActivityKeys: Set<string>
   onNavigateToSettings: () => void
   didacticWeeks?: DidacticWeekSpec[]
+  customActivities?: CustomActivity[]
 }
 
 const WEEKDAYS = [
@@ -60,6 +61,7 @@ export function ScheduleView({
   selectedActivityKeys,
   onNavigateToSettings,
   didacticWeeks,
+  customActivities,
 }: ScheduleViewProps) {
   const calendarRef = React.useRef<any>(null)
 
@@ -83,8 +85,8 @@ export function ScheduleView({
 
   // Call activitiesForToday(data, activeDate) as required
   const todaysActivities = React.useMemo(() => {
-    return activitiesForToday(data, activeDate, selectedActivityKeys, didacticWeeks)
-  }, [data, activeDate, selectedActivityKeys, didacticWeeks])
+    return activitiesForToday(data, activeDate, selectedActivityKeys, didacticWeeks, customActivities)
+  }, [data, activeDate, selectedActivityKeys, didacticWeeks, customActivities])
 
   const currentWeekNumber = React.useMemo(() => {
     return getDidacticWeekForDate(activeDate, didacticWeeks)
@@ -122,11 +124,15 @@ export function ScheduleView({
     })
   }, [todaysActivities, activeDateStr])
 
+  const hasAnyActivities =
+    selectedActivityKeys.size > 0 ||
+    Boolean(customActivities && customActivities.some((c) => c.enabled !== false))
+
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-background">
+    <div className="flex flex-1 min-h-0 h-full flex-col overflow-hidden bg-background">
       {/* Daily Calendar Area */}
-      <div className="relative flex-1 overflow-hidden p-2 sm:p-4">
-        {selectedActivityKeys.size === 0 ? (
+      <div className="relative flex-1 min-h-0 overflow-hidden p-2 sm:p-4">
+        {!hasAnyActivities ? (
           <div className="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
             <div className="flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
               <CalendarIcon className="size-7" />
@@ -242,7 +248,9 @@ export function ScheduleView({
                     {act.location && (
                       <span className="inline-flex items-center gap-0.5 font-mono">
                         <MapPinIcon className="size-2.5" />
-                        {act.location.type} {act.location.id}
+                        {typeof act.location === 'string'
+                          ? act.location
+                          : `${act.location.type} ${act.location.id}`}
                       </span>
                     )}
                     {act.authors && act.authors.length > 0 && (

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { Activity, Timetable, DidacticWeekSpec } from '@/types/timetable'
+import type { Activity, Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
 import {
   buildSearchIndex,
   searchTimetables,
@@ -8,6 +8,8 @@ import {
   formatDateString,
   getDidacticWeeks,
   saveDidacticWeeks,
+  getCustomActivities,
+  saveCustomActivities,
   type SearchIndex,
 } from '@/lib/timetable'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -17,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
+import { CustomActivityDialog } from '@/components/CustomActivityDialog'
 import { cn } from '@/lib/utils'
 import {
   SearchIcon,
@@ -26,7 +29,12 @@ import {
   InfoIcon,
   Trash2Icon,
   ChevronDownIcon,
+  PencilIcon,
 } from 'lucide-react'
+
+function pad(n: number): string {
+  return n < 10 ? `0${n}` : `${n}`
+}
 
 interface SettingsViewProps {
   data: Timetable[]
@@ -34,6 +42,8 @@ interface SettingsViewProps {
   onSelectionChange: (newKeys: Set<string>) => void
   didacticWeeks?: DidacticWeekSpec[]
   onDidacticWeeksChange?: (specs: DidacticWeekSpec[]) => void
+  customActivities?: CustomActivity[]
+  onCustomActivitiesChange?: (activities: CustomActivity[]) => void
 }
 
 export function SettingsView({
@@ -42,6 +52,8 @@ export function SettingsView({
   onSelectionChange,
   didacticWeeks: didacticWeeksProps,
   onDidacticWeeksChange: onDidacticWeeksChangeProps,
+  customActivities: customActivitiesProps,
+  onCustomActivitiesChange: onCustomActivitiesChangeProps,
 }: SettingsViewProps) {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedActivityForModal, setSelectedActivityForModal] =
@@ -139,6 +151,59 @@ export function SettingsView({
   const handleRemoveWeek = (id: string) => {
     const updated = currentDidacticWeeks.filter((item) => item.id !== id)
     handleWeeksUpdate(updated)
+  }
+
+  const [internalCustomActivities, setInternalCustomActivities] = React.useState<CustomActivity[]>(() =>
+    getCustomActivities()
+  )
+  const currentCustomActivities = customActivitiesProps ?? internalCustomActivities
+
+  const handleCustomActivitiesUpdate = (updated: CustomActivity[]) => {
+    if (onCustomActivitiesChangeProps) {
+      onCustomActivitiesChangeProps(updated)
+    } else {
+      setInternalCustomActivities(updated)
+    }
+    saveCustomActivities(updated)
+  }
+
+  const [isCustomDialogOpen, setIsCustomDialogOpen] = React.useState(false)
+  const [editingCustomActivity, setEditingCustomActivity] = React.useState<CustomActivity | null>(null)
+
+  const handleOpenCreateCustom = () => {
+    setEditingCustomActivity(null)
+    setIsCustomDialogOpen(true)
+  }
+
+  const handleOpenEditCustom = (act: CustomActivity) => {
+    setEditingCustomActivity(act)
+    setIsCustomDialogOpen(true)
+  }
+
+  const handleSaveCustomActivity = (saved: CustomActivity) => {
+    const exists = currentCustomActivities.some((c) => c.id === saved.id)
+    let updated: CustomActivity[]
+    if (exists) {
+      updated = currentCustomActivities.map((c) => (c.id === saved.id ? saved : c))
+    } else {
+      updated = [...currentCustomActivities, saved]
+    }
+    handleCustomActivitiesUpdate(updated)
+  }
+
+  const handleToggleCustomActivity = (id: string) => {
+    const updated = currentCustomActivities.map((c) => {
+      if (c.id === id) {
+        return { ...c, enabled: !c.enabled }
+      }
+      return c
+    })
+    handleCustomActivitiesUpdate(updated)
+  }
+
+  const handleRemoveCustomActivity = (id: string) => {
+    const updated = currentCustomActivities.filter((c) => c.id !== id)
+    handleCustomActivitiesUpdate(updated)
   }
 
   // Fast O(1) lookup of activity by unique activity ID
@@ -325,6 +390,116 @@ export function SettingsView({
               className="w-full font-medium h-9 border-dashed hover:border-solid hover:bg-accent/50 transition-colors"
             >
               Specify a didactial week +
+            </Button>
+          </div>
+
+          {/* Section: Custom Activities (between Weeks and Activities) */}
+          <div className="flex flex-col gap-3 border-b border-border/70 p-4 sm:p-5">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col gap-0.5">
+                <h2 className="font-heading text-xl font-bold tracking-tight">
+                  Custom Activities
+                </h2>
+                <p className="text-xs text-muted-foreground sm:text-sm">
+                  Add your own activities in the schedule, even if they are not in the official timetable!
+                </p>
+              </div>
+              {currentCustomActivities.length > 0 && (
+                <Badge variant="secondary" className="px-2.5 py-1 text-xs font-semibold">
+                  {currentCustomActivities.length}{' '}
+                  {currentCustomActivities.length === 1 ? 'activity' : 'activities'}
+                </Badge>
+              )}
+            </div>
+
+            {/* List of custom activities */}
+            {currentCustomActivities.length > 0 && (
+              <div className="flex flex-col gap-2 pt-1">
+                {currentCustomActivities.map((act) => (
+                  <div
+                    key={act.id}
+                    className="flex items-center justify-between gap-2.5 rounded-lg border border-border/60 bg-card p-2.5 shadow-xs"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                      <Checkbox
+                        id={`custom-${act.id}`}
+                        checked={act.enabled !== false}
+                        onCheckedChange={() => handleToggleCustomActivity(act.id)}
+                        className="size-4.5 shrink-0"
+                      />
+                      <div className="flex flex-col min-w-0">
+                        <label
+                          htmlFor={`custom-${act.id}`}
+                          className={`cursor-pointer text-sm font-semibold truncate ${
+                            act.enabled !== false
+                              ? 'text-foreground'
+                              : 'text-muted-foreground line-through'
+                          }`}
+                        >
+                          {act.name}
+                        </label>
+                        <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
+                          <span>{act.weekday}</span>
+                          <span>•</span>
+                          <span>
+                            {pad(act.start_time.hour)}:{pad(act.start_time.minute)} -{' '}
+                            {pad(act.end_time.hour)}:{pad(act.end_time.minute)}
+                          </span>
+                          {act.periodicity && (
+                            <>
+                              <span>•</span>
+                              <Badge variant="outline" className="text-[10px] px-1 py-0 h-4">
+                                {act.periodicity}
+                              </Badge>
+                            </>
+                          )}
+                          {act.location && (
+                            <>
+                              <span>•</span>
+                              <span className="truncate max-w-[120px]">{act.location}</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-xs"
+                        onClick={() => handleOpenEditCustom(act)}
+                        className="size-8 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                        title="Edit custom activity"
+                        aria-label={`Edit ${act.name}`}
+                      >
+                        <PencilIcon className="size-3.5" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-xs"
+                        onClick={() => handleRemoveCustomActivity(act.id)}
+                        className="size-8 rounded-md text-destructive hover:bg-destructive/10 hover:text-destructive"
+                        title="Delete custom activity"
+                        aria-label={`Delete ${act.name}`}
+                      >
+                        <Trash2Icon className="size-3.5 text-destructive" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Wide button: labeled "Add custom activity" (no plus icon) */}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleOpenCreateCustom}
+              className="w-full font-medium h-9 border-dashed hover:border-solid hover:bg-accent/50 transition-colors"
+            >
+              Add custom activity
             </Button>
           </div>
 
@@ -550,6 +725,14 @@ export function SettingsView({
             setSelectedActivityForModal(null)
           }
         }}
+      />
+
+      {/* Custom Activity Dialog */}
+      <CustomActivityDialog
+        open={isCustomDialogOpen}
+        onOpenChange={setIsCustomDialogOpen}
+        initialActivity={editingCustomActivity}
+        onSave={handleSaveCustomActivity}
       />
     </div>
   )

@@ -12,12 +12,13 @@ export interface Activity {
   name: string
   type: string | null
   authors: string[]
-  location: ActivityLocation | null
+  location: ActivityLocation | string | null
   periodicity: string | null
   subgroup: string | number | null
   _timetableId?: string
   _timetableTitle?: string
   should_blur?: boolean
+  is_custom?: boolean
 }
 
 export interface TimeSpec {
@@ -35,4 +36,16 @@ export interface DidacticWeekSpec {
   id: string
   date: string // 'YYYY-MM-DD'
   weekNumber: number
+}
+
+export interface CustomActivity {
+  id: string
+  name: string
+  weekday: string // 'Luni' | 'Marti' | 'Miercuri' | 'Joi' | 'Vineri'
+  start_time: TimeSpec
+  end_time: TimeSpec
+  authors: string[]
+  location: string | null
+  periodicity: 'Odd Week' | 'Even Week' | null
+  enabled: boolean
 }

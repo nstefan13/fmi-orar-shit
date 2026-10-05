@@ -1,8 +1,9 @@
 import fuzzysort from 'fuzzysort'
-import type { Activity, Timetable, DidacticWeekSpec } from '@/types/timetable'
+import type { Activity, Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
 
 export const STORAGE_KEY_SELECTED_ACTIVITIES = 'orar_selected_activities'
 export const STORAGE_KEY_DIDACTIC_WEEKS = 'orar_didactic_weeks'
+export const STORAGE_KEY_CUSTOM_ACTIVITIES = 'orar_custom_activities'
 
 /**
  * Read didactic week specifications from localStorage.
@@ -189,6 +190,34 @@ export function saveSelectedActivityKeys(keys: Set<string> | string[]): void {
 }
 
 /**
+ * Read custom activities from localStorage.
+ */
+export function getCustomActivities(): CustomActivity[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_CUSTOM_ACTIVITIES)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    return Array.isArray(parsed) ? parsed : []
+  } catch (e) {
+    console.error('Failed to load custom activities from localStorage', e)
+    return []
+  }
+}
+
+/**
+ * Save custom activities to localStorage.
+ */
+export function saveCustomActivities(activities: CustomActivity[]): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(STORAGE_KEY_CUSTOM_ACTIVITIES, JSON.stringify(activities))
+  } catch (e) {
+    console.error('Failed to save custom activities to localStorage', e)
+  }
+}
+
+/**
  * Map JavaScript Date day of week (0-6) to Romanian weekday name.
  * 1 -> Luni, 2 -> Marti, 3 -> Miercuri, 4 -> Joi, 5 -> Vineri.
  */
@@ -206,13 +235,15 @@ export const WEEKDAY_MAP: Record<number, string> = {
  * @param today A Date object representing the day
  * @param optionalSelectedKeys Optional override for testing or reactive state; defaults to reading localStorage
  * @param didacticWeeks Optional list of didactic week specifications; defaults to reading localStorage
- * @returns A list of activities as they are found in the DATA
+ * @param customActivities Optional list of custom activities; defaults to reading localStorage
+ * @returns A list of activities as they are found in the DATA + enabled custom activities
  */
 export function activitiesForToday(
   data: Timetable[],
   today: Date,
   optionalSelectedKeys?: Set<string>,
-  didacticWeeks?: DidacticWeekSpec[]
+  didacticWeeks?: DidacticWeekSpec[],
+  customActivities?: CustomActivity[]
 ): Activity[] {
   const dayIndex = today.getDay()
   const weekdayName = WEEKDAY_MAP[dayIndex]
@@ -222,7 +253,12 @@ export function activitiesForToday(
   }
 
   const selectedKeys = optionalSelectedKeys ?? getSelectedActivityKeys()
-  if (selectedKeys.size === 0) {
+  const customList = customActivities ?? getCustomActivities()
+  const activeCustomList = customList.filter(
+    (c) => c.enabled !== false && c.weekday === weekdayName
+  )
+
+  if (selectedKeys.size === 0 && activeCustomList.length === 0) {
     return []
   }
 
@@ -241,7 +277,6 @@ export function activitiesForToday(
           }
 
           // Set should_blur only if activity has periodicity of 'odd' or 'even'
-          // Blur if periodicity is odd and week number is odd; blur if periodicity is even and week number is even
           if (currentWeekNumber !== null && currentWeekNumber !== undefined) {
             const period = activity.periodicity?.toLowerCase().trim()
             if (period === 'odd') {
@@ -256,6 +291,44 @@ export function activitiesForToday(
       }
     }
   }
+
+  // Include active custom activities for today
+  for (const customAct of activeCustomList) {
+    let should_blur = false
+    if (currentWeekNumber !== null && currentWeekNumber !== undefined && customAct.periodicity) {
+      const period = customAct.periodicity.toLowerCase().trim()
+      if (period === 'odd week' || period === 'odd') {
+        should_blur = currentWeekNumber % 2 === 0
+      } else if (period === 'even week' || period === 'even') {
+        should_blur = currentWeekNumber % 2 !== 0
+      }
+    }
+
+    activities.push({
+      id: customAct.id,
+      name: customAct.name,
+      weekday: customAct.weekday,
+      start_time: customAct.start_time,
+      end_time: customAct.end_time,
+      type: 'Custom',
+      authors: customAct.authors || [],
+      location: customAct.location || null,
+      periodicity: customAct.periodicity || null,
+      subgroup: null,
+      _timetableId: 'custom',
+      _timetableTitle: 'Custom Activities',
+      should_blur,
+      is_custom: true,
+    })
+  }
+
+  // Sort activities by start hour and minute
+  activities.sort((a, b) => {
+    if (a.start_time.hour !== b.start_time.hour) {
+      return a.start_time.hour - b.start_time.hour
+    }
+    return a.start_time.minute - b.start_time.minute
+  })
 
   return activities
 }
