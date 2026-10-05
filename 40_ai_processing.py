@@ -90,6 +90,7 @@ import logging
 import os
 from pathlib import Path
 import pprint
+import re
 from typing import Any, List, Literal, Optional, Union
 
 import aiometer
@@ -97,8 +98,9 @@ import backoff
 import nest_asyncio
 from openrouter import errors
 from langchain_openrouter import ChatOpenRouter
+from IPython import embed
 from langchain.messages import HumanMessage
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 import utils
 from utils import imagePath2imageURL, loadEnv, loadPrompt
@@ -113,7 +115,7 @@ logger = utils.create_logger()
 PIPELINE_DATA_DIR = Path(os.getenv("PIPELINE_DATA_DIR", "output"))
 OUTPUT_DIR = PIPELINE_DATA_DIR / "ai-processed-activities"
 VISION_MODEL = os.getenv("VISION_MODEL", "dots-studio/dots-3-note-preview:free")
-BATCH_SIZE = int(os.getenv("BATCH_SIZE", "6"))
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", "12"))
 MAX_CONCURRENT = int(os.getenv("MAX_CONCURRENT", "30"))
 
 
@@ -130,7 +132,7 @@ class Room(BaseModel):
     )
 
 
-Location = Union[Literal["ONLINE"], Room]
+Location = Union[str, Room]
 
 
 class Time(BaseModel):
@@ -144,7 +146,8 @@ class Time(BaseModel):
 
 class Activity(BaseModel):
     """
-    Semantic information extracted from an individual timetable activity crop.
+    Semantic information extracted from an individual timetable activity crop using AI.
+    This is passed to the AI model.
     """
     id: int = Field(
         description="Sequential index identifier of the activity within the batch prompt (0, 1, 2, ...).",
@@ -171,11 +174,6 @@ class Activity(BaseModel):
         default=None,
         description="Target student subgroup number if the activity is subgroup-specific.",
     )
-    observations: Optional[str] = Field(
-        default=None,
-        description="Edge cases, ambiguities, or additional notes recorded during parsing.",
-    )
-
 
 # In this pipeline, each activity cell parsed by the vision model is referred to as VisionResponse
 VisionResponse = Activity
@@ -297,9 +295,6 @@ async def _process_single_batch(paths: list[Path]) -> list[VisionResponse]:
         max_retries=3,
         reasoning={"summary": "auto"},
     )
-    structured_model = model.with_structured_output(
-        batch_schema, method="json_schema", include_raw=True
-    )
 
     logger.debug(
         f"Invoking vision model {VISION_MODEL} with {len(content_parts)} message parts for {activity_identifiers}..."
@@ -309,16 +304,39 @@ async def _process_single_batch(paths: list[Path]) -> list[VisionResponse]:
     @backoff.on_exception(
         backoff.expo,
         errors.TooManyRequestsResponseError,
-        max_tries=5,
+        max_tries=20,
         logger=logger,
     )
     async def _invoke():
-        return await structured_model.ainvoke(messages)
+        return await model.ainvoke(messages)
 
     resp = await _invoke()
+    match = re.search(r"<FinalResponse>(.*?)</FinalResponse>", resp.content, re.DOTALL)
+    if not match or not match.group(1).strip():
+        logger.error(
+            f"Missing or empty <FinalResponse> XML tags in model response for batch {activity_identifiers}.\n"
+            f"Raw model response content:\n{resp.content}"
+        )
+        raise ValueError(
+            f"Vision AI response for batch {activity_identifiers} is missing or empty within <FinalResponse>...</FinalResponse> tags."
+        )
 
-    # Validate parsed AI output and verify clear 1:1 mapping
-    parsed_batch = resp.get("parsed") if isinstance(resp, dict) else None
+    json_payload = match.group(1).strip()
+
+    try:
+        # Validate parsed AI output
+        parsed_batch = batch_schema.model_validate_json(json_payload)
+    except ValidationError as e:
+        logger.error(
+            f"Failed to validate Vision AI JSON response against schema for batch {activity_identifiers}.\n"
+            f"Validation error:\n{e}\n"
+            f"Raw model response content:\n{resp.content}"
+        )
+        raise ValueError(
+            f"Vision AI response for batch {activity_identifiers} failed schema validation: {e}"
+        ) from e
+    
+    # Verify clear 1:1 mapping
     parsed_activities = getattr(parsed_batch, "parsed_activities", []) if parsed_batch else []
 
     expected_ids = set(range(len(paths)))
@@ -334,6 +352,8 @@ async def _process_single_batch(paths: list[Path]) -> list[VisionResponse]:
             f"but received IDs {[act.id for act in parsed_activities]}. "
             f"Please inspect debug.log to view the full model response and reasoning."
         )
+
+    logger.info(f"Successfully parsed batch {activity_identifiers}")
 
     return [id_to_activity[i] for i in range(len(paths))]
 

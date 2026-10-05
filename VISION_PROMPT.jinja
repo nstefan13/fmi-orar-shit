@@ -28,10 +28,9 @@ interface Activity {
 	location?: Location;
 	periodicity?: "even" | "odd" | "range";
 	subgroup?: number;
-	observations?: string;
 }
 
-type Location = "ONLINE" | Room;
+type Location = string | Room;
 
 interface Room {
 	id: number;
@@ -40,9 +39,9 @@ interface Room {
 </Schema>
 
 OUTPUT FORMAT AND GENERATION RULES:
-1. CRITICAL: Do NOT draft or output the JSON object in your reasoning / thinking process. Use your thinking process solely to read each image's text. The JSON object must be written ONLY in your final output.
-2. You MUST return exactly N items inside `parsed_activities` matching all N input images (IDs 0 to N-1). Never truncate, omit items, or return a partial array.
-3. Every activity entry MUST contain its extracted fields (`id`, `name`, `authors`, and `location` if present). Never close an activity entry prematurely with only `id` and `name`.
+1. You MUST return exactly N items inside `parsed_activities` matching all N input images (IDs 0 to N-1). Never truncate, omit items, or return a partial array.
+2. Every activity entry MUST contain its extracted fields (`id`, `name`, `authors`, and `location` if present). Never close an activity entry prematurely with only `id` and `name`.
+3. In your final output you can write whatever you want. You can write extra comments or guidelines if it helps you, but you MUST provide the final valid JSON between the following XML tags: <FinalResponse></FinalResponse>
 
 Do not ever add / remove diacritics.
 
@@ -86,7 +85,7 @@ Each activity has an OPTIONAL type. The types are defined as follows:
 
 Usually the type can be deduced from the name. For example, an activity like "ReteleNeuronale1 (curs)" will be of type `Curs`.
 
-If the type of an activity is not obvious or cannot be determined with high confidence, set it to undefined / do not specify it. NEVER specify it if you are unsure. DO NOT SET THE TYPE IF UNSURE!
+If the type of an activity is not obvious or cannot be determined with high confidence, set it to null / do not specify it. NEVER specify it if you are unsure. DO NOT SET THE TYPE IF UNSURE!
 
 
 
@@ -111,7 +110,10 @@ The location is, most of the time, written in a format like this: "S-415", "Amf.
 "S" -> "Sala",
 "L" -> "Lab",
 "Amf" -> "Amfiteatru"
-If you find a new location type that doesn't appear in the answer's schema, set it to undefined and note your discovery in the `observations` field.
+
+If you find a new location type that cannot be mapped to a Room, write it as a STRING in the `location` field.
+
+If not location was provided, leave the `location` field null. Do NOT EVER set it to an empty string.
 
 
 
@@ -124,7 +126,7 @@ Now the actual guidelines:
 
 If the visual representation of the activity has a specifier like "SP" (Saptamana Para -> `even`) or "SI" (Saptamana Impara -> `odd`) the work is done. Other times, the visual representation is even more explicit and contains stuff like "impar" or "saptamana para". Whatever the case, if the periodicity is specified via text, you can move on to filling other fields.
 
-If the activity specifies a range of weeks (like "[sapt 9-15]"), then the activity IS NOT PERIODIC and DOES NOT run on a biweekly schedule. In this case, do NOT leave the field as undefined. Instead, you MUST set it to "range". This is the only time you set this field to "range". In no other case, should this value be used. 
+If the activity specifies a range of weeks (like "[sapt 9-15]"), then the activity IS NOT PERIODIC and DOES NOT run on a biweekly schedule. In this case, do NOT leave the field as null. Instead, you MUST set it to "range". This is the only time you set this field to "range". In no other case, should this value be used. 
 
 
 

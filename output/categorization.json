@@ -1,18 +1,15 @@
 [
   {
     "path": "/Users/nstefan/Downloads/OrarShit/output/pages/1.jpeg",
-    "is_timetable": false,
-    "text_content": "Actualizat: MI 30.09.2026, ora 20:30\n\nOrarul nu conține încă toate activitățile necesare, urmează să fie completat și reafișat în weekend.\n\nIgnorați momentan afișările referitoare la paritatea săptămânii (sunt rămase de anul trecut, vor fi corectate la următoarea afișare). Daca activitatea este o dată la două săptămâni, poziționarea în jumătatea de sus/jos a zilei înseamnă că activitatea se desfășoară în S.I. / S.P. (în orarul profesorilor este mai ușor de descifrat paritatea).\n\nVă rugăm să NU trimiteți încă observațiile, așteptați afișarea următoare. Mulțumim!"
+    "is_timetable": true
   },
   {
     "path": "/Users/nstefan/Downloads/OrarShit/output/pages/2.jpeg",
-    "is_timetable": false,
-    "text_content": "Săptămâna 1 – 2 octombrie este impară (SI) [„odd week”].\n\nSăptămâna 5 – 9 octombrie este pară (SP) [„even week”].\n\nAveți pe pagina următoare numărul de locuri din fiecare sală și localizarea sălilor.\n\n**Orar Tutoriate (an 1 și 2):**\n\n(Orar pt studenți: ...), (Orar tutori: ...),\n\n(LINKURI grupuri Teams & WhatsApp pt tutoriate: ...)\n\nDacă întâmpinați **probleme tehnice**, văputeți adresa laboranților, la sala **221-B**.\n\n*Verificați frecvent pagina de orar pentru a fi la curent cu modificările care apar.*\n\nActualizat: **MI 30.09.2026, ora 20:30**\n\n**_Vă rugăm să trimiteți observațiile dvs până cel târziu sâmbătă ora 14._**"
+    "is_timetable": true
   },
   {
     "path": "/Users/nstefan/Downloads/OrarShit/output/pages/3.jpeg",
-    "is_timetable": false,
-    "text_content": "### Tables of Capacities for Rooms and Laboratories\n\n#### Rooms (Sală) and Seat Count (Nr. locuri)\n\n| Sală | Nr. locuri |\n| :--- | :--- |\n| Amf. 0 (Haret) | 115 |\n| Amf. 1 (Stoilow) | 120 |\n| Amf. 2 (Pompeiu) | 120 |\n| Amf. 3 (Țițeica) | 125 |\n| 202 | 60 |\n| 220 | 58 |\n| 219 | 56 |\n| 1 | 48 |\n| 3 | 48 |\n| 5 | 44 |\n| 8 | 32 |\n| 9 | 32 |\n| 10 | 32 |\n| 12 | 40 |\n| 120 | 32 |\n| 215 | 32 |\n| 216 | 32 |\n| 214_Google | 52 |\n\n#### Laboratories (Laborator) and Seat Count (Nr. locuri)\n\n| Laborator | Nr. locuri |\n| :--- | :--- |\n| L.121D | 16 |\n| L.218 | 16 |\n| L.221A | 16 |\n| L.221C | 16 |\n| L.302A | 16 |\n| L-119 | 24 |\n| L-201 | 30 |\n| L-204 | 31 |\n| L-303 | 30 |\n| L-305 | 26 |\n| L-308 | 30 |\n| L-321 | 30 |\n| L-322 | 24 |\n| L-309 (iOS) | 30 |\n| L.314_Robotică | 12 |\n| L.315_Robotică | 12 |\n\n---\n\nPentru a localiza mai ușor sălile, aveți aici schițele pentru fiecare etaj:\n\n[https://fmi.unibuc.ro/prezentare/schite/](https://fmi.unibuc.ro/prezentare/schite/)"
+    "is_timetable": true
   },
   {
     "path": "/Users/nstefan/Downloads/OrarShit/output/pages/4.jpeg",
@@ -404,18 +401,6 @@
   },
   {
     "path": "/Users/nstefan/Downloads/OrarShit/output/pages/101.jpeg",
-    "is_timetable": true
-  },
-  {
-    "path": "/Users/nstefan/Downloads/OrarShit/output/pages/102.jpeg",
-    "is_timetable": true
-  },
-  {
-    "path": "/Users/nstefan/Downloads/OrarShit/output/pages/103.jpeg",
-    "is_timetable": true
-  },
-  {
-    "path": "/Users/nstefan/Downloads/OrarShit/output/pages/104.jpeg",
     "is_timetable": true
   }
 ]
