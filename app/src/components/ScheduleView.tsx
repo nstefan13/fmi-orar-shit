@@ -1,8 +1,8 @@
 import * as React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/react/timegrid'
-import type { Activity, Timetable } from '@/types/timetable'
-import { activitiesForToday, formatActivityName } from '@/lib/timetable'
+import type { Activity, Timetable, DidacticWeekSpec } from '@/types/timetable'
+import { activitiesForToday, formatActivityName, getDidacticWeekForDate } from '@/lib/timetable'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
@@ -17,6 +17,7 @@ interface ScheduleViewProps {
   data: Timetable[]
   selectedActivityKeys: Set<string>
   onNavigateToSettings: () => void
+  didacticWeeks?: DidacticWeekSpec[]
 }
 
 const WEEKDAYS = [
@@ -58,6 +59,7 @@ export function ScheduleView({
   data,
   selectedActivityKeys,
   onNavigateToSettings,
+  didacticWeeks,
 }: ScheduleViewProps) {
   const calendarRef = React.useRef<any>(null)
 
@@ -81,8 +83,12 @@ export function ScheduleView({
 
   // Call activitiesForToday(data, activeDate) as required
   const todaysActivities = React.useMemo(() => {
-    return activitiesForToday(data, activeDate, selectedActivityKeys)
-  }, [data, activeDate, selectedActivityKeys])
+    return activitiesForToday(data, activeDate, selectedActivityKeys, didacticWeeks)
+  }, [data, activeDate, selectedActivityKeys, didacticWeeks])
+
+  const currentWeekNumber = React.useMemo(() => {
+    return getDidacticWeekForDate(activeDate, didacticWeeks)
+  }, [activeDate, didacticWeeks])
 
   // Sync calendar date when activeDate changes
   React.useEffect(() => {
@@ -108,6 +114,7 @@ export function ScheduleView({
         title: formatActivityName(act),
         start: startTimeStr,
         end: displayEndTimeStr,
+        className: act.should_blur ? 'opacity-40 transition-opacity' : '',
         extendedProps: {
           activity: act,
         },
@@ -181,7 +188,18 @@ export function ScheduleView({
               const weekday = d.toLocaleDateString('en-US', { weekday: 'long' })
               const day = d.getDate()
               const month = d.toLocaleDateString('en-US', { month: 'long' })
-              return `${weekday}, ${day} ${month}`
+              return (
+                <div className="inline-flex items-center justify-center gap-2.5 px-3 py-1">
+                  <span className="leading-none">
+                    {weekday}, {day} {month}
+                  </span>
+                  {currentWeekNumber !== null && (
+                    <span className="inline-flex items-center text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 leading-none">
+                      Week {currentWeekNumber}
+                    </span>
+                  )}
+                </div>
+              )
             }}
             height="100%"
             expandRows={true}
@@ -193,8 +211,13 @@ export function ScheduleView({
             }}
             eventContent={(eventInfo) => {
               const act = eventInfo.event.extendedProps.activity as Activity
+              const isBlurred = Boolean(act.should_blur)
               return (
-                <div className="flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-l-4 border-l-primary bg-primary/10 p-1.5 text-xs text-foreground transition-all hover:bg-primary/20">
+                <div
+                  className={`flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-l-4 border-l-primary bg-primary/10 p-1.5 text-xs text-foreground transition-all hover:bg-primary/20 ${
+                    isBlurred ? 'opacity-40' : ''
+                  }`}
+                >
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-center justify-between gap-1">
                       <span className="font-semibold leading-tight line-clamp-1">

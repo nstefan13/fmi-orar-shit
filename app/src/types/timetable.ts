@@ -22,6 +22,13 @@ export interface Activity {
   subgroup: string | number | null
   _timetableId?: string
   _timetableTitle?: string
+  should_blur?: boolean
+}
+
+export interface DidacticWeekSpec {
+  id: string
+  date: string // 'YYYY-MM-DD'
+  weekNumber: number
 }
 
 export interface Timetable {

@@ -14,6 +14,7 @@ import {
   UserIcon,
   BookOpenIcon,
   InfoIcon,
+  HashIcon,
 } from 'lucide-react'
 
 function pad(n: number): string {
@@ -53,14 +54,24 @@ export function ActivityDetailsDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-3 py-2 text-sm">
+          {/* Activity ID */}
+          {activity.id && (
+            <div className="flex items-center gap-2.5 text-muted-foreground">
+              <HashIcon className="size-4 shrink-0 text-foreground" />
+              <span>
+                ID: <span className="font-mono font-medium text-foreground">{activity.id}</span>
+              </span>
+            </div>
+          )}
+
           {/* Time session */}
           <div className="flex items-center gap-2.5 text-muted-foreground">
             <ClockIcon className="size-4 shrink-0 text-foreground" />
             <span>
               {activity.weekday && (
-                <strong className="font-semibold text-foreground mr-1">
+                <span className="mr-1">
                   {activity.weekday}:
-                </strong>
+                </span>
               )}
               {pad(activity.start_time.hour)}:{pad(activity.start_time.minute)} –{' '}
               {pad(activity.end_time.hour)}:{pad(activity.end_time.minute)}

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import rawTimetableData from '@/data/DATA.json'
-import type { Timetable } from '@/types/timetable'
-import { getSelectedActivityKeys } from '@/lib/timetable'
+import type { Timetable, DidacticWeekSpec } from '@/types/timetable'
+import { getSelectedActivityKeys, getDidacticWeeks, getDidacticWeekForDate } from '@/lib/timetable'
 import { ScheduleView } from '@/components/ScheduleView'
 import { SettingsView } from '@/components/SettingsView'
 import { Button } from '@/components/ui/button'
@@ -20,6 +20,13 @@ export function App() {
   const [selectedActivityKeys, setSelectedActivityKeys] = React.useState<Set<string>>(() =>
     getSelectedActivityKeys()
   )
+  const [didacticWeeks, setDidacticWeeks] = React.useState<DidacticWeekSpec[]>(() =>
+    getDidacticWeeks()
+  )
+
+  const currentWeekNumber = React.useMemo(() => {
+    return getDidacticWeekForDate(new Date(), didacticWeeks)
+  }, [didacticWeeks])
 
   const [isDarkMode, setIsDarkMode] = React.useState<boolean>(() => {
     if (typeof window !== 'undefined') {
@@ -59,8 +66,8 @@ export function App() {
             </span>
             <span className="text-[10px] text-muted-foreground">
               {activeTab === 'schedule'
-                ? `${selectedActivityKeys.size} activities active`
-                : 'Configure activities'}
+                ? `${selectedActivityKeys.size} activities active${currentWeekNumber !== null ? ` • Week ${currentWeekNumber}` : ''}`
+                : 'Configure weeks & activities'}
             </span>
           </div>
         </div>
@@ -109,6 +116,7 @@ export function App() {
           <ScheduleView
             data={timetableData}
             selectedActivityKeys={selectedActivityKeys}
+            didacticWeeks={didacticWeeks}
             onNavigateToSettings={() => setActiveTab('settings')}
           />
         ) : (
@@ -116,6 +124,8 @@ export function App() {
             data={timetableData}
             selectedActivityKeys={selectedActivityKeys}
             onSelectionChange={setSelectedActivityKeys}
+            didacticWeeks={didacticWeeks}
+            onDidacticWeeksChange={setDidacticWeeks}
           />
         )}
       </main>
