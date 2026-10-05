@@ -5,14 +5,8 @@ import type { Activity, Timetable } from '@/types/timetable'
 import { activitiesForToday, formatActivityName } from '@/lib/timetable'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog'
-import { CalendarIcon, ClockIcon, MapPinIcon, UserIcon, BookOpenIcon, InfoIcon } from 'lucide-react'
+import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
+import { CalendarIcon, MapPinIcon, UserIcon } from 'lucide-react'
 
 // FullCalendar stylesheets
 import '@fullcalendar/react/skeleton.css'
@@ -269,83 +263,13 @@ export function ScheduleView({
       </nav>
 
       {/* Activity Details Dialog */}
-      <Dialog
+      <ActivityDetailsDialog
+        activity={selectedActivityForModal}
         open={Boolean(selectedActivityForModal)}
         onOpenChange={(open) => {
           if (!open) setSelectedActivityForModal(null)
         }}
-      >
-        {selectedActivityForModal && (
-          <DialogContent className="max-w-sm">
-            <DialogHeader>
-              <div className="flex items-center gap-2">
-                <DialogTitle className="text-base font-semibold">
-                  {selectedActivityForModal.name}
-                </DialogTitle>
-                {selectedActivityForModal.type && (
-                  <Badge variant="secondary" className="text-xs">
-                    {selectedActivityForModal.type}
-                  </Badge>
-                )}
-              </div>
-              <DialogDescription>
-                {formatActivityName(selectedActivityForModal)}
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="flex flex-col gap-3 py-2 text-sm">
-              <div className="flex items-center gap-2.5 text-muted-foreground">
-                <ClockIcon className="size-4 shrink-0 text-foreground" />
-                <span>
-                  {pad(selectedActivityForModal.start_time.hour)}:
-                  {pad(selectedActivityForModal.start_time.minute)} –{' '}
-                  {pad(selectedActivityForModal.end_time.hour)}:
-                  {pad(selectedActivityForModal.end_time.minute)}
-                </span>
-              </div>
-
-              {selectedActivityForModal.location && (
-                <div className="flex items-center gap-2.5 text-muted-foreground">
-                  <MapPinIcon className="size-4 shrink-0 text-foreground" />
-                  <span>
-                    Location: {selectedActivityForModal.location.type}{' '}
-                    {selectedActivityForModal.location.id}
-                  </span>
-                </div>
-              )}
-
-              {selectedActivityForModal.authors &&
-                selectedActivityForModal.authors.length > 0 && (
-                  <div className="flex items-center gap-2.5 text-muted-foreground">
-                    <UserIcon className="size-4 shrink-0 text-foreground" />
-                    <span>Professors: {selectedActivityForModal.authors.join(', ')}</span>
-                  </div>
-                )}
-
-              {selectedActivityForModal.subgroup && (
-                <div className="flex items-center gap-2.5 text-muted-foreground">
-                  <BookOpenIcon className="size-4 shrink-0 text-foreground" />
-                  <span>Subgroup: SG-{selectedActivityForModal.subgroup}</span>
-                </div>
-              )}
-
-              {selectedActivityForModal.periodicity && (
-                <div className="flex items-center gap-2.5 text-muted-foreground">
-                  <InfoIcon className="size-4 shrink-0 text-foreground" />
-                  <span>Periodicity: {selectedActivityForModal.periodicity}</span>
-                </div>
-              )}
-
-              {selectedActivityForModal._timetableTitle && (
-                <div className="mt-2 rounded-lg bg-muted/50 p-2.5 text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground">Timetable: </span>
-                  {selectedActivityForModal._timetableTitle}
-                </div>
-              )}
-            </div>
-          </DialogContent>
-        )}
-      </Dialog>
+      />
     </div>
   )
 }

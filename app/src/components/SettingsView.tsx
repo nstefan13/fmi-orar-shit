@@ -1,10 +1,11 @@
 import * as React from 'react'
-import type { Timetable } from '@/types/timetable'
+import type { Activity, Timetable } from '@/types/timetable'
 import {
   buildSearchIndex,
   searchTimetables,
   getActivityKey,
   saveSelectedActivityKeys,
+  formatActivityName,
   type SearchIndex,
 } from '@/lib/timetable'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -12,7 +13,14 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/in
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { SearchIcon, XIcon, CheckCheckIcon, RotateCcwIcon } from 'lucide-react'
+import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
+import {
+  SearchIcon,
+  XIcon,
+  CheckCheckIcon,
+  RotateCcwIcon,
+  InfoIcon,
+} from 'lucide-react'
 
 interface SettingsViewProps {
   data: Timetable[]
@@ -26,6 +34,24 @@ export function SettingsView({
   onSelectionChange,
 }: SettingsViewProps) {
   const [searchQuery, setSearchQuery] = React.useState('')
+  const [selectedActivityForModal, setSelectedActivityForModal] =
+    React.useState<Activity | null>(null)
+  const [selectedSessionsForModal, setSelectedSessionsForModal] =
+    React.useState<Activity[]>([])
+
+  const handleOpenActivityModal = (timetableTitle: string, actName: string) => {
+    const tt = data.find((t) => t.title === timetableTitle)
+    if (tt) {
+      const matchingSessions = tt.activities
+        .filter((a) => formatActivityName(a) === actName)
+        .map((a) => ({ ...a, _timetableTitle: timetableTitle }))
+
+      if (matchingSessions.length > 0) {
+        setSelectedActivityForModal(matchingSessions[0])
+        setSelectedSessionsForModal(matchingSessions)
+      }
+    }
+  }
 
   // Build search index once for fast fuzzy search over underlying JSON
   const searchIndex: SearchIndex = React.useMemo(() => {
@@ -228,26 +254,43 @@ export function SettingsView({
                       return (
                         <div
                           key={key}
-                          className="flex items-center gap-2.5 py-0.5"
+                          className="flex items-center justify-between gap-2 py-0.5 group"
                         >
-                          <Checkbox
-                            id={key}
-                            checked={isChecked}
-                            onCheckedChange={() =>
-                              handleToggleActivity(group.timetableTitle, actName)
-                            }
-                            className="size-4"
-                          />
-                          <label
-                            htmlFor={key}
-                            className={`flex-1 cursor-pointer text-xs font-medium select-none transition-colors ${
-                              isChecked
-                                ? 'text-foreground font-semibold'
-                                : 'text-muted-foreground hover:text-foreground'
-                            }`}
+                          <div className="flex flex-1 items-center gap-2.5 min-w-0">
+                            <Checkbox
+                              id={key}
+                              checked={isChecked}
+                              onCheckedChange={() =>
+                                handleToggleActivity(group.timetableTitle, actName)
+                              }
+                              className="size-4 shrink-0"
+                            />
+                            <label
+                              htmlFor={key}
+                              className={`cursor-pointer text-xs font-medium select-none transition-colors break-words ${
+                                isChecked
+                                  ? 'text-foreground font-semibold'
+                                  : 'text-muted-foreground hover:text-foreground'
+                              }`}
+                            >
+                              {actName}
+                            </label>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon-xs"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              handleOpenActivityModal(group.timetableTitle, actName)
+                            }}
+                            className="size-6 shrink-0 rounded-full text-muted-foreground hover:text-foreground"
+                            title={`Details for ${actName}`}
+                            aria-label={`Details for ${actName}`}
                           >
-                            {actName}
-                          </label>
+                            <InfoIcon className="size-3.5" />
+                          </Button>
                         </div>
                       )
                     })}
@@ -258,6 +301,19 @@ export function SettingsView({
           </div>
         )}
       </ScrollArea>
+
+      {/* Activity Details Dialog */}
+      <ActivityDetailsDialog
+        activity={selectedActivityForModal}
+        allSessions={selectedSessionsForModal}
+        open={Boolean(selectedActivityForModal)}
+        onOpenChange={(open) => {
+          if (!open) {
+            setSelectedActivityForModal(null)
+            setSelectedSessionsForModal([])
+          }
+        }}
+      />
     </div>
   )
 }
