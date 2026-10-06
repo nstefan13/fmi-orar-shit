@@ -1,5 +1,6 @@
 import * as React from 'react'
-import type { Activity, Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
+import type { Activity, Timetable, DidacticWeekSpec, CustomActivity, Profile } from '@/types/timetable'
+import { NULL_UUID } from '@/types/timetable'
 import {
   buildSearchIndex,
   searchTimetables,
@@ -12,14 +13,19 @@ import {
   saveCustomActivities,
   type SearchIndex,
 } from '@/lib/timetable'
+import { DEFAULT_PROFILE, downloadProfileJson } from '@/lib/profile'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
 import { CustomActivityDialog } from '@/components/CustomActivityDialog'
+import { CreateProfileDialog } from '@/components/CreateProfileDialog'
+import { RenameProfileDialog } from '@/components/RenameProfileDialog'
+import { DeleteProfileDialog } from '@/components/DeleteProfileDialog'
 import { cn } from '@/lib/utils'
 import {
   SearchIcon,
@@ -30,6 +36,8 @@ import {
   Trash2Icon,
   ChevronDownIcon,
   PencilIcon,
+  PlusIcon,
+  DownloadIcon,
 } from 'lucide-react'
 
 function pad(n: number): string {
@@ -44,6 +52,12 @@ interface SettingsViewProps {
   onDidacticWeeksChange?: (specs: DidacticWeekSpec[]) => void
   customActivities?: CustomActivity[]
   onCustomActivitiesChange?: (activities: CustomActivity[]) => void
+  profiles?: Profile[]
+  activeProfileId?: string
+  onSelectProfile?: (id: string) => void
+  onCreateProfile?: (profile: Profile) => void
+  onRenameActiveProfile?: (newName: string) => void
+  onDeleteActiveProfile?: () => void
 }
 
 export function SettingsView({
@@ -54,10 +68,32 @@ export function SettingsView({
   onDidacticWeeksChange: onDidacticWeeksChangeProps,
   customActivities: customActivitiesProps,
   onCustomActivitiesChange: onCustomActivitiesChangeProps,
+  profiles = [DEFAULT_PROFILE],
+  activeProfileId = NULL_UUID,
+  onSelectProfile,
+  onCreateProfile,
+  onRenameActiveProfile,
+  onDeleteActiveProfile,
 }: SettingsViewProps) {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedActivityForModal, setSelectedActivityForModal] =
     React.useState<Activity | null>(null)
+
+  // Profile Dialogs State
+  const [isCreateProfileOpen, setIsCreateProfileOpen] = React.useState(false)
+  const [isRenameProfileOpen, setIsRenameProfileOpen] = React.useState(false)
+  const [isDeleteProfileOpen, setIsDeleteProfileOpen] = React.useState(false)
+
+  // Active profile computation
+  const activeProfile = React.useMemo(() => {
+    return (
+      profiles.find((p) => p.id === activeProfileId) ||
+      profiles[0] ||
+      DEFAULT_PROFILE
+    )
+  }, [profiles, activeProfileId])
+
+  const isDefaultProfile = activeProfile.id === NULL_UUID
 
   // Track manually uncollapsed timetable IDs when not searching (default is collapsed)
   const [manualExpandedIds, setManualExpandedIds] = React.useState<Set<string>>(() => new Set())
@@ -293,13 +329,119 @@ export function SettingsView({
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
       <ScrollArea className="flex-1 min-h-0">
         <div className="flex flex-col">
+          {/* Section 0: Profiles (above Weeks) */}
+          <div className="flex flex-col gap-3.5 border-b border-border/70 p-4 sm:p-5">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col gap-0.5">
+                <h1 className="font-heading text-xl font-bold tracking-tight">
+                  Profiles
+                </h1>
+                <p className="text-xs text-muted-foreground sm:text-sm">
+                  Save and load schedules from your friends and more!
+                </p>
+              </div>
+              <Badge variant="secondary" className="px-2.5 py-1 text-xs font-semibold">
+                {profiles.length} {profiles.length === 1 ? 'profile' : 'profiles'}
+              </Badge>
+            </div>
+
+            {/* Profile Selection Row: ToggleGroup + "+" button */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <ToggleGroup
+                value={[activeProfile.id]}
+                onValueChange={(val) => {
+                  // Enforce: at any time one profile MUST be active, and ONLY one.
+                  if (val && val.length > 0 && val[0]) {
+                    onSelectProfile?.(val[0])
+                  }
+                }}
+                variant="outline"
+                spacing={2}
+                className="flex-wrap"
+              >
+                {profiles.map((p) => (
+                  <ToggleGroupItem
+                    key={p.id}
+                    value={p.id}
+                    className="h-8 px-3 text-xs sm:text-sm font-medium rounded-lg max-w-[160px] truncate"
+                    title={p.name}
+                  >
+                    <span className="truncate">{p.name}</span>
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+
+              {/* Button to add a new profile */}
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setIsCreateProfileOpen(true)}
+                className="h-8 px-2.5 rounded-lg border-dashed hover:border-solid hover:bg-accent/50 transition-colors"
+                title="Create or import profile"
+                aria-label="Add a new profile"
+              >
+                <PlusIcon className="size-3.5" />
+              </Button>
+            </div>
+
+            {/* 3 wide action buttons at the bottom of the section */}
+            <div className="grid grid-cols-3 gap-2 pt-1">
+              {/* Export button */}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => downloadProfileJson(activeProfile, activityMap)}
+                className="h-9 px-2 font-medium text-xs sm:text-sm gap-1.5"
+                title={`Export profile "${activeProfile.name}" as JSON`}
+              >
+                <DownloadIcon data-icon="inline-start" />
+                <span className="truncate">Export</span>
+              </Button>
+
+              {/* Change Name button */}
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isDefaultProfile}
+                onClick={() => setIsRenameProfileOpen(true)}
+                className="h-9 px-2 font-medium text-xs sm:text-sm gap-1.5 disabled:opacity-40"
+                title={
+                  isDefaultProfile
+                    ? 'The default profile name cannot be changed'
+                    : `Change name of profile "${activeProfile.name}"`
+                }
+              >
+                <PencilIcon data-icon="inline-start" />
+                <span className="truncate">Change Name</span>
+              </Button>
+
+              {/* Delete button (red, destructive) */}
+              <Button
+                type="button"
+                variant="destructive"
+                disabled={isDefaultProfile}
+                onClick={() => setIsDeleteProfileOpen(true)}
+                className="h-9 px-2 font-medium text-xs sm:text-sm gap-1.5 bg-destructive text-destructive-foreground hover:bg-destructive/90 disabled:opacity-40"
+                title={
+                  isDefaultProfile
+                    ? 'The default profile cannot be deleted'
+                    : `Delete profile "${activeProfile.name}"`
+                }
+              >
+                <Trash2Icon data-icon="inline-start" />
+                <span className="truncate">Delete</span>
+              </Button>
+            </div>
+          </div>
+
           {/* Section 1: Weeks (before Activities) */}
           <div className="flex flex-col gap-3 border-b border-border/70 p-4 sm:p-5">
             <div className="flex items-center justify-between gap-2">
               <div className="flex flex-col gap-0.5">
-                <h1 className="font-heading text-xl font-bold tracking-tight">
+                <h2 className="font-heading text-xl font-bold tracking-tight">
                   Weeks
-                </h1>
+                </h2>
                 <p className="text-xs text-muted-foreground sm:text-sm">
                   Define didactical week numbers for specific days
                 </p>
@@ -733,6 +875,36 @@ export function SettingsView({
         onOpenChange={setIsCustomDialogOpen}
         initialActivity={editingCustomActivity}
         onSave={handleSaveCustomActivity}
+      />
+
+      {/* Create / Import Profile Dialog */}
+      <CreateProfileDialog
+        open={isCreateProfileOpen}
+        onOpenChange={setIsCreateProfileOpen}
+        allActivities={React.useMemo(() => Array.from(activityMap.values()), [activityMap])}
+        onCreateProfile={(newProfile) => {
+          onCreateProfile?.(newProfile)
+        }}
+      />
+
+      {/* Rename Profile Dialog */}
+      <RenameProfileDialog
+        open={isRenameProfileOpen}
+        onOpenChange={setIsRenameProfileOpen}
+        currentName={activeProfile.name}
+        onRename={(newName) => {
+          onRenameActiveProfile?.(newName)
+        }}
+      />
+
+      {/* Delete Profile Confirmation Dialog */}
+      <DeleteProfileDialog
+        open={isDeleteProfileOpen}
+        onOpenChange={setIsDeleteProfileOpen}
+        profileName={activeProfile.name}
+        onConfirmDelete={() => {
+          onDeleteActiveProfile?.()
+        }}
       />
     </div>
   )

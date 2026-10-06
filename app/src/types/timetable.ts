@@ -49,3 +49,31 @@ export interface CustomActivity {
   periodicity: 'Odd Week' | 'Even Week' | null
   enabled: boolean
 }
+
+export const NULL_UUID = '00000000-0000-0000-0000-000000000000'
+
+export interface Profile {
+  id: string // UUID (Default profile has NULL_UUID)
+  name: string
+  selectedActivityKeys: string[] // IDs matching Activity.id in DATA.json
+  customActivities: CustomActivity[]
+  didacticWeeks: DidacticWeekSpec[]
+}
+
+export interface ExportedActivity {
+  name: string
+  type?: string | null
+  start_time: TimeSpec
+  end_time: TimeSpec
+  authors: string[]
+  location: ActivityLocation | string | null
+  periodicity: string | null
+  subgroup: string | number | null
+}
+
+export interface ExportedProfileData {
+  name: string
+  'custom activities': ExportedActivity[]
+  'selected activities': ExportedActivity[]
+  'defined weekdays'?: DidacticWeekSpec[]
+}

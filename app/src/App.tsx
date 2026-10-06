@@ -1,12 +1,15 @@
 import * as React from 'react'
 import rawTimetableData from '@/data/DATA.json'
-import type { Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
+import type { Timetable, DidacticWeekSpec, CustomActivity, Profile } from '@/types/timetable'
+import { NULL_UUID } from '@/types/timetable'
+import { getDidacticWeekForDate } from '@/lib/timetable'
 import {
-  getSelectedActivityKeys,
-  getDidacticWeeks,
-  getDidacticWeekForDate,
-  getCustomActivities,
-} from '@/lib/timetable'
+  getProfiles,
+  saveProfiles,
+  getActiveProfileId,
+  saveActiveProfileId,
+  DEFAULT_PROFILE,
+} from '@/lib/profile'
 import { ScheduleView } from '@/components/ScheduleView'
 import { SettingsView } from '@/components/SettingsView'
 import { Button } from '@/components/ui/button'
@@ -35,15 +38,39 @@ const timetableData = rawTimetableData as unknown as Timetable[]
 
 export function App() {
   const [activeTab, setActiveTab] = React.useState<'schedule' | 'settings'>('schedule')
-  const [selectedActivityKeys, setSelectedActivityKeys] = React.useState<Set<string>>(() =>
-    getSelectedActivityKeys()
-  )
-  const [didacticWeeks, setDidacticWeeks] = React.useState<DidacticWeekSpec[]>(() =>
-    getDidacticWeeks()
-  )
-  const [customActivities, setCustomActivities] = React.useState<CustomActivity[]>(() =>
-    getCustomActivities()
-  )
+
+  // Profiles State
+  const [profiles, setProfiles] = React.useState<Profile[]>(() => getProfiles())
+  const [activeProfileId, setActiveProfileId] = React.useState<string>(() => {
+    const savedId = getActiveProfileId()
+    const initialProfiles = getProfiles()
+    if (initialProfiles.some((p) => p.id === savedId)) {
+      return savedId
+    }
+    return NULL_UUID
+  })
+
+  // Derived Active Profile
+  const activeProfile = React.useMemo(() => {
+    return (
+      profiles.find((p) => p.id === activeProfileId) ||
+      profiles[0] ||
+      DEFAULT_PROFILE
+    )
+  }, [profiles, activeProfileId])
+
+  // Active profile's properties
+  const selectedActivityKeys = React.useMemo(() => {
+    return new Set(activeProfile.selectedActivityKeys || [])
+  }, [activeProfile.selectedActivityKeys])
+
+  const didacticWeeks = React.useMemo(() => {
+    return activeProfile.didacticWeeks || []
+  }, [activeProfile.didacticWeeks])
+
+  const customActivities = React.useMemo(() => {
+    return activeProfile.customActivities || []
+  }, [activeProfile.customActivities])
 
   const activeCustomCount = React.useMemo(() => {
     return customActivities.filter((c) => c.enabled !== false).length
@@ -54,6 +81,87 @@ export function App() {
   const currentWeekNumber = React.useMemo(() => {
     return getDidacticWeekForDate(new Date(), didacticWeeks)
   }, [didacticWeeks])
+
+  // Handlers for updating active profile
+  const handleSelectionChange = React.useCallback(
+    (newKeys: Set<string>) => {
+      const keysArr = Array.from(newKeys)
+      setProfiles((prev) => {
+        const updated = prev.map((p) =>
+          p.id === activeProfile.id ? { ...p, selectedActivityKeys: keysArr } : p
+        )
+        saveProfiles(updated)
+        return updated
+      })
+    },
+    [activeProfile.id]
+  )
+
+  const handleDidacticWeeksChange = React.useCallback(
+    (updatedWeeks: DidacticWeekSpec[]) => {
+      setProfiles((prev) => {
+        const updated = prev.map((p) =>
+          p.id === activeProfile.id ? { ...p, didacticWeeks: updatedWeeks } : p
+        )
+        saveProfiles(updated)
+        return updated
+      })
+    },
+    [activeProfile.id]
+  )
+
+  const handleCustomActivitiesChange = React.useCallback(
+    (updatedCustom: CustomActivity[]) => {
+      setProfiles((prev) => {
+        const updated = prev.map((p) =>
+          p.id === activeProfile.id ? { ...p, customActivities: updatedCustom } : p
+        )
+        saveProfiles(updated)
+        return updated
+      })
+    },
+    [activeProfile.id]
+  )
+
+  const handleSelectProfile = React.useCallback((id: string) => {
+    setActiveProfileId(id)
+    saveActiveProfileId(id)
+  }, [])
+
+  const handleCreateProfile = React.useCallback((newProfile: Profile) => {
+    setProfiles((prev) => {
+      const updated = [...prev, newProfile]
+      saveProfiles(updated)
+      return updated
+    })
+    setActiveProfileId(newProfile.id)
+    saveActiveProfileId(newProfile.id)
+  }, [])
+
+  const handleRenameActiveProfile = React.useCallback(
+    (newName: string) => {
+      if (activeProfile.id === NULL_UUID) return
+      setProfiles((prev) => {
+        const updated = prev.map((p) =>
+          p.id === activeProfile.id ? { ...p, name: newName } : p
+        )
+        saveProfiles(updated)
+        return updated
+      })
+    },
+    [activeProfile.id]
+  )
+
+  const handleDeleteActiveProfile = React.useCallback(() => {
+    if (activeProfile.id === NULL_UUID) return
+    setProfiles((prev) => {
+      const updated = prev.filter((p) => p.id !== activeProfile.id)
+      saveProfiles(updated)
+      return updated
+    })
+    setActiveProfileId(NULL_UUID)
+    saveActiveProfileId(NULL_UUID)
+  }, [activeProfile.id])
 
   const [theme, setTheme] = React.useState<Theme>(getInitialTheme)
 
@@ -106,7 +214,7 @@ export function App() {
             <span className="text-[10px] text-muted-foreground">
               {activeTab === 'schedule'
                 ? `${totalActiveActivities} activities active${currentWeekNumber !== null ? ` • Week ${currentWeekNumber}` : ''}`
-                : 'Configure weeks & activities'}
+                : `Profile: ${activeProfile.name}`}
             </span>
           </div>
         </div>
@@ -166,11 +274,17 @@ export function App() {
           <SettingsView
             data={timetableData}
             selectedActivityKeys={selectedActivityKeys}
-            onSelectionChange={setSelectedActivityKeys}
+            onSelectionChange={handleSelectionChange}
             didacticWeeks={didacticWeeks}
-            onDidacticWeeksChange={setDidacticWeeks}
+            onDidacticWeeksChange={handleDidacticWeeksChange}
             customActivities={customActivities}
-            onCustomActivitiesChange={setCustomActivities}
+            onCustomActivitiesChange={handleCustomActivitiesChange}
+            profiles={profiles}
+            activeProfileId={activeProfileId}
+            onSelectProfile={handleSelectProfile}
+            onCreateProfile={handleCreateProfile}
+            onRenameActiveProfile={handleRenameActiveProfile}
+            onDeleteActiveProfile={handleDeleteActiveProfile}
           />
         )}
       </main>
