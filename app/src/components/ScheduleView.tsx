@@ -228,7 +228,7 @@ export function ScheduleView({
               const isBlurred = Boolean(act.should_blur)
               return (
                 <div
-                  className={`flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-l-4 border-l-primary bg-primary/10 p-1.5 text-xs text-foreground transition-all hover:bg-primary/20 ${isBlurred ? 'opacity-40' : ''
+                  className={`flex h-[calc(100%-3px)] mb-[3px] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-md border-l-4 border-l-primary bg-primary/10 p-1.5 text-xs text-foreground shadow-md shadow-black/10 dark:shadow-black/60 transition-all hover:bg-primary/20 hover:shadow-lg ${isBlurred ? 'opacity-40' : ''
                     }`}
                 >
                   <div className="flex flex-col gap-0.5">
