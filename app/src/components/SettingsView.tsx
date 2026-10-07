@@ -399,18 +399,13 @@ export function SettingsView({
         <div className="flex flex-col">
           {/* Section 0: Profiles (above Weeks) */}
           <div className="flex flex-col gap-3.5 border-b border-border/70 p-4 sm:p-5">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex flex-col gap-0.5">
-                <h1 className="font-heading text-xl font-bold tracking-tight">
-                  Profiles
-                </h1>
-                <p className="text-xs text-muted-foreground sm:text-sm">
-                  Save and load schedules from your friends and more!
-                </p>
-              </div>
-              <Badge variant="secondary" className="px-2.5 py-1 text-xs font-semibold">
-                {profiles.length} {profiles.length === 1 ? 'profile' : 'profiles'}
-              </Badge>
+            <div className="flex flex-col gap-0.5">
+              <h1 className="font-heading text-xl font-bold tracking-tight">
+                Profiles
+              </h1>
+              <p className="text-xs text-muted-foreground sm:text-sm">
+                Save and load schedules from your friends and more!
+              </p>
             </div>
 
             {/* Profile Selection Row: ToggleGroup + "+" button */}
