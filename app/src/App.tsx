@@ -21,13 +21,15 @@ import {
   BookOpenIcon,
 } from 'lucide-react'
 
-export type Theme = 'light' | 'dark' | 'system'
+import { themeSchema, type Theme } from '@/lib/schemas'
+export type { Theme }
 
 function getInitialTheme(): Theme {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('theme') as Theme | null
-    if (saved === 'light' || saved === 'dark' || saved === 'system') {
-      return saved
+    const saved = localStorage.getItem('theme')
+    const result = themeSchema.safeParse(saved)
+    if (result.success) {
+      return result.data
     }
   }
   return 'system'
@@ -149,7 +151,10 @@ export function App() {
   const [theme, setTheme] = React.useState<Theme>(getInitialTheme)
 
   React.useEffect(() => {
-    localStorage.setItem('theme', theme)
+    const result = themeSchema.safeParse(theme)
+    if (result.success) {
+      localStorage.setItem('theme', result.data)
+    }
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const applyTheme = () => {

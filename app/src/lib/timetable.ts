@@ -1,5 +1,10 @@
 import fuzzysort from 'fuzzysort'
 import type { Activity, Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
+import {
+  didacticWeeksSchema,
+  selectedActivitiesSchema,
+  customActivitiesSchema,
+} from '@/lib/schemas'
 
 export const STORAGE_KEY_SELECTED_ACTIVITIES = 'orar_selected_activities'
 export const STORAGE_KEY_DIDACTIC_WEEKS = 'orar_didactic_weeks'
@@ -14,13 +19,8 @@ export function getDidacticWeeks(): DidacticWeekSpec[] {
     const raw = localStorage.getItem(STORAGE_KEY_DIDACTIC_WEEKS)
     if (!raw) return []
     const parsed = JSON.parse(raw)
-    if (!Array.isArray(parsed)) return []
-    return parsed.filter(
-      (item) =>
-        item &&
-        typeof item.date === 'string' &&
-        typeof item.weekNumber === 'number'
-    )
+    const result = didacticWeeksSchema.safeParse(parsed)
+    return result.success ? result.data : []
   } catch (e) {
     console.error('Failed to load didactic weeks from localStorage', e)
     return []
@@ -33,7 +33,12 @@ export function getDidacticWeeks(): DidacticWeekSpec[] {
 export function saveDidacticWeeks(weeks: DidacticWeekSpec[]): void {
   if (typeof window === 'undefined') return
   try {
-    localStorage.setItem(STORAGE_KEY_DIDACTIC_WEEKS, JSON.stringify(weeks))
+    const result = didacticWeeksSchema.safeParse(weeks)
+    if (!result.success) {
+      console.warn('Invalid didactic weeks provided to saveDidacticWeeks:', result.error)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY_DIDACTIC_WEEKS, JSON.stringify(result.data))
   } catch (e) {
     console.error('Failed to save didactic weeks to localStorage', e)
   }
@@ -163,10 +168,11 @@ export function getSelectedActivityKeys(): Set<string> {
     const raw = localStorage.getItem(STORAGE_KEY_SELECTED_ACTIVITIES)
     if (!raw) return new Set()
     const parsed = JSON.parse(raw)
-    if (!Array.isArray(parsed)) return new Set()
+    const result = selectedActivitiesSchema.safeParse(parsed)
+    if (!result.success) return new Set()
     // Discard any obsolete non-ID keys (e.g. keys containing ":::")
-    const valid = parsed.filter(
-      (k) => typeof k === 'string' && k.startsWith('IMG-') && k.includes('_AC-')
+    const valid = result.data.filter(
+      (k) => k.startsWith('IMG-') && k.includes('_AC-')
     )
     return new Set(valid)
   } catch (e) {
@@ -182,7 +188,12 @@ export function saveSelectedActivityKeys(keys: Set<string> | string[]): void {
   if (typeof window === 'undefined') return
   try {
     const arr = Array.isArray(keys) ? keys : Array.from(keys)
-    localStorage.setItem(STORAGE_KEY_SELECTED_ACTIVITIES, JSON.stringify(arr))
+    const result = selectedActivitiesSchema.safeParse(arr)
+    if (!result.success) {
+      console.warn('Invalid selected activity keys provided to saveSelectedActivityKeys:', result.error)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY_SELECTED_ACTIVITIES, JSON.stringify(result.data))
   } catch (e) {
     console.error('Failed to save selected activities to localStorage', e)
   }
@@ -197,7 +208,8 @@ export function getCustomActivities(): CustomActivity[] {
     const raw = localStorage.getItem(STORAGE_KEY_CUSTOM_ACTIVITIES)
     if (!raw) return []
     const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? parsed : []
+    const result = customActivitiesSchema.safeParse(parsed)
+    return result.success ? (result.data as CustomActivity[]) : []
   } catch (e) {
     console.error('Failed to load custom activities from localStorage', e)
     return []
@@ -210,7 +222,12 @@ export function getCustomActivities(): CustomActivity[] {
 export function saveCustomActivities(activities: CustomActivity[]): void {
   if (typeof window === 'undefined') return
   try {
-    localStorage.setItem(STORAGE_KEY_CUSTOM_ACTIVITIES, JSON.stringify(activities))
+    const result = customActivitiesSchema.safeParse(activities)
+    if (!result.success) {
+      console.warn('Invalid custom activities provided to saveCustomActivities:', result.error)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY_CUSTOM_ACTIVITIES, JSON.stringify(result.data))
   } catch (e) {
     console.error('Failed to save custom activities to localStorage', e)
   }

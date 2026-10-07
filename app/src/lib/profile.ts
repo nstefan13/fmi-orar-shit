@@ -70,7 +70,12 @@ export function getProfiles(): Profile[] {
 export function saveProfiles(profiles: Profile[]): void {
   if (typeof window === 'undefined') return
   try {
-    localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(profiles))
+    const result = profilesSchema.safeParse(profiles)
+    if (!result.success) {
+      console.warn('Invalid profiles provided to saveProfiles:', result.error)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(result.data))
   } catch (e) {
     console.error('Failed to save profiles to localStorage', e)
   }

@@ -2,6 +2,9 @@ import { z } from 'zod'
 import { NULL_UUID } from '@/types/timetable'
 import { allElementsUnique } from '@/lib/utils'
 
+export const themeSchema = z.enum(['light', 'dark', 'system'])
+export type Theme = z.infer<typeof themeSchema>
+
 export const activityIdSchema = z.string()
 
 export const activeProfileIdSchema = z.uuid()
@@ -23,17 +26,23 @@ export const customActivitySchema = z.object({
   enabled: z.boolean(),
 })
 
+export const customActivitiesSchema = z.array(customActivitySchema)
+
 export const didacticWeekSchema = z.object({
   date: z.iso.date(),
   weekNumber: z.number().int().min(1),
 })
 
+export const didacticWeeksSchema = z.array(didacticWeekSchema)
+
+export const selectedActivitiesSchema = z.array(activityIdSchema)
+
 export const profileSchema = z.object({
   id: z.uuid(),
   name: z.string(),
-  selectedActivityKeys: z.array(activityIdSchema),
-  customActivities: z.array(customActivitySchema),
-  didacticWeeks: z.array(didacticWeekSchema),
+  selectedActivityKeys: selectedActivitiesSchema,
+  customActivities: customActivitiesSchema,
+  didacticWeeks: didacticWeeksSchema,
 })
 
 export const DEFAULT_PROFILE = {
