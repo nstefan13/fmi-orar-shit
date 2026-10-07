@@ -49,16 +49,11 @@ export function App() {
 
   // Active profile's properties
   const selectedActivityKeys = React.useMemo(() => {
-    return new Set(activeProfile.selectedActivityKeys || [])
+    return new Set(activeProfile.selectedActivityKeys)
   }, [activeProfile.selectedActivityKeys])
 
-  const didacticWeeks = React.useMemo(() => {
-    return activeProfile.didacticWeeks || []
-  }, [activeProfile.didacticWeeks])
-
-  const customActivities = React.useMemo(() => {
-    return activeProfile.customActivities || []
-  }, [activeProfile.customActivities])
+  const didacticWeeks = activeProfile.didacticWeeks
+  const customActivities = activeProfile.customActivities
 
   const activeCustomCount = React.useMemo(() => {
     return customActivities.filter((c) => c.enabled !== false).length
