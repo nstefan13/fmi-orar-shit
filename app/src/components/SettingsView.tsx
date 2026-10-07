@@ -516,20 +516,13 @@ export function SettingsView({
 
           {/* Section 1: Weeks (before Activities) */}
           <div className="flex flex-col gap-3 border-b border-border/70 p-4 sm:p-5">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex flex-col gap-0.5">
-                <h2 className="font-heading text-xl font-bold tracking-tight">
-                  Weeks
-                </h2>
-                <p className="text-xs text-muted-foreground sm:text-sm">
-                  Define didactical week numbers for specific days
-                </p>
-              </div>
-              {currentDidacticWeeks.length > 0 && (
-                <Badge variant="secondary" className="px-2.5 py-1 text-xs font-semibold">
-                  {currentDidacticWeeks.length} {currentDidacticWeeks.length === 1 ? 'rule' : 'rules'}
-                </Badge>
-              )}
+            <div className="flex flex-col gap-0.5">
+              <h2 className="font-heading text-xl font-bold tracking-tight">
+                Weeks
+              </h2>
+              <p className="text-xs text-muted-foreground sm:text-sm">
+                Define didactical week numbers for specific days
+              </p>
             </div>
 
             {/* Input fields appearing before the button */}
