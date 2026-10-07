@@ -8,7 +8,6 @@ import {
   saveProfiles,
   getActiveProfileId,
   saveActiveProfileId,
-  DEFAULT_PROFILE,
 } from '@/lib/profile'
 import { ScheduleView } from '@/components/ScheduleView'
 import { SettingsView } from '@/components/SettingsView'
@@ -41,22 +40,11 @@ export function App() {
 
   // Profiles State
   const [profiles, setProfiles] = React.useState<Profile[]>(() => getProfiles())
-  const [activeProfileId, setActiveProfileId] = React.useState<string>(() => {
-    const savedId = getActiveProfileId()
-    const initialProfiles = getProfiles()
-    if (initialProfiles.some((p) => p.id === savedId)) {
-      return savedId
-    }
-    return NULL_UUID
-  })
+  const [activeProfileId, setActiveProfileId] = React.useState<string>(() => getActiveProfileId())
 
   // Derived Active Profile
   const activeProfile = React.useMemo(() => {
-    return (
-      profiles.find((p) => p.id === activeProfileId) ||
-      profiles[0] ||
-      DEFAULT_PROFILE
-    )
+    return profiles.find((p) => p.id === activeProfileId)!
   }, [profiles, activeProfileId])
 
   // Active profile's properties
