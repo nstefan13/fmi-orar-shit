@@ -255,7 +255,7 @@ export function activitiesForToday(
   const selectedKeys = optionalSelectedKeys ?? getSelectedActivityKeys()
   const customList = customActivities ?? getCustomActivities()
   const activeCustomList = customList.filter(
-    (c) => c.enabled !== false && c.weekday === weekdayName
+    (c) => c.enabled && c.start_time.weekday === weekdayName
   )
 
   if (selectedKeys.size === 0 && activeCustomList.length === 0) {
@@ -307,7 +307,7 @@ export function activitiesForToday(
     activities.push({
       id: customAct.id,
       name: customAct.name,
-      weekday: customAct.weekday,
+      weekday: customAct.start_time.weekday,
       start_time: customAct.start_time,
       end_time: customAct.end_time,
       type: 'Custom',

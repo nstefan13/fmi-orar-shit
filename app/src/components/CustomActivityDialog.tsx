@@ -54,7 +54,7 @@ function CustomActivityForm({
   onClose,
 }: CustomActivityFormProps) {
   const [name, setName] = React.useState(initialActivity?.name || '')
-  const [weekday, setWeekday] = React.useState(initialActivity?.weekday || 'Luni')
+  const [weekday, setWeekday] = React.useState(initialActivity?.start_time?.weekday || 'Luni')
   const [startTime, setStartTime] = React.useState(
     initialActivity
       ? `${pad(initialActivity.start_time.hour)}:${pad(initialActivity.start_time.minute)}`
@@ -110,7 +110,6 @@ function CustomActivityForm({
         initialActivity?.id ||
         `custom-act-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: name.trim(),
-      weekday,
       start_time: {
         weekday,
         hour: startH,

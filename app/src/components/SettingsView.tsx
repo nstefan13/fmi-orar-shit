@@ -569,7 +569,7 @@ export function SettingsView({
                           {act.name}
                         </label>
                         <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
-                          <span>{act.weekday}</span>
+                          <span>{act.start_time.weekday}</span>
                           <span>•</span>
                           <span>
                             {pad(act.start_time.hour)}:{pad(act.start_time.minute)} -{' '}

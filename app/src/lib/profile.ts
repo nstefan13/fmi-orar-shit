@@ -251,7 +251,6 @@ export function parseImportedProfileJson(
     customActivitiesList.push({
       id: `custom-${generateUUID()}`,
       name: typeof item.name === 'string' ? item.name : 'Custom Activity',
-      weekday,
       start_time: {
         weekday,
         hour: startHour,

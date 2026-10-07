@@ -15,7 +15,6 @@ export const timeSchema = z.object({
 export const customActivitySchema = z.object({
   id: z.string(),
   name: z.string(),
-  weekday: z.string().optional(),
   start_time: timeSchema,
   end_time: timeSchema,
   authors: z.array(z.string()),

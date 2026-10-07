@@ -41,7 +41,6 @@ export interface DidacticWeekSpec {
 export interface CustomActivity {
   id: string
   name: string
-  weekday: string // 'Luni' | 'Marti' | 'Miercuri' | 'Joi' | 'Vineri'
   start_time: TimeSpec
   end_time: TimeSpec
   authors: string[]
