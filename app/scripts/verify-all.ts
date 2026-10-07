@@ -10,11 +10,18 @@ import {
 import {
   customActivitySchema,
   profileSchema,
+  selectedDaySchema,
 } from '../src/lib/schemas'
 import {
   parseImportedProfileJson,
   buildProfileExportData,
 } from '../src/lib/profile'
+import {
+  getDefaultDay,
+  getSelectedDay,
+  saveSelectedDay,
+  STORAGE_KEY_SELECTED_DAY,
+} from '../src/lib/timetable'
 import type { OrarData, CustomActivity, Profile } from '../src/types/timetable'
 
 function assert(condition: boolean, msg: string) {
@@ -134,6 +141,32 @@ async function runTests() {
   const latestActivityIds = new Set(orar.timetables.flatMap((t) => t.activities.map((a) => a.id)))
   const purged = oldSelectedKeys.filter((k) => !latestActivityIds.has(k))
   assert(purged.length === 1 && purged[0] === 'tt:999-ac:nonexistentactivityhash', 'Correctly identified missing activity to purge')
+
+  // 7. Verify selectedDaySchema and sessionStorage persistence
+  assert(selectedDaySchema.safeParse(1).success, 'selectedDaySchema accepts 1 (Monday)')
+  assert(selectedDaySchema.safeParse(5).success, 'selectedDaySchema accepts 5 (Friday)')
+  assert(!selectedDaySchema.safeParse(0).success, 'selectedDaySchema rejects 0')
+  assert(!selectedDaySchema.safeParse(6).success, 'selectedDaySchema rejects 6')
+  assert(!selectedDaySchema.safeParse('3').success, 'selectedDaySchema rejects string')
+
+  const defaultDay = getDefaultDay()
+  assert(defaultDay >= 1 && defaultDay <= 5, 'getDefaultDay returns 1-5')
+
+  // Test sessionStorage integration
+  const mockStorage = new Map<string, string>()
+  const mockSessionStorage = {
+    getItem: (key: string) => mockStorage.get(key) ?? null,
+    setItem: (key: string, val: string) => { mockStorage.set(key, val) },
+    removeItem: (key: string) => { mockStorage.delete(key) },
+    clear: () => { mockStorage.clear() },
+  }
+  ;(globalThis as any).sessionStorage = mockSessionStorage
+  ;(globalThis as any).window = globalThis
+
+  assert(getSelectedDay() === defaultDay, 'getSelectedDay defaults to default day when storage empty')
+  saveSelectedDay(4)
+  assert(mockStorage.get(STORAGE_KEY_SELECTED_DAY) === '4', 'saveSelectedDay stores day in sessionStorage')
+  assert(getSelectedDay() === 4, 'getSelectedDay reads saved day from sessionStorage')
 
   console.log('--- All Tests Passed Successfully! ---')
 }

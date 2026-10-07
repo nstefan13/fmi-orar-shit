@@ -7,6 +7,8 @@ export type Theme = z.infer<typeof themeSchema>
 
 export const activityIdSchema = z.string()
 
+export const selectedDaySchema = z.number().int().min(1).max(5)
+
 export const activeProfileIdSchema = z.uuid()
 
 export const timeSchema = z.object({

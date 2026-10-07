@@ -2,7 +2,13 @@ import * as React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/react/timegrid'
 import type { Activity, Timetable, DidacticWeekSpec, CustomActivity } from '@/types/timetable'
-import { activitiesForToday, formatActivityName, getDidacticWeekForDate } from '@/lib/timetable'
+import {
+  activitiesForToday,
+  formatActivityName,
+  getDidacticWeekForDate,
+  getSelectedDay,
+  saveSelectedDay,
+} from '@/lib/timetable'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
@@ -65,12 +71,14 @@ export function ScheduleView({
 }: ScheduleViewProps) {
   const calendarRef = React.useRef<any>(null)
 
-  // Calculate default day: if Monday-Friday, use today; if weekend, default to Monday
+  // Selected day stored in session storage, defaults to current day
   const [selectedWeekdayIndex, setSelectedWeekdayIndex] = React.useState<number>(() => {
-    const todayDay = new Date().getDay()
-    if (todayDay >= 1 && todayDay <= 5) return todayDay
-    return 1
+    return getSelectedDay()
   })
+
+  React.useEffect(() => {
+    saveSelectedDay(selectedWeekdayIndex)
+  }, [selectedWeekdayIndex])
 
   const [selectedActivityForModal, setSelectedActivityForModal] =
     React.useState<Activity | null>(null)
