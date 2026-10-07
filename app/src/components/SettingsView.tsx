@@ -26,11 +26,11 @@ import { CustomActivityDialog } from '@/components/CustomActivityDialog'
 import { CreateProfileDialog } from '@/components/CreateProfileDialog'
 import { RenameProfileDialog } from '@/components/RenameProfileDialog'
 import { DeleteProfileDialog } from '@/components/DeleteProfileDialog'
+import { ClearActivitiesDialog } from '@/components/ClearActivitiesDialog'
 import { cn } from '@/lib/utils'
 import {
   SearchIcon,
   XIcon,
-  CheckCheckIcon,
   RotateCcwIcon,
   InfoIcon,
   Trash2Icon,
@@ -83,6 +83,7 @@ export function SettingsView({
   const [isCreateProfileOpen, setIsCreateProfileOpen] = React.useState(false)
   const [isRenameProfileOpen, setIsRenameProfileOpen] = React.useState(false)
   const [isDeleteProfileOpen, setIsDeleteProfileOpen] = React.useState(false)
+  const [isClearActivitiesOpen, setIsClearActivitiesOpen] = React.useState(false)
 
   // Active profile computation
   const activeProfile = React.useMemo(() => {
@@ -306,18 +307,6 @@ export function SettingsView({
     onSelectionChange(next)
   }
 
-  // Select all visible activities
-  const handleSelectAllVisible = () => {
-    const next = new Set(selectedActivityKeys)
-    displayGroups.forEach((group) => {
-      group.activities.forEach((act) => {
-        next.add(act.id)
-      })
-    })
-    saveSelectedActivityKeys(next)
-    onSelectionChange(next)
-  }
-
   // Deselect all
   const handleDeselectAll = () => {
     const next = new Set<string>()
@@ -422,7 +411,7 @@ export function SettingsView({
                 variant="destructive"
                 disabled={isDefaultProfile}
                 onClick={() => setIsDeleteProfileOpen(true)}
-                className="h-9 px-2 font-medium text-xs sm:text-sm gap-1.5 bg-destructive text-destructive-foreground hover:bg-destructive/90 disabled:opacity-40"
+                className="h-9 px-2 font-medium text-xs sm:text-sm gap-1.5"
                 title={
                   isDefaultProfile
                     ? 'The default profile cannot be deleted'
@@ -572,11 +561,10 @@ export function SettingsView({
                       <div className="flex flex-col min-w-0">
                         <label
                           htmlFor={`custom-${act.id}`}
-                          className={`cursor-pointer text-sm font-semibold truncate ${
-                            act.enabled !== false
+                          className={`cursor-pointer text-sm font-semibold truncate ${act.enabled !== false
                               ? 'text-foreground'
                               : 'text-muted-foreground line-through'
-                          }`}
+                            }`}
                         >
                           {act.name}
                         </label>
@@ -697,28 +685,17 @@ export function SettingsView({
                   ? `Found ${displayGroups.length} timetables matching "${searchQuery}"`
                   : `${displayGroups.length} timetables available`}
               </span>
-              <div className="flex items-center gap-1.5">
+              {selectedActivityKeys.size > 0 && (
                 <Button
                   variant="ghost"
                   size="xs"
-                  onClick={handleSelectAllVisible}
-                  className="h-6 gap-1 text-[11px]"
+                  onClick={() => setIsClearActivitiesOpen(true)}
+                  className="h-6 gap-1 text-[11px] text-destructive hover:text-destructive"
                 >
-                  <CheckCheckIcon className="size-3" />
-                  Select all
+                  <RotateCcwIcon className="size-3" />
+                  Clear
                 </Button>
-                {selectedActivityKeys.size > 0 && (
-                  <Button
-                    variant="ghost"
-                    size="xs"
-                    onClick={handleDeselectAll}
-                    className="h-6 gap-1 text-[11px] text-destructive hover:text-destructive"
-                  >
-                    <RotateCcwIcon className="size-3" />
-                    Clear
-                  </Button>
-                )}
-              </div>
+              )}
             </div>
           </div>
 
@@ -820,11 +797,10 @@ export function SettingsView({
                                   />
                                   <label
                                     htmlFor={act.id}
-                                    className={`cursor-pointer text-xs font-medium select-none transition-colors break-words ${
-                                      isChecked
+                                    className={`cursor-pointer text-xs font-medium select-none transition-colors wrap-break-word ${isChecked
                                         ? 'text-foreground font-semibold'
                                         : 'text-muted-foreground hover:text-foreground'
-                                    }`}
+                                      }`}
                                   >
                                     {formatActivityName(act)}
                                   </label>
@@ -905,6 +881,14 @@ export function SettingsView({
         onConfirmDelete={() => {
           onDeleteActiveProfile?.()
         }}
+      />
+
+      {/* Clear Activities Confirmation Dialog */}
+      <ClearActivitiesDialog
+        open={isClearActivitiesOpen}
+        onOpenChange={setIsClearActivitiesOpen}
+        count={selectedActivityKeys.size}
+        onConfirmClear={handleDeselectAll}
       />
     </div>
   )

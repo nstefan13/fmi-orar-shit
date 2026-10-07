@@ -9,6 +9,9 @@ import type {
 import { NULL_UUID } from '@/types/timetable'
 export { NULL_UUID }
 
+import { v4 as uuidv4 } from 'uuid'
+export { uuidv4 }
+
 export const STORAGE_KEY_PROFILES = 'orar_profiles'
 export const STORAGE_KEY_ACTIVE_PROFILE_ID = 'orar_active_profile_id'
 
@@ -23,16 +26,7 @@ export const DEFAULT_PROFILE: Profile = {
 /**
  * Generate a standard UUID v4 string.
  */
-export function generateUUID(): string {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-    return crypto.randomUUID()
-  }
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0
-    const v = c === 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
-}
+export const generateUUID = uuidv4
 
 /**
  * Load all profiles from localStorage.

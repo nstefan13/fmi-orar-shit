@@ -1,6 +1,7 @@
 import * as React from 'react'
 import type { Activity, Profile } from '@/types/timetable'
-import { generateUUID, parseImportedProfileJson, type ParseImportResult } from '@/lib/profile'
+import { v4 as uuidv4 } from 'uuid'
+import { parseImportedProfileJson, type ParseImportResult } from '@/lib/profile'
 import {
   Dialog,
   DialogContent,
@@ -81,7 +82,7 @@ function CreateProfileForm({
     }
 
     const newProfile: Profile = {
-      id: generateUUID(),
+      id: uuidv4(),
       name: trimmed,
       selectedActivityKeys: importResult ? importResult.selectedActivityKeys : [],
       customActivities: importResult ? importResult.customActivities : [],
