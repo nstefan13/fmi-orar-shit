@@ -1,3 +1,4 @@
+import * as React from 'react'
 import type { Activity } from '@/types/timetable'
 import { formatActivityName } from '@/lib/timetable'
 import { Badge } from '@/components/ui/badge'
@@ -15,6 +16,8 @@ import {
   BookOpenIcon,
   InfoIcon,
   HashIcon,
+  CopyIcon,
+  CheckIcon,
 } from 'lucide-react'
 
 function pad(n: number): string {
@@ -32,10 +35,28 @@ export function ActivityDetailsDialog({
   open,
   onOpenChange,
 }: ActivityDetailsDialogProps) {
+  const [copied, setCopied] = React.useState(false)
+  const activityId = activity?.id
+
+  const handleOpenChange = React.useCallback(
+    (newOpen: boolean) => {
+      if (!newOpen) setCopied(false)
+      onOpenChange(newOpen)
+    },
+    [onOpenChange]
+  )
+
+  const handleCopyId = React.useCallback(() => {
+    if (!activityId) return
+    navigator.clipboard.writeText(activityId)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }, [activityId])
+
   if (!activity) return null
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-sm">
         <DialogHeader>
           <div className="flex items-center gap-2">
@@ -53,14 +74,31 @@ export function ActivityDetailsDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-3 py-2 text-sm">
+        <div className="flex flex-col gap-3 py-2 text-sm min-w-0">
           {/* Activity ID */}
           {activity.id && (
-            <div className="flex items-center gap-2.5 text-muted-foreground">
+            <div className="flex items-center gap-2 text-muted-foreground min-w-0">
               <HashIcon className="size-4 shrink-0 text-foreground" />
-              <span>
-                ID: <span className="font-mono font-medium text-foreground">{activity.id}</span>
-              </span>
+              <span className="shrink-0 text-xs font-medium">ID:</span>
+              <div
+                className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded-md bg-muted/60 px-2 py-1 font-mono text-xs font-medium text-foreground border border-border/50 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                title={activity.id}
+              >
+                <span className="select-all">{activity.id}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopyId}
+                className="inline-flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                title={copied ? 'Copied ID' : 'Copy ID'}
+                aria-label="Copy ID"
+              >
+                {copied ? (
+                  <CheckIcon className="size-3.5 text-green-600 dark:text-green-400" />
+                ) : (
+                  <CopyIcon className="size-3.5" />
+                )}
+              </button>
             </div>
           )}
 
