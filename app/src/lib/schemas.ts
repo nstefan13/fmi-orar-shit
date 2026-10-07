@@ -4,6 +4,8 @@ import { allElementsUnique } from '@/lib/utils'
 
 export const activityIdSchema = z.string()
 
+export const activeProfileIdSchema = z.uuid()
+
 export const timeSchema = z.object({
   weekday: z.enum(['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri']),
   hour: z.number().int().min(0).max(23),

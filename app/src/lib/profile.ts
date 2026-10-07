@@ -28,7 +28,7 @@ export const DEFAULT_PROFILE: Profile = {
  */
 export const generateUUID = uuidv4
 
-import { profilesSchema } from '@/lib/schemas'
+import { profilesSchema, activeProfileIdSchema } from '@/lib/schemas'
 
 /**
  * Load all profiles from localStorage.
@@ -78,13 +78,24 @@ export function saveProfiles(profiles: Profile[]): void {
 
 /**
  * Get the currently active profile ID from localStorage.
+ * Ensures the returned ID references an existing profile in getProfiles() (foreign key constraint).
  * Defaults to NULL_UUID.
  */
 export function getActiveProfileId(): string {
   if (typeof window === 'undefined') return NULL_UUID
+  const profiles = getProfiles()
   try {
     const raw = localStorage.getItem(STORAGE_KEY_ACTIVE_PROFILE_ID)
-    return raw || NULL_UUID
+    const result = activeProfileIdSchema.safeParse(raw)
+    const id = result.success ? result.data : NULL_UUID
+
+    if (profiles.some((p) => p.id === id)) {
+      return id
+    }
+
+    const fallbackId = profiles.some((p) => p.id === NULL_UUID) ? NULL_UUID : profiles[0].id
+    saveActiveProfileId(fallbackId)
+    return fallbackId
   } catch {
     return NULL_UUID
   }
@@ -96,7 +107,12 @@ export function getActiveProfileId(): string {
 export function saveActiveProfileId(id: string): void {
   if (typeof window === 'undefined') return
   try {
-    localStorage.setItem(STORAGE_KEY_ACTIVE_PROFILE_ID, id)
+    const result = activeProfileIdSchema.safeParse(id)
+    if (!result.success) {
+      console.warn('Invalid active profile ID provided to saveActiveProfileId:', id)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY_ACTIVE_PROFILE_ID, result.data)
   } catch (e) {
     console.error('Failed to save active profile ID to localStorage', e)
   }
