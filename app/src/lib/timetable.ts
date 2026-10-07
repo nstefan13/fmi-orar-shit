@@ -547,3 +547,40 @@ export function searchTimetables(
 
   return results
 }
+
+/**
+ * Sorts timetable display groups so that:
+ * 1. Fully selected timetables (all displayed activities selected) are at the top (priority 0)
+ * 2. Half selected timetables (some displayed activities selected) are next (priority 1)
+ * 3. Unselected timetables (no displayed activities selected) are at the bottom (priority 2)
+ *
+ * Preserves the original relative order within each priority group.
+ */
+export function sortTimetableDisplayGroups(
+  groups: TimetableDisplayGroup[],
+  selectedActivityKeys: Set<string>
+): TimetableDisplayGroup[] {
+  if (groups.length <= 1) return groups
+
+  const priorityMap = new Map<string, number>()
+  for (const group of groups) {
+    const total = group.activities.length
+    if (total === 0) {
+      priorityMap.set(group.timetableId, 2)
+      continue
+    }
+    let selected = 0
+    for (const act of group.activities) {
+      if (selectedActivityKeys.has(act.id)) {
+        selected++
+      }
+    }
+    const priority = selected === total ? 0 : selected > 0 ? 1 : 2
+    priorityMap.set(group.timetableId, priority)
+  }
+
+  return [...groups].sort((a, b) => {
+    return (priorityMap.get(a.timetableId) ?? 2) - (priorityMap.get(b.timetableId) ?? 2)
+  })
+}
+

@@ -20,7 +20,9 @@ import {
   getDefaultDay,
   getSelectedDay,
   saveSelectedDay,
+  sortTimetableDisplayGroups,
   STORAGE_KEY_SELECTED_DAY,
+  type TimetableDisplayGroup,
 } from '../src/lib/timetable'
 import type { OrarData, CustomActivity, Profile } from '../src/types/timetable'
 
@@ -167,6 +169,56 @@ async function runTests() {
   saveSelectedDay(4)
   assert(mockStorage.get(STORAGE_KEY_SELECTED_DAY) === '4', 'saveSelectedDay stores day in sessionStorage')
   assert(getSelectedDay() === 4, 'getSelectedDay reads saved day from sessionStorage')
+
+  // 8. Verify sortTimetableDisplayGroups puts selected and half selected at top
+  const dummyAct = (id: string) => ({
+    id,
+    weekday: 'Luni',
+    start_time: { weekday: 'Luni', hour: 8, minute: 0 },
+    end_time: { weekday: 'Luni', hour: 10, minute: 0 },
+    name: 'Act ' + id,
+    type: null,
+    authors: [],
+    location: null,
+    periodicity: null,
+    subgroup: null,
+  })
+
+  const groupUnselected: TimetableDisplayGroup = {
+    timetableId: 'tt:unselected',
+    timetableTitle: 'Unselected TT',
+    activities: [dummyAct('a1'), dummyAct('a2')],
+  }
+  const groupHalfSelected: TimetableDisplayGroup = {
+    timetableId: 'tt:half',
+    timetableTitle: 'Half Selected TT',
+    activities: [dummyAct('b1'), dummyAct('b2')],
+  }
+  const groupFullySelected: TimetableDisplayGroup = {
+    timetableId: 'tt:full',
+    timetableTitle: 'Fully Selected TT',
+    activities: [dummyAct('c1'), dummyAct('c2')],
+  }
+
+  const activeKeys = new Set(['b1', 'c1', 'c2'])
+  const sorted = sortTimetableDisplayGroups(
+    [groupUnselected, groupHalfSelected, groupFullySelected],
+    activeKeys
+  )
+
+  assert(sorted[0].timetableId === 'tt:full', 'Fully selected timetable is at index 0')
+  assert(sorted[1].timetableId === 'tt:half', 'Half selected timetable is at index 1')
+  assert(sorted[2].timetableId === 'tt:unselected', 'Unselected timetable is at index 2')
+
+  // Test during search: filtered activities
+  const searchResults: TimetableDisplayGroup[] = [
+    { timetableId: 'tt:searchUnselected', timetableTitle: 'Search Unselected', activities: [dummyAct('s_un1')] },
+    { timetableId: 'tt:searchSelected', timetableTitle: 'Search Selected', activities: [dummyAct('s_sel1')] },
+  ]
+  const searchKeys = new Set(['s_sel1'])
+  const sortedSearch = sortTimetableDisplayGroups(searchResults, searchKeys)
+  assert(sortedSearch[0].timetableId === 'tt:searchSelected', 'Selected timetable in search is at top')
+  assert(sortedSearch[1].timetableId === 'tt:searchUnselected', 'Unselected timetable in search is after')
 
   console.log('--- All Tests Passed Successfully! ---')
 }

@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import {
   buildSearchIndex,
   searchTimetables,
+  sortTimetableDisplayGroups,
   saveSelectedActivityKeys,
   formatActivityName,
   formatDateString,
@@ -354,6 +355,11 @@ export function SettingsView({
   const displayGroups = React.useMemo(() => {
     return searchTimetables(data, searchQuery, searchIndex)
   }, [data, searchQuery, searchIndex])
+
+  // Selected and half-selected timetables at top of scroll list, including when searching
+  const sortedDisplayGroups = React.useMemo(() => {
+    return sortTimetableDisplayGroups(displayGroups, selectedActivityKeys)
+  }, [displayGroups, selectedActivityKeys])
 
   // Helper to toggle a single activity using its ID
   const handleToggleActivity = (activityId: string) => {
@@ -765,8 +771,8 @@ export function SettingsView({
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>
                 {searchQuery
-                  ? `Found ${displayGroups.length} timetables matching "${searchQuery}"`
-                  : `${displayGroups.length} timetables available`}
+                  ? `Found ${sortedDisplayGroups.length} timetables matching "${searchQuery}"`
+                  : `${sortedDisplayGroups.length} timetables available`}
               </span>
               {selectedActivityKeys.size > 0 && (
                 <Button
@@ -784,7 +790,7 @@ export function SettingsView({
 
           {/* 2-Level Hierarchical Checkbox List */}
           <div className="px-4 py-3 sm:px-5 pb-8">
-            {displayGroups.length === 0 ? (
+            {sortedDisplayGroups.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-2 py-16 text-center text-muted-foreground">
                 <SearchIcon className="size-8 opacity-40" />
                 <p className="text-sm font-medium">No timetables or activities matched your search.</p>
@@ -792,7 +798,7 @@ export function SettingsView({
               </div>
             ) : (
               <div className="flex flex-col gap-2.5 sm:gap-3">
-                {displayGroups.map((group) => {
+                {sortedDisplayGroups.map((group) => {
                   const activities = group.activities
                   const totalCount = activities.length
                   const selectedCount = activities.filter((act) =>
