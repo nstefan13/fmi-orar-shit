@@ -28,6 +28,8 @@ export const DEFAULT_PROFILE: Profile = {
  */
 export const generateUUID = uuidv4
 
+import { profilesSchema } from '@/lib/schemas'
+
 /**
  * Load all profiles from localStorage.
  * Ensures the Default profile (NULL_UUID) always exists.
@@ -36,27 +38,26 @@ export function getProfiles(): Profile[] {
   if (typeof window === 'undefined') return [DEFAULT_PROFILE]
   try {
     const raw = localStorage.getItem(STORAGE_KEY_PROFILES)
-    if (!raw) {
-      return [DEFAULT_PROFILE]
-    }
-    const parsed = JSON.parse(raw)
-    if (!Array.isArray(parsed) || parsed.length === 0) {
-      return [DEFAULT_PROFILE]
-    }
-
-    // Ensure the default profile exists
-    const hasDefault = parsed.some((p) => p && p.id === NULL_UUID)
-    if (!hasDefault) {
-      return [DEFAULT_PROFILE, ...parsed]
+    let json: unknown
+    try {
+      json = raw ? JSON.parse(raw) : undefined
+    } catch {
+      json = undefined
     }
 
-    return parsed.map((p) => ({
-      id: typeof p.id === 'string' ? p.id : generateUUID(),
-      name: typeof p.name === 'string' ? p.name : 'Untitled',
-      selectedActivityKeys: Array.isArray(p.selectedActivityKeys) ? p.selectedActivityKeys : [],
-      customActivities: Array.isArray(p.customActivities) ? p.customActivities : [],
-      didacticWeeks: Array.isArray(p.didacticWeeks) ? p.didacticWeeks : [],
-    }))
+    // Auto-prepend DEFAULT_PROFILE if missing in an array
+    if (Array.isArray(json) && !json.some((p) => p && p.id === NULL_UUID)) {
+      json = [DEFAULT_PROFILE, ...json]
+    }
+
+    const result = profilesSchema.safeParse(json)
+    if (result.success) {
+      return result.data as Profile[]
+    }
+
+    console.warn('Profiles validation failed, falling back to default profile:', result.error)
+    saveProfiles([DEFAULT_PROFILE])
+    return [DEFAULT_PROFILE]
   } catch (e) {
     console.error('Failed to load profiles from localStorage', e)
     return [DEFAULT_PROFILE]
