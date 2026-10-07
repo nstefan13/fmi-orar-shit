@@ -33,7 +33,6 @@ export interface ActivityLocation {
 }
 
 export interface DidacticWeekSpec {
-  id: string
   date: string // 'YYYY-MM-DD'
   weekNumber: number
 }
@@ -45,7 +44,7 @@ export interface CustomActivity {
   end_time: TimeSpec
   authors: string[]
   location: string | null
-  periodicity: 'Odd Week' | 'Even Week' | null
+  periodicity: 'odd' | 'even' | null
   enabled: boolean
 }
 

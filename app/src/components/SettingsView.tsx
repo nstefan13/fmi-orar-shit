@@ -155,7 +155,6 @@ export function SettingsView({
   }
 
   const handleAddWeek = () => {
-    const id = `week-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
     let defaultDate = formatDateString(new Date())
     let defaultWeek = 1
 
@@ -171,13 +170,13 @@ export function SettingsView({
       }
     }
 
-    const updated = [...currentDidacticWeeks, { id, date: defaultDate, weekNumber: defaultWeek }]
+    const updated = [...currentDidacticWeeks, { date: defaultDate, weekNumber: defaultWeek }]
     handleWeeksUpdate(updated)
   }
 
-  const handleUpdateWeek = (id: string, field: 'date' | 'weekNumber', val: string | number) => {
-    const updated = currentDidacticWeeks.map((item) => {
-      if (item.id === id) {
+  const handleUpdateWeek = (index: number, field: 'date' | 'weekNumber', val: string | number) => {
+    const updated = currentDidacticWeeks.map((item, idx) => {
+      if (idx === index) {
         return { ...item, [field]: val }
       }
       return item
@@ -185,8 +184,8 @@ export function SettingsView({
     handleWeeksUpdate(updated)
   }
 
-  const handleRemoveWeek = (id: string) => {
-    const updated = currentDidacticWeeks.filter((item) => item.id !== id)
+  const handleRemoveWeek = (index: number) => {
+    const updated = currentDidacticWeeks.filter((_, idx) => idx !== index)
     handleWeeksUpdate(updated)
   }
 
@@ -445,24 +444,24 @@ export function SettingsView({
             {/* Input fields appearing before the button */}
             {currentDidacticWeeks.length > 0 && (
               <div className="flex flex-col gap-2.5 pt-1">
-                {currentDidacticWeeks.map((spec) => (
+                {currentDidacticWeeks.map((spec, index) => (
                   <div
-                    key={spec.id}
+                    key={index}
                     className="flex items-center gap-2 rounded-lg border border-border/60 bg-card p-2.5 shadow-xs"
                   >
                     {/* Day Input */}
                     <div className="flex-1 min-w-0">
                       <label
-                        htmlFor={`week-day-${spec.id}`}
+                        htmlFor={`week-day-${index}`}
                         className="mb-1 block text-[11px] font-semibold text-muted-foreground"
                       >
                         Day
                       </label>
                       <Input
-                        id={`week-day-${spec.id}`}
+                        id={`week-day-${index}`}
                         type="date"
                         value={spec.date}
-                        onChange={(e) => handleUpdateWeek(spec.id, 'date', e.target.value)}
+                        onChange={(e) => handleUpdateWeek(index, 'date', e.target.value)}
                         className="h-8 text-xs sm:text-sm"
                         aria-label="Specify a day"
                       />
@@ -471,20 +470,20 @@ export function SettingsView({
                     {/* Week Number Input */}
                     <div className="w-24 sm:w-28 shrink-0">
                       <label
-                        htmlFor={`week-num-${spec.id}`}
+                        htmlFor={`week-num-${index}`}
                         className="mb-1 block text-[11px] font-semibold text-muted-foreground"
                       >
                         Week #
                       </label>
                       <Input
-                        id={`week-num-${spec.id}`}
+                        id={`week-num-${index}`}
                         type="number"
                         min={1}
                         placeholder="Week #"
                         value={spec.weekNumber || ''}
                         onChange={(e) =>
                           handleUpdateWeek(
-                            spec.id,
+                            index,
                             'weekNumber',
                             Math.max(1, parseInt(e.target.value, 10) || 1)
                           )
@@ -500,7 +499,7 @@ export function SettingsView({
                         type="button"
                         variant="ghost"
                         size="icon-xs"
-                        onClick={() => handleRemoveWeek(spec.id)}
+                        onClick={() => handleRemoveWeek(index)}
                         className="size-8 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                         title="Remove week rule"
                         aria-label="Remove week rule"
@@ -579,7 +578,7 @@ export function SettingsView({
                             <>
                               <span>•</span>
                               <Badge variant="outline" className="text-[10px] px-1 py-0 h-4">
-                                {act.periodicity}
+                                {act.periodicity === 'odd' ? 'Odd Week' : act.periodicity === 'even' ? 'Even Week' : act.periodicity}
                               </Badge>
                             </>
                           )}

@@ -19,12 +19,11 @@ export const customActivitySchema = z.object({
   end_time: timeSchema,
   authors: z.array(z.string()),
   location: z.string().nullable(),
-  periodicity: z.string().nullable(),
+  periodicity: z.enum(['odd', 'even']).nullable(),
   enabled: z.boolean(),
 })
 
 export const didacticWeekSchema = z.object({
-  id: z.string().optional(),
   date: z.iso.date(),
   weekNumber: z.number().int().min(1),
 })

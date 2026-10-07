@@ -236,10 +236,10 @@ export function parseImportedProfileJson(
     const endHour = typeof item.end_time?.hour === 'number' ? item.end_time.hour : 9
     const endMin = typeof item.end_time?.minute === 'number' ? item.end_time.minute : 50
 
-    let periodicityVal: 'Odd Week' | 'Even Week' | null = null
+    let periodicityVal: 'odd' | 'even' | null = null
     const normPeriod = normalizePeriodicity(item.periodicity)
-    if (normPeriod === 'odd') periodicityVal = 'Odd Week'
-    else if (normPeriod === 'even') periodicityVal = 'Even Week'
+    if (normPeriod === 'odd') periodicityVal = 'odd'
+    else if (normPeriod === 'even') periodicityVal = 'even'
 
     const locationStr =
       typeof item.location === 'string'
@@ -315,7 +315,6 @@ export function parseImportedProfileJson(
         !isNaN(item.weekNumber)
       ) {
         didacticWeeksList.push({
-          id: typeof item.id === 'string' ? item.id : `week-${generateUUID()}`,
           date: item.date,
           weekNumber: item.weekNumber,
         })

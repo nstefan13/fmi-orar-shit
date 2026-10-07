@@ -18,7 +18,6 @@ export function getDidacticWeeks(): DidacticWeekSpec[] {
     return parsed.filter(
       (item) =>
         item &&
-        typeof item.id === 'string' &&
         typeof item.date === 'string' &&
         typeof item.weekNumber === 'number'
     )
@@ -296,10 +295,9 @@ export function activitiesForToday(
   for (const customAct of activeCustomList) {
     let should_blur = false
     if (currentWeekNumber !== null && currentWeekNumber !== undefined && customAct.periodicity) {
-      const period = customAct.periodicity.toLowerCase().trim()
-      if (period === 'odd week' || period === 'odd') {
+      if (customAct.periodicity === 'odd') {
         should_blur = currentWeekNumber % 2 === 0
-      } else if (period === 'even week' || period === 'even') {
+      } else if (customAct.periodicity === 'even') {
         should_blur = currentWeekNumber % 2 !== 0
       }
     }

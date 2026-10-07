@@ -25,10 +25,10 @@ const WEEKDAY_OPTIONS = [
   { value: 'Vineri', label: 'Vineri' },
 ] as const
 
-const PERIODICITY_OPTIONS: { value: 'Odd Week' | 'Even Week' | ''; label: string }[] = [
+const PERIODICITY_OPTIONS: { value: 'odd' | 'even' | ''; label: string }[] = [
   { value: '', label: 'Every week' },
-  { value: 'Odd Week', label: 'Odd Week' },
-  { value: 'Even Week', label: 'Even Week' },
+  { value: 'odd', label: 'Odd Week' },
+  { value: 'even', label: 'Even Week' },
 ]
 
 function pad(n: number): string {
@@ -69,7 +69,7 @@ function CustomActivityForm({
     initialActivity?.authors ? initialActivity.authors.join(', ') : ''
   )
   const [location, setLocation] = React.useState(initialActivity?.location || '')
-  const [periodicity, setPeriodicity] = React.useState<'Odd Week' | 'Even Week' | ''>(
+  const [periodicity, setPeriodicity] = React.useState<'odd' | 'even' | ''>(
     initialActivity?.periodicity || ''
   )
   const [errors, setErrors] = React.useState<{ name?: string; time?: string }>({})
