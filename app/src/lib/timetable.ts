@@ -170,10 +170,7 @@ export function getSelectedActivityKeys(): Set<string> {
     const parsed = JSON.parse(raw)
     const result = selectedActivitiesSchema.safeParse(parsed)
     if (!result.success) return new Set()
-    // Discard any obsolete non-ID keys (e.g. keys containing ":::")
-    const valid = result.data.filter(
-      (k) => k.startsWith('IMG-') && k.includes('_AC-')
-    )
+    const valid = result.data.filter((k) => typeof k === 'string' && k.trim().length > 0)
     return new Set(valid)
   } catch (e) {
     console.error('Failed to load selected activities from localStorage', e)

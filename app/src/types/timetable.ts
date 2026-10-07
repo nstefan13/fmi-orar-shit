@@ -48,12 +48,19 @@ export interface CustomActivity {
   enabled: boolean
 }
 
+export interface OrarData {
+  created_at: string
+  hash: string
+  timetables: Timetable[]
+}
+
 export const NULL_UUID = '00000000-0000-0000-0000-000000000000'
 
 export interface Profile {
   id: string // UUID (Default profile has NULL_UUID)
   name: string
-  selectedActivityKeys: string[] // IDs matching Activity.id in DATA.json
+  orar_hash: string
+  selectedActivityKeys: string[] // IDs matching Activity.id in ORAR.json
   customActivities: CustomActivity[]
   didacticWeeks: DidacticWeekSpec[]
 }
@@ -71,6 +78,7 @@ export interface ExportedActivity {
 
 export interface ExportedProfileData {
   name: string
+  orar?: OrarData
   'custom activities': ExportedActivity[]
   'selected activities': ExportedActivity[]
   'defined weekdays'?: DidacticWeekSpec[]

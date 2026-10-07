@@ -4,6 +4,7 @@ import type {
   DidacticWeekSpec,
   ExportedActivity,
   ExportedProfileData,
+  OrarData,
   Profile,
 } from '@/types/timetable'
 import { NULL_UUID } from '@/types/timetable'
@@ -12,12 +13,19 @@ export { NULL_UUID }
 import { v4 as uuidv4 } from 'uuid'
 export { uuidv4 }
 
+import { computeCustomActivityId } from '@/lib/hash'
+import { profilesSchema, activeProfileIdSchema } from '@/lib/schemas'
+
 export const STORAGE_KEY_PROFILES = 'orar_profiles'
 export const STORAGE_KEY_ACTIVE_PROFILE_ID = 'orar_active_profile_id'
+export const STORAGE_KEY_ORAR_VERSION = 'orar_version'
+export const CURRENT_ORAR_VERSION = 'alpha-1.0.0'
+export const STORAGE_PREFIX_ORAR_DATA = 'orar_DATA_'
 
 export const DEFAULT_PROFILE: Profile = {
   id: NULL_UUID,
   name: 'Default',
+  orar_hash: '',
   selectedActivityKeys: [],
   customActivities: [],
   didacticWeeks: [],
@@ -28,14 +36,52 @@ export const DEFAULT_PROFILE: Profile = {
  */
 export const generateUUID = uuidv4
 
-import { profilesSchema, activeProfileIdSchema } from '@/lib/schemas'
+/**
+ * Verifies orar_version in localStorage.
+ * If orar_version is missing: clear localStorage for a clean start and set version.
+ */
+export function ensureOrarVersion(): void {
+  if (typeof window === 'undefined') return
+  const version = localStorage.getItem(STORAGE_KEY_ORAR_VERSION)
+  if (!version) {
+    localStorage.clear()
+    localStorage.setItem(STORAGE_KEY_ORAR_VERSION, CURRENT_ORAR_VERSION)
+  }
+}
+
+/**
+ * Save an ORAR clone to localStorage under orar_DATA_<hash> if not already present.
+ */
+export function saveOrarClone(orar: OrarData): void {
+  if (typeof window === 'undefined' || !orar || !orar.hash) return
+  const key = `${STORAGE_PREFIX_ORAR_DATA}${orar.hash}`
+  if (!localStorage.getItem(key)) {
+    localStorage.setItem(key, JSON.stringify(orar))
+  }
+}
+
+/**
+ * Retrieve an ORAR clone by hash from localStorage.
+ */
+export function getOrarClone(hash: string): OrarData | null {
+  if (typeof window === 'undefined' || !hash) return null
+  try {
+    const raw = localStorage.getItem(`${STORAGE_PREFIX_ORAR_DATA}${hash}`)
+    if (!raw) return null
+    return JSON.parse(raw) as OrarData
+  } catch {
+    return null
+  }
+}
 
 /**
  * Load all profiles from localStorage.
- * Ensures the Default profile (NULL_UUID) always exists.
+ * Ensures the Default profile (NULL_UUID) always exists and has a valid orar_hash.
  */
-export function getProfiles(): Profile[] {
-  if (typeof window === 'undefined') return [DEFAULT_PROFILE]
+export function getProfiles(fallbackOrarHash: string = ''): Profile[] {
+  if (typeof window === 'undefined') {
+    return [{ ...DEFAULT_PROFILE, orar_hash: fallbackOrarHash }]
+  }
   try {
     const raw = localStorage.getItem(STORAGE_KEY_PROFILES)
     let json: unknown
@@ -45,9 +91,31 @@ export function getProfiles(): Profile[] {
       json = undefined
     }
 
+    const defaultProfileWithHash: Profile = {
+      ...DEFAULT_PROFILE,
+      orar_hash: fallbackOrarHash,
+    }
+
+    if (!json) {
+      saveProfiles([defaultProfileWithHash])
+      return [defaultProfileWithHash]
+    }
+
     // Auto-prepend DEFAULT_PROFILE if missing in an array
-    if (Array.isArray(json) && !json.some((p) => p && p.id === NULL_UUID)) {
-      json = [DEFAULT_PROFILE, ...json]
+    if (Array.isArray(json)) {
+      const arr = json as Record<string, any>[]
+      const defIdx = arr.findIndex((p) => p && p.id === NULL_UUID)
+      if (defIdx === -1) {
+        json = [defaultProfileWithHash, ...arr]
+      } else if (!arr[defIdx].orar_hash && fallbackOrarHash) {
+        arr[defIdx].orar_hash = fallbackOrarHash
+      }
+      // Backfill missing orar_hash for any profile
+      arr.forEach((p) => {
+        if (p && typeof p === 'object' && !p.orar_hash && fallbackOrarHash) {
+          p.orar_hash = fallbackOrarHash
+        }
+      })
     }
 
     const result = profilesSchema.safeParse(json)
@@ -56,11 +124,11 @@ export function getProfiles(): Profile[] {
     }
 
     console.warn('Profiles validation failed, falling back to default profile:', result.error)
-    saveProfiles([DEFAULT_PROFILE])
-    return [DEFAULT_PROFILE]
+    saveProfiles([defaultProfileWithHash])
+    return [defaultProfileWithHash]
   } catch (e) {
     console.error('Failed to load profiles from localStorage', e)
-    return [DEFAULT_PROFILE]
+    return [{ ...DEFAULT_PROFILE, orar_hash: fallbackOrarHash }]
   }
 }
 
@@ -145,7 +213,7 @@ function normalizePeriodicity(p?: string | null): string {
 }
 
 /**
- * Match an activity by value against all activities in DATA.json.
+ * Match an activity by value against all activities in ORAR.
  * Matches on name, weekday, start_time (hour, minute), end_time (hour, minute),
  * type, periodicity, subgroup, and location.
  */
@@ -204,6 +272,7 @@ export function matchActivityByValue(
 
 export interface ParseImportResult {
   name: string
+  orar_hash: string
   selectedActivityKeys: string[]
   customActivities: CustomActivity[]
   didacticWeeks: DidacticWeekSpec[]
@@ -214,13 +283,12 @@ export interface ParseImportResult {
 
 /**
  * Parse and validate an imported profile JSON file.
- * Categorizes custom activities into custom activities,
- * matches selected activities by value to DATA.json (dropping non-matches),
- * and parses defined weekdays if present.
+ * Handles the embedded 'orar' clone if present, caches it,
+ * deduplicates collided IDs (keeping first), and categorizes activities.
  */
 export function parseImportedProfileJson(
   jsonString: string,
-  allActivities: Activity[]
+  fallbackOrar: OrarData
 ): ParseImportResult {
   const parsed = JSON.parse(jsonString)
   if (!parsed || typeof parsed !== 'object') {
@@ -229,9 +297,40 @@ export function parseImportedProfileJson(
 
   const name = typeof parsed.name === 'string' ? parsed.name.trim() : ''
 
-  // 1. Process custom activities
+  // Process embedded ORAR clone
+  let targetOrar: OrarData = fallbackOrar
+  let resolvedOrarHash = fallbackOrar.hash
+
+  if (parsed.orar && typeof parsed.orar === 'object' && parsed.orar.hash) {
+    const importedOrar = parsed.orar as OrarData
+    resolvedOrarHash = importedOrar.hash
+    const existingClone = getOrarClone(importedOrar.hash)
+    if (existingClone) {
+      targetOrar = existingClone
+    } else {
+      saveOrarClone(importedOrar)
+      targetOrar = importedOrar
+    }
+  }
+
+  // Flatten all activities in targetOrar
+  const allActivitiesInTarget: Activity[] = []
+  targetOrar.timetables.forEach((t) => {
+    t.activities.forEach((a) => {
+      allActivitiesInTarget.push({
+        ...a,
+        _timetableId: t.id,
+        _timetableTitle: t.title,
+      })
+    })
+  })
+  const activityMap = new Map<string, Activity>()
+  allActivitiesInTarget.forEach((a) => activityMap.set(a.id, a))
+
+  // 1. Process custom activities with ID deduplication
   const rawCustom = parsed['custom activities'] || parsed.custom_activities || parsed.customActivities || []
   const customActivitiesList: CustomActivity[] = []
+  const seenCustomIds = new Set<string>()
 
   const processCustomItem = (item: any) => {
     if (!item || typeof item !== 'object') return
@@ -253,8 +352,7 @@ export function parseImportedProfileJson(
           ? `${item.location.type || ''} ${item.location.id ?? ''}`.trim()
           : null
 
-    customActivitiesList.push({
-      id: `custom-${generateUUID()}`,
+    const draftActivity: Partial<CustomActivity> = {
       name: typeof item.name === 'string' ? item.name : 'Custom Activity',
       start_time: {
         weekday,
@@ -270,6 +368,25 @@ export function parseImportedProfileJson(
       location: locationStr || null,
       periodicity: periodicityVal,
       enabled: item.enabled !== false,
+    }
+
+    const computedId = computeCustomActivityId(draftActivity)
+
+    // Deduplicate: if duplicate ID, keep the first one
+    if (seenCustomIds.has(computedId)) {
+      return
+    }
+    seenCustomIds.add(computedId)
+
+    customActivitiesList.push({
+      id: computedId,
+      name: draftActivity.name!,
+      start_time: draftActivity.start_time!,
+      end_time: draftActivity.end_time!,
+      authors: draftActivity.authors!,
+      location: draftActivity.location!,
+      periodicity: draftActivity.periodicity!,
+      enabled: draftActivity.enabled!,
     })
   }
 
@@ -278,13 +395,26 @@ export function parseImportedProfileJson(
   }
 
   // 2. Process selected activities
-  const rawSelected =
-    parsed['selected activities'] || parsed.selected_activities || parsed.selectedActivities || []
-  const matchedSelectedKeysSet = new Set<string>()
+  // Can be in selectedActivityKeys (IDs) or 'selected activities' (ExportedActivity[])
+  const selectedKeysSet = new Set<string>()
   let totalSelectedImported = 0
 
+  if (Array.isArray(parsed.selectedActivityKeys)) {
+    totalSelectedImported = parsed.selectedActivityKeys.length
+    parsed.selectedActivityKeys.forEach((key: any) => {
+      if (typeof key === 'string' && key.trim()) {
+        if (activityMap.has(key)) {
+          selectedKeysSet.add(key)
+        }
+      }
+    })
+  }
+
+  const rawSelected =
+    parsed['selected activities'] || parsed.selected_activities || parsed.selectedActivities || []
+
   if (Array.isArray(rawSelected)) {
-    totalSelectedImported = rawSelected.length
+    totalSelectedImported += rawSelected.length
     rawSelected.forEach((item: any) => {
       if (!item || typeof item !== 'object') return
 
@@ -294,10 +424,16 @@ export function parseImportedProfileJson(
         return
       }
 
-      // Match by value against DATA.json
-      const matched = matchActivityByValue(item, allActivities)
+      // If item already contains an ID that exists in targetOrar
+      if (typeof item.id === 'string' && activityMap.has(item.id)) {
+        selectedKeysSet.add(item.id)
+        return
+      }
+
+      // Match by value against targetOrar activities
+      const matched = matchActivityByValue(item, allActivitiesInTarget)
       if (matched) {
-        matchedSelectedKeysSet.add(matched.id)
+        selectedKeysSet.add(matched.id)
       }
     })
   }
@@ -329,21 +465,23 @@ export function parseImportedProfileJson(
 
   return {
     name,
-    selectedActivityKeys: Array.from(matchedSelectedKeysSet),
+    orar_hash: resolvedOrarHash,
+    selectedActivityKeys: Array.from(selectedKeysSet),
     customActivities: customActivitiesList,
     didacticWeeks: didacticWeeksList,
-    matchedSelectedCount: matchedSelectedKeysSet.size,
+    matchedSelectedCount: selectedKeysSet.size,
     totalSelectedImported,
     customCount: customActivitiesList.length,
   }
 }
 
 /**
- * Generate the JSON payload for a profile to export.
+ * Generate the JSON payload for a profile to export, including the ORAR clone.
  */
 export function buildProfileExportData(
   profile: Profile,
-  activityMap: Map<string, Activity>
+  activityMap: Map<string, Activity>,
+  orarData?: OrarData
 ): ExportedProfileData {
   const exportedSelected: ExportedActivity[] = []
   for (const id of profile.selectedActivityKeys || []) {
@@ -391,6 +529,7 @@ export function buildProfileExportData(
 
   return {
     name: profile.name,
+    orar: orarData,
     'custom activities': exportedCustom,
     'selected activities': exportedSelected,
     'defined weekdays': profile.didacticWeeks || [],
@@ -402,10 +541,11 @@ export function buildProfileExportData(
  */
 export function downloadProfileJson(
   profile: Profile,
-  activityMap: Map<string, Activity>
+  activityMap: Map<string, Activity>,
+  orarData?: OrarData
 ): void {
   if (typeof window === 'undefined') return
-  const data = buildProfileExportData(profile, activityMap)
+  const data = buildProfileExportData(profile, activityMap, orarData)
   const json = JSON.stringify(data, null, 2)
   const blob = new Blob([json], { type: 'application/json' })
   const url = URL.createObjectURL(blob)

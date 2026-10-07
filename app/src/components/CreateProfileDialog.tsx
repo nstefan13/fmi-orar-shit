@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { Activity, Profile } from '@/types/timetable'
+import type { Activity, OrarData, Profile } from '@/types/timetable'
 import { v4 as uuidv4 } from 'uuid'
 import { parseImportedProfileJson, type ParseImportResult } from '@/lib/profile'
 import {
@@ -18,18 +18,19 @@ import { UploadIcon, CheckCircle2Icon, AlertCircleIcon, FileJsonIcon } from 'luc
 export interface CreateProfileDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  allActivities: Activity[]
+  currentOrar: OrarData
+  allActivities?: Activity[]
   onCreateProfile: (profile: Profile) => void
 }
 
 interface CreateProfileFormProps {
-  allActivities: Activity[]
+  currentOrar: OrarData
   onCreateProfile: (profile: Profile) => void
   onClose: () => void
 }
 
 function CreateProfileForm({
-  allActivities,
+  currentOrar,
   onCreateProfile,
   onClose,
 }: CreateProfileFormProps) {
@@ -50,7 +51,7 @@ function CreateProfileForm({
 
     try {
       const text = await file.text()
-      const result = parseImportedProfileJson(text, allActivities)
+      const result = parseImportedProfileJson(text, currentOrar)
 
       setImportResult(result)
       setImportedFileName(file.name)
@@ -84,6 +85,7 @@ function CreateProfileForm({
     const newProfile: Profile = {
       id: uuidv4(),
       name: trimmed,
+      orar_hash: importResult ? importResult.orar_hash : currentOrar.hash,
       selectedActivityKeys: importResult ? importResult.selectedActivityKeys : [],
       customActivities: importResult ? importResult.customActivities : [],
       didacticWeeks: importResult ? importResult.didacticWeeks : [],
@@ -185,7 +187,7 @@ function CreateProfileForm({
 export function CreateProfileDialog({
   open,
   onOpenChange,
-  allActivities,
+  currentOrar,
   onCreateProfile,
 }: CreateProfileDialogProps) {
   return (
@@ -205,7 +207,7 @@ export function CreateProfileDialog({
 
         {open && (
           <CreateProfileForm
-            allActivities={allActivities}
+            currentOrar={currentOrar}
             onCreateProfile={onCreateProfile}
             onClose={() => onOpenChange(false)}
           />

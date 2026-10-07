@@ -15,16 +15,23 @@ export const timeSchema = z.object({
   minute: z.number().int().min(0).max(59),
 })
 
-export const customActivitySchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  start_time: timeSchema,
-  end_time: timeSchema,
-  authors: z.array(z.string()),
-  location: z.string().nullable(),
-  periodicity: z.enum(['odd', 'even']).nullable(),
-  enabled: z.boolean(),
-})
+import { computeCustomActivityId } from '@/lib/hash'
+
+export const customActivitySchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    start_time: timeSchema,
+    end_time: timeSchema,
+    authors: z.array(z.string()),
+    location: z.string().nullable(),
+    periodicity: z.enum(['odd', 'even']).nullable(),
+    enabled: z.boolean(),
+  })
+  .refine(
+    (act) => act.id === computeCustomActivityId(act),
+    { message: 'Invalid custom activity id: must match content hash' }
+  )
 
 export const customActivitiesSchema = z.array(customActivitySchema)
 
@@ -40,6 +47,7 @@ export const selectedActivitiesSchema = z.array(activityIdSchema)
 export const profileSchema = z.object({
   id: z.uuid(),
   name: z.string(),
+  orar_hash: z.string(),
   selectedActivityKeys: selectedActivitiesSchema,
   customActivities: customActivitiesSchema,
   didacticWeeks: didacticWeeksSchema,
@@ -48,6 +56,7 @@ export const profileSchema = z.object({
 export const DEFAULT_PROFILE = {
   id: NULL_UUID,
   name: 'Default',
+  orar_hash: '',
   selectedActivityKeys: [] as string[],
   customActivities: [] as z.infer<typeof customActivitySchema>[],
   didacticWeeks: [] as z.infer<typeof didacticWeekSchema>[],

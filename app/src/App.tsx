@@ -1,9 +1,12 @@
 import * as React from 'react'
-import rawTimetableData from '@/data/DATA.json'
-import type { Timetable, DidacticWeekSpec, CustomActivity, Profile } from '@/types/timetable'
+import rawOrarData from '@/data/ORAR.json'
+import type { DidacticWeekSpec, CustomActivity, Profile, OrarData } from '@/types/timetable'
 import { NULL_UUID } from '@/types/timetable'
 import { getDidacticWeekForDate } from '@/lib/timetable'
 import {
+  ensureOrarVersion,
+  saveOrarClone,
+  getOrarClone,
   getProfiles,
   saveProfiles,
   getActiveProfileId,
@@ -12,6 +15,7 @@ import {
 import { ScheduleView } from '@/components/ScheduleView'
 import { SettingsView } from '@/components/SettingsView'
 import { Button } from '@/components/ui/button'
+import { Toaster } from 'sonner'
 import {
   CalendarIcon,
   SettingsIcon,
@@ -35,19 +39,38 @@ function getInitialTheme(): Theme {
   return 'system'
 }
 
-const timetableData = rawTimetableData as unknown as Timetable[]
+const latestOrar = rawOrarData as unknown as OrarData
+
+// Clean start versioning check and ensure latest clone is saved in localStorage
+ensureOrarVersion()
+saveOrarClone(latestOrar)
 
 export function App() {
   const [activeTab, setActiveTab] = React.useState<'schedule' | 'settings'>('schedule')
 
   // Profiles State
-  const [profiles, setProfiles] = React.useState<Profile[]>(() => getProfiles())
-  const [activeProfileId, setActiveProfileId] = React.useState<string>(() => getActiveProfileId())
+  const [profiles, setProfiles] = React.useState<Profile[]>(() =>
+    getProfiles(latestOrar.hash)
+  )
+  const [activeProfileId, setActiveProfileId] = React.useState<string>(() =>
+    getActiveProfileId()
+  )
 
   // Derived Active Profile
   const activeProfile = React.useMemo(() => {
-    return profiles.find((p) => p.id === activeProfileId)!
+    return profiles.find((p) => p.id === activeProfileId) || profiles[0]
   }, [profiles, activeProfileId])
+
+  // Derive the ORAR dataset for the active profile (or fallback to latest)
+  const currentOrar = React.useMemo(() => {
+    if (activeProfile && activeProfile.orar_hash) {
+      const clone = getOrarClone(activeProfile.orar_hash)
+      if (clone) return clone
+    }
+    return latestOrar
+  }, [activeProfile])
+
+  const timetableData = currentOrar.timetables
 
   // Active profile's properties
   const selectedActivityKeys = React.useMemo(() => {
@@ -148,6 +171,21 @@ export function App() {
     saveActiveProfileId(NULL_UUID)
   }, [activeProfile.id])
 
+  const handleUpdateProfileOrar = React.useCallback(
+    (profileId: string, newKeys: string[], newOrarHash: string) => {
+      setProfiles((prev) => {
+        const updated = prev.map((p) =>
+          p.id === profileId
+            ? { ...p, selectedActivityKeys: newKeys, orar_hash: newOrarHash }
+            : p
+        )
+        saveProfiles(updated)
+        return updated
+      })
+    },
+    []
+  )
+
   const [theme, setTheme] = React.useState<Theme>(getInitialTheme)
 
   React.useEffect(() => {
@@ -185,6 +223,8 @@ export function App() {
 
   return (
     <div className="flex h-dvh w-full flex-col bg-background text-foreground overflow-hidden sm:max-w-lg sm:mx-auto sm:border-x sm:border-border sm:shadow-2xl">
+      <Toaster position="top-center" richColors />
+
       {/* Top Application Bar */}
       <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-border/80 bg-background/90 px-4 py-2.5 backdrop-blur supports-backdrop-filter:bg-background/80">
         <div className="flex items-center gap-2.5">
@@ -269,10 +309,13 @@ export function App() {
             onCustomActivitiesChange={handleCustomActivitiesChange}
             profiles={profiles}
             activeProfileId={activeProfileId}
+            currentOrar={currentOrar}
+            latestOrar={latestOrar}
             onSelectProfile={handleSelectProfile}
             onCreateProfile={handleCreateProfile}
             onRenameActiveProfile={handleRenameActiveProfile}
             onDeleteActiveProfile={handleDeleteActiveProfile}
+            onUpdateProfileOrar={handleUpdateProfileOrar}
           />
         )}
       </main>

@@ -1,6 +1,7 @@
 import * as React from 'react'
-import type { Activity, Timetable, DidacticWeekSpec, CustomActivity, Profile } from '@/types/timetable'
+import type { Activity, Timetable, DidacticWeekSpec, CustomActivity, Profile, OrarData } from '@/types/timetable'
 import { NULL_UUID } from '@/types/timetable'
+import { toast } from 'sonner'
 import {
   buildSearchIndex,
   searchTimetables,
@@ -27,6 +28,7 @@ import { CreateProfileDialog } from '@/components/CreateProfileDialog'
 import { RenameProfileDialog } from '@/components/RenameProfileDialog'
 import { DeleteProfileDialog } from '@/components/DeleteProfileDialog'
 import { ClearActivitiesDialog } from '@/components/ClearActivitiesDialog'
+import { UpdateProfileDialog } from '@/components/UpdateProfileDialog'
 import { cn } from '@/lib/utils'
 import {
   SearchIcon,
@@ -38,6 +40,7 @@ import {
   PencilIcon,
   PlusIcon,
   DownloadIcon,
+  RefreshCwIcon,
 } from 'lucide-react'
 
 function pad(n: number): string {
@@ -54,10 +57,13 @@ interface SettingsViewProps {
   onCustomActivitiesChange?: (activities: CustomActivity[]) => void
   profiles?: Profile[]
   activeProfileId?: string
+  currentOrar?: OrarData
+  latestOrar?: OrarData
   onSelectProfile?: (id: string) => void
   onCreateProfile?: (profile: Profile) => void
   onRenameActiveProfile?: (newName: string) => void
   onDeleteActiveProfile?: () => void
+  onUpdateProfileOrar?: (profileId: string, newKeys: string[], newOrarHash: string) => void
 }
 
 export function SettingsView({
@@ -70,10 +76,13 @@ export function SettingsView({
   onCustomActivitiesChange: onCustomActivitiesChangeProps,
   profiles = [DEFAULT_PROFILE],
   activeProfileId = NULL_UUID,
+  currentOrar,
+  latestOrar,
   onSelectProfile,
   onCreateProfile,
   onRenameActiveProfile,
   onDeleteActiveProfile,
+  onUpdateProfileOrar,
 }: SettingsViewProps) {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedActivityForModal, setSelectedActivityForModal] =
@@ -84,6 +93,8 @@ export function SettingsView({
   const [isRenameProfileOpen, setIsRenameProfileOpen] = React.useState(false)
   const [isDeleteProfileOpen, setIsDeleteProfileOpen] = React.useState(false)
   const [isClearActivitiesOpen, setIsClearActivitiesOpen] = React.useState(false)
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = React.useState(false)
+  const [purgedActivities, setPurgedActivities] = React.useState<Activity[]>([])
 
   // Active profile computation
   const activeProfile = React.useMemo(() => {
@@ -95,6 +106,9 @@ export function SettingsView({
   }, [profiles, activeProfileId])
 
   const isDefaultProfile = activeProfile.id === NULL_UUID
+  const isUpdateAvailable = Boolean(
+    latestOrar && activeProfile.orar_hash && activeProfile.orar_hash !== latestOrar.hash
+  )
 
   // Track manually uncollapsed timetable IDs when not searching (default is collapsed)
   const [manualExpandedIds, setManualExpandedIds] = React.useState<Set<string>>(() => new Set())
@@ -265,6 +279,72 @@ export function SettingsView({
     }
   }
 
+  // Selected activities list with full metadata for collision checks
+  const selectedActivitiesList = React.useMemo(() => {
+    const list: Activity[] = []
+    selectedActivityKeys.forEach((key) => {
+      const act = activityMap.get(key)
+      if (act) list.push(act)
+    })
+    return list
+  }, [selectedActivityKeys, activityMap])
+
+  // Initiate Update workflow
+  const handleInitiateUpdate = () => {
+    if (!latestOrar) return
+
+    const latestActivityIds = new Set<string>()
+    latestOrar.timetables.forEach((t) => {
+      t.activities.forEach((a) => {
+        latestActivityIds.add(a.id)
+      })
+    })
+
+    const removed: Activity[] = []
+    for (const key of activeProfile.selectedActivityKeys) {
+      if (!latestActivityIds.has(key)) {
+        const existingAct = activityMap.get(key)
+        if (existingAct) {
+          removed.push(existingAct)
+        } else {
+          removed.push({
+            id: key,
+            weekday: '',
+            start_time: { weekday: '', hour: 0, minute: 0 },
+            end_time: { weekday: '', hour: 0, minute: 0 },
+            name: 'Activity ' + key,
+            type: null,
+            authors: [],
+            location: null,
+            periodicity: null,
+            subgroup: null,
+          })
+        }
+      }
+    }
+
+    if (removed.length === 0) {
+      onUpdateProfileOrar?.(activeProfile.id, activeProfile.selectedActivityKeys, latestOrar.hash)
+      toast.success('Schedule updated to the latest version.')
+    } else {
+      setPurgedActivities(removed)
+      setIsUpdateDialogOpen(true)
+    }
+  }
+
+  // Confirm purge and update schedule
+  const handleConfirmPurge = () => {
+    if (!latestOrar) return
+    const purgedIds = new Set(purgedActivities.map((a) => a.id))
+    const survivingKeys = activeProfile.selectedActivityKeys.filter((k) => !purgedIds.has(k))
+    onUpdateProfileOrar?.(activeProfile.id, survivingKeys, latestOrar.hash)
+    toast.success(
+      `Schedule updated. Removed ${purgedActivities.length} outdated ${
+        purgedActivities.length === 1 ? 'activity' : 'activities'
+      }.`
+    )
+  }
+
   // Build search index once for fast fuzzy search over underlying JSON
   const searchIndex: SearchIndex = React.useMemo(() => {
     return buildSearchIndex(data)
@@ -373,13 +453,29 @@ export function SettingsView({
               </Button>
             </div>
 
+            {/* Update button when profile orar_hash differs from latestOrar.hash */}
+            {isUpdateAvailable && (
+              <div className="pt-1">
+                <Button
+                  type="button"
+                  variant="default"
+                  onClick={handleInitiateUpdate}
+                  className="h-9 w-full font-semibold text-xs sm:text-sm gap-2 bg-amber-600 hover:bg-amber-700 text-white shadow-xs"
+                  title="Update schedule to the latest Academic Agenda"
+                >
+                  <RefreshCwIcon className="size-3.5" />
+                  <span>Update to Latest Academic Agenda</span>
+                </Button>
+              </div>
+            )}
+
             {/* 3 wide action buttons at the bottom of the section */}
             <div className="grid grid-cols-3 gap-2 pt-1">
               {/* Export button */}
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => downloadProfileJson(activeProfile, activityMap)}
+                onClick={() => downloadProfileJson(activeProfile, activityMap, currentOrar || latestOrar)}
                 className="h-9 px-2 font-medium text-xs sm:text-sm gap-1.5"
                 title={`Export profile "${activeProfile.name}" as JSON`}
               >
@@ -849,6 +945,8 @@ export function SettingsView({
         open={isCustomDialogOpen}
         onOpenChange={setIsCustomDialogOpen}
         initialActivity={editingCustomActivity}
+        existingCustomActivities={currentCustomActivities}
+        selectedActivities={selectedActivitiesList}
         onSave={handleSaveCustomActivity}
       />
 
@@ -856,10 +954,18 @@ export function SettingsView({
       <CreateProfileDialog
         open={isCreateProfileOpen}
         onOpenChange={setIsCreateProfileOpen}
-        allActivities={React.useMemo(() => Array.from(activityMap.values()), [activityMap])}
+        currentOrar={latestOrar || currentOrar!}
         onCreateProfile={(newProfile) => {
           onCreateProfile?.(newProfile)
         }}
+      />
+
+      {/* Update Profile Purge Dialog */}
+      <UpdateProfileDialog
+        open={isUpdateDialogOpen}
+        onOpenChange={setIsUpdateDialogOpen}
+        removedActivities={purgedActivities}
+        onConfirm={handleConfirmPurge}
       />
 
       {/* Rename Profile Dialog */}
