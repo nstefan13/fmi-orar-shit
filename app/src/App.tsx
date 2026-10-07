@@ -56,7 +56,7 @@ export function App() {
   const customActivities = activeProfile.customActivities
 
   const activeCustomCount = React.useMemo(() => {
-    return customActivities.filter((c) => c.enabled !== false).length
+    return customActivities.filter((c) => c.enabled).length
   }, [customActivities])
 
   const totalActiveActivities = selectedActivityKeys.size + activeCustomCount
