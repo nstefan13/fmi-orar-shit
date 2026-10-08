@@ -1,12 +1,13 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog'
 import { Trash2Icon, AlertTriangleIcon } from 'lucide-react'
 
 export interface DeleteProfileDialogProps {
@@ -28,37 +29,36 @@ export function DeleteProfileDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className="sm:max-w-md">
+        <AlertDialogHeader>
           <div className="flex items-center gap-2">
             <div className="flex size-7 items-center justify-center rounded-md bg-destructive/10 text-destructive">
               <AlertTriangleIcon className="size-4" />
             </div>
-            <DialogTitle>Delete Profile</DialogTitle>
+            <AlertDialogTitle>Delete Profile</AlertDialogTitle>
           </div>
-          <DialogDescription>
+          <AlertDialogDescription>
             Are you sure you want to delete &ldquo;{profileName}&rdquo;? All custom activities,
             selected courses, and defined weeks configured in this profile will be permanently
             deleted.
-          </DialogDescription>
-        </DialogHeader>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
-        <DialogFooter className="mt-2">
-          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => onOpenChange(false)}>
             Cancel
-          </Button>
-          <Button
-            type="button"
+          </AlertDialogCancel>
+          <AlertDialogAction
             variant="destructive"
             onClick={handleDelete}
             className="gap-1.5"
           >
             <Trash2Icon data-icon="inline-start" />
             Delete Profile
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

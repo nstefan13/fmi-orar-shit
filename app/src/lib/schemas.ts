@@ -74,3 +74,21 @@ export const profilesSchema = z
     return defaultExists && uniqueIds
   })
   .default([DEFAULT_PROFILE])
+
+export const syncMetadataSchema = z.object({
+  isDirty: z.boolean(),
+  lastSyncedVersion: z.number().int().nonnegative(),
+  lastSyncedUserId: z.string().nullable().optional(),
+})
+
+export type SyncMetadata = z.infer<typeof syncMetadataSchema>
+
+export const cloudUserDataSchema = z.object({
+  version: z.number().int().nonnegative(),
+  theme: themeSchema.optional(),
+  activeProfileId: z.string().optional(),
+  profiles: z.array(z.unknown()),
+  updatedAt: z.unknown().optional(),
+})
+
+export type CloudUserData = z.infer<typeof cloudUserDataSchema>

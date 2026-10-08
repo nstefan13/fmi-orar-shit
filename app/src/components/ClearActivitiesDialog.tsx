@@ -1,12 +1,13 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog'
 import { RotateCcwIcon, AlertTriangleIcon } from 'lucide-react'
 
 export interface ClearActivitiesDialogProps {
@@ -28,36 +29,35 @@ export function ClearActivitiesDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className="sm:max-w-md">
+        <AlertDialogHeader>
           <div className="flex items-center gap-2">
             <div className="flex size-7 items-center justify-center rounded-md bg-destructive/10 text-destructive">
               <AlertTriangleIcon className="size-4" />
             </div>
-            <DialogTitle>Clear Selected Activities</DialogTitle>
+            <AlertDialogTitle>Clear Selected Activities</AlertDialogTitle>
           </div>
-          <DialogDescription>
+          <AlertDialogDescription>
             Are you sure you want to deselect all {count}{' '}
             {count === 1 ? 'activity' : 'activities'} from your current schedule?
-          </DialogDescription>
-        </DialogHeader>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
-        <DialogFooter className="mt-2">
-          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => onOpenChange(false)}>
             Cancel
-          </Button>
-          <Button
-            type="button"
+          </AlertDialogCancel>
+          <AlertDialogAction
             variant="destructive"
             onClick={handleClear}
             className="gap-1.5"
           >
             <RotateCcwIcon data-icon="inline-start" />
             Clear Activities
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

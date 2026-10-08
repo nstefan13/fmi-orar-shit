@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { Activity, Timetable, DidacticWeekSpec, CustomActivity, Profile, OrarData } from '@/types/timetable'
 import { NULL_UUID } from '@/types/timetable'
-import { toast } from 'sonner'
+import { toast } from '@/components/ui/toast'
 import {
   buildSearchIndex,
   searchTimetables,
@@ -19,6 +19,15 @@ import { DEFAULT_PROFILE, downloadProfileJson } from '@/lib/profile'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
+import { Field, FieldLabel } from '@/components/ui/field'
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+} from '@/components/ui/empty'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -540,13 +549,13 @@ export function SettingsView({
                     className="flex items-center gap-2 rounded-lg border border-border/60 bg-card p-2.5 shadow-xs"
                   >
                     {/* Day Input */}
-                    <div className="flex-1 min-w-0">
-                      <label
+                    <Field className="flex-1 min-w-0 gap-1">
+                      <FieldLabel
                         htmlFor={`week-day-${index}`}
-                        className="mb-1 block text-[11px] font-semibold text-muted-foreground"
+                        className="text-[11px] font-semibold text-muted-foreground"
                       >
                         Day
-                      </label>
+                      </FieldLabel>
                       <Input
                         id={`week-day-${index}`}
                         type="date"
@@ -555,16 +564,16 @@ export function SettingsView({
                         className="h-8 text-xs sm:text-sm"
                         aria-label="Specify a day"
                       />
-                    </div>
+                    </Field>
 
                     {/* Week Number Input */}
-                    <div className="w-24 sm:w-28 shrink-0">
-                      <label
+                    <Field className="w-24 sm:w-28 shrink-0 gap-1">
+                      <FieldLabel
                         htmlFor={`week-num-${index}`}
-                        className="mb-1 block text-[11px] font-semibold text-muted-foreground"
+                        className="text-[11px] font-semibold text-muted-foreground"
                       >
                         Week #
-                      </label>
+                      </FieldLabel>
                       <Input
                         id={`week-num-${index}`}
                         type="number"
@@ -581,7 +590,7 @@ export function SettingsView({
                         className="h-8 text-xs sm:text-sm font-mono"
                         aria-label="Week number"
                       />
-                    </div>
+                    </Field>
 
                     {/* Delete button */}
                     <div className="self-end pb-0.5">
@@ -791,10 +800,25 @@ export function SettingsView({
           {/* 2-Level Hierarchical Checkbox List */}
           <div className="px-4 py-3 sm:px-5 pb-8">
             {sortedDisplayGroups.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-2 py-16 text-center text-muted-foreground">
-                <SearchIcon className="size-8 opacity-40" />
-                <p className="text-sm font-medium">No timetables or activities matched your search.</p>
-                <p className="text-xs">Try searching by course name, professor, room, or group number.</p>
+              <div className="py-12">
+                <Empty>
+                  <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                      <SearchIcon />
+                    </EmptyMedia>
+                    <EmptyTitle>No timetables matched your search</EmptyTitle>
+                    <EmptyDescription>
+                      Try searching by course name, professor, room, or group number.
+                    </EmptyDescription>
+                  </EmptyHeader>
+                  {searchQuery && (
+                    <EmptyContent>
+                      <Button variant="outline" size="sm" onClick={handleClearSearch}>
+                        Clear search
+                      </Button>
+                    </EmptyContent>
+                  )}
+                </Empty>
               </div>
             ) : (
               <div className="flex flex-col gap-2.5 sm:gap-3">

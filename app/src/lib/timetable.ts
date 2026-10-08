@@ -69,11 +69,65 @@ export function getMondayOfDate(d: Date): Date {
 }
 
 /**
+ * Get the first Monday of October for a given academic year.
+ */
+export function getFirstMondayOfOctober(year: number): Date {
+  const d = new Date(year, 9, 1, 0, 0, 0, 0) // Month index 9 = October
+  const day = d.getDay()
+  const diff = day === 1 ? 0 : day === 0 ? 1 : 8 - day
+  return new Date(year, 9, 1 + diff, 0, 0, 0, 0)
+}
+
+/**
+ * Get the third Monday of February for Semester 2.
+ */
+export function getThirdMondayOfFebruary(year: number): Date {
+  const d = new Date(year, 1, 1, 0, 0, 0, 0) // Month index 1 = February
+  const day = d.getDay()
+  const firstMondayDate = day === 1 ? 1 : day === 0 ? 2 : 1 + (8 - day)
+  return new Date(year, 1, firstMondayDate + 14, 0, 0, 0, 0)
+}
+
+/**
+ * Deduces a default didactic week number for university academic calendars.
+ * Semester 1 begins on the first Monday of October.
+ * Semester 2 begins mid-February.
+ */
+export function getDefaultAcademicWeek(date: Date): number {
+  const year = date.getFullYear()
+  const month = date.getMonth() // 0 = Jan, ..., 9 = Oct
+
+  let semesterStartMonday: Date
+
+  if (month >= 9) {
+    // Oct, Nov, Dec -> Semester 1
+    semesterStartMonday = getFirstMondayOfOctober(year)
+  } else if (month === 0) {
+    // Jan -> Semester 1 of academic year started previous year
+    semesterStartMonday = getFirstMondayOfOctober(year - 1)
+  } else if (month >= 1 && month <= 6) {
+    // Feb - Jul -> Semester 2
+    semesterStartMonday = getThirdMondayOfFebruary(year)
+  } else {
+    // Aug, Sep -> Late summer / upcoming semester 1
+    semesterStartMonday = getFirstMondayOfOctober(year)
+  }
+
+  const targetMonday = getMondayOfDate(date)
+  const msPerWeek = 7 * 24 * 60 * 60 * 1000
+  const diffWeeks = Math.round((targetMonday.getTime() - semesterStartMonday.getTime()) / msPerWeek)
+
+  const deducedWeek = 1 + diffWeeks
+  return Math.max(1, Math.min(deducedWeek, 14))
+}
+
+/**
  * Find out the didactic week number for a given date.
- * If no days were specified in the settings: returns null.
+ * If no days were specified in the settings: deduces default academic week (starts 1st Monday of Oct / mid-Feb).
  * 1. If date is within the days specified, returns that week number.
  * 2. Otherwise, retrieves the closest day before date and deduces the current week.
- * 3. If no day before date, returns null.
+ * 3. If target date is before the earliest spec, deduces backwards.
+ * 4. If no specs specified, returns default academic week.
  */
 export function getDidacticWeekForDate(
   date: Date,
@@ -89,7 +143,7 @@ export function getDidacticWeekForDate(
   })
 
   if (valid.length === 0) {
-    return null
+    return getDefaultAcademicWeek(date)
   }
 
   const targetDateStr = formatDateString(date)
@@ -110,9 +164,22 @@ export function getDidacticWeekForDate(
     return specMidnight < targetMidnight
   })
 
-  // 3. If no day before current day => return nothing
+  // 3. If no day before current day => deduce backwards from the earliest spec
   if (pastSpecs.length === 0) {
-    return null
+    const sortedAsc = [...valid].sort((a, b) => {
+      const [ay, am, ad] = a.date.split('-').map(Number)
+      const [by, bm, bd] = b.date.split('-').map(Number)
+      return new Date(ay, am - 1, ad).getTime() - new Date(by, bm - 1, bd).getTime()
+    })
+    const earliest = sortedAsc[0]
+    const [ey, em, ed] = earliest.date.split('-').map(Number)
+    const earliestDate = new Date(ey, em - 1, ed)
+    const mondayEarliest = getMondayOfDate(earliestDate)
+    const mondayTarget = getMondayOfDate(date)
+    const msPerWeek = 7 * 24 * 60 * 60 * 1000
+    const diffWeeks = Math.round((mondayTarget.getTime() - mondayEarliest.getTime()) / msPerWeek)
+    const deduced = earliest.weekNumber + diffWeeks
+    return Math.max(1, deduced)
   }
 
   // Sort descending by date to find closest past day
@@ -132,7 +199,7 @@ export function getDidacticWeekForDate(
   const msPerWeek = 7 * 24 * 60 * 60 * 1000
   const diffWeeks = Math.round((mondayTarget.getTime() - mondayClosest.getTime()) / msPerWeek)
 
-  return closest.weekNumber + diffWeeks
+  return Math.max(1, closest.weekNumber + diffWeeks)
 }
 
 /**
@@ -334,7 +401,8 @@ export function activitiesForToday(
 
   for (const timetable of data) {
     for (const activity of timetable.activities) {
-      if (activity.weekday === weekdayName) {
+      const actWeekday = activity.start_time?.weekday || activity.weekday
+      if (actWeekday === weekdayName) {
         if (selectedKeys.has(activity.id)) {
           const act: Activity = {
             ...activity,
@@ -454,7 +522,7 @@ export function buildSearchIndex(data: Timetable[]): SearchIndex {
             : `${a.location.type} ${a.location.id}`
           : '',
         subgroupStr: a.subgroup ? `SG-${a.subgroup}` : '',
-        weekday: a.weekday,
+        weekday: a.start_time?.weekday || a.weekday || '',
         activityJson: JSON.stringify(a),
         timetableJson: JSON.stringify({ timetableId: t.id, timetable: t.title, ...a }),
         activity: a,

@@ -14,13 +14,26 @@ import { v4 as uuidv4 } from 'uuid'
 export { uuidv4 }
 
 import { computeCustomActivityId } from '@/lib/hash'
-import { profilesSchema, activeProfileIdSchema } from '@/lib/schemas'
+import {
+  profilesSchema,
+  activeProfileIdSchema,
+  syncMetadataSchema,
+  type SyncMetadata,
+} from '@/lib/schemas'
 
 export const STORAGE_KEY_PROFILES = 'orar_profiles'
 export const STORAGE_KEY_ACTIVE_PROFILE_ID = 'orar_active_profile_id'
 export const STORAGE_KEY_ORAR_VERSION = 'orar_version'
+export const STORAGE_KEY_SYNC_METADATA = 'orar_sync_metadata'
+export const STORAGE_KEY_THEME = 'theme'
 export const CURRENT_ORAR_VERSION = 'alpha-1.0.0'
 export const STORAGE_PREFIX_ORAR_DATA = 'orar_DATA_'
+
+export const DEFAULT_SYNC_METADATA: SyncMetadata = {
+  isDirty: false,
+  lastSyncedVersion: 0,
+  lastSyncedUserId: null,
+}
 
 export const DEFAULT_PROFILE: Profile = {
   id: NULL_UUID,
@@ -144,6 +157,7 @@ export function saveProfiles(profiles: Profile[]): void {
       return
     }
     localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(result.data))
+    markStorageDirty()
   } catch (e) {
     console.error('Failed to save profiles to localStorage', e)
   }
@@ -186,8 +200,80 @@ export function saveActiveProfileId(id: string): void {
       return
     }
     localStorage.setItem(STORAGE_KEY_ACTIVE_PROFILE_ID, result.data)
+    markStorageDirty()
   } catch (e) {
     console.error('Failed to save active profile ID to localStorage', e)
+  }
+}
+
+/**
+ * Get sync metadata from localStorage.
+ */
+export function getSyncMetadata(): SyncMetadata {
+  if (typeof window === 'undefined') return { ...DEFAULT_SYNC_METADATA }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_SYNC_METADATA)
+    if (!raw) return { ...DEFAULT_SYNC_METADATA }
+    const result = syncMetadataSchema.safeParse(JSON.parse(raw))
+    return result.success ? result.data : { ...DEFAULT_SYNC_METADATA }
+  } catch {
+    return { ...DEFAULT_SYNC_METADATA }
+  }
+}
+
+/**
+ * Save sync metadata to localStorage.
+ */
+export function saveSyncMetadata(metadata: SyncMetadata): void {
+  if (typeof window === 'undefined') return
+  try {
+    const result = syncMetadataSchema.safeParse(metadata)
+    if (!result.success) {
+      console.warn('Invalid sync metadata provided to saveSyncMetadata:', result.error)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY_SYNC_METADATA, JSON.stringify(result.data))
+  } catch (e) {
+    console.error('Failed to save sync metadata to localStorage', e)
+  }
+}
+
+/**
+ * Mark local storage as dirty without altering lastSyncedVersion.
+ */
+export function markStorageDirty(): void {
+  const meta = getSyncMetadata()
+  if (!meta.isDirty) {
+    saveSyncMetadata({ ...meta, isDirty: true })
+  }
+}
+
+/**
+ * Safely writes raw profile data, active profile ID, and optional theme to localStorage
+ * without marking the storage as dirty.
+ * Used exclusively by the sync engine when applying incoming cloud sync data.
+ */
+export function setLocalStateClean(
+  profiles: Profile[],
+  activeProfileId: string,
+  theme?: string,
+  lastSyncedVersion: number = 0,
+  lastSyncedUserId: string | null = null
+): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(profiles))
+    localStorage.setItem(STORAGE_KEY_ACTIVE_PROFILE_ID, activeProfileId)
+    if (theme) {
+      localStorage.setItem(STORAGE_KEY_THEME, theme)
+    }
+    saveSyncMetadata({
+      isDirty: false,
+      lastSyncedVersion,
+      lastSyncedUserId,
+    })
+  } catch (e) {
+    console.error('Failed to set clean local state in localStorage:', e)
   }
 }
 

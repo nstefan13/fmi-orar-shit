@@ -75,7 +75,7 @@ export function UpdateProfileDialog({
                     <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/80 mt-0.5">
                       <ClockIcon className="size-3" />
                       <span>
-                        {act.weekday} {pad(act.start_time.hour)}:{pad(act.start_time.minute)} – {pad(act.end_time.hour)}:{pad(act.end_time.minute)}
+                        {act.start_time.weekday} {pad(act.start_time.hour)}:{pad(act.start_time.minute)} – {pad(act.end_time.hour)}:{pad(act.end_time.minute)}
                       </span>
                     </div>
                   </div>

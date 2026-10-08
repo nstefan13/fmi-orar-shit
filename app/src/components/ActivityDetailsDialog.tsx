@@ -2,6 +2,7 @@ import * as React from 'react'
 import type { Activity } from '@/types/timetable'
 import { formatActivityName } from '@/lib/timetable'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -86,19 +87,21 @@ export function ActivityDetailsDialog({
               >
                 <span className="select-all">{activity.id}</span>
               </div>
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="icon-xs"
                 onClick={handleCopyId}
-                className="inline-flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="text-muted-foreground hover:text-foreground"
                 title={copied ? 'Copied ID' : 'Copy ID'}
                 aria-label="Copy ID"
               >
                 {copied ? (
-                  <CheckIcon className="size-3.5 text-green-600 dark:text-green-400" />
+                  <CheckIcon className="size-3.5 text-emerald-600 dark:text-emerald-400" />
                 ) : (
                   <CopyIcon className="size-3.5" />
                 )}
-              </button>
+              </Button>
             </div>
           )}
 
@@ -106,9 +109,9 @@ export function ActivityDetailsDialog({
           <div className="flex items-center gap-2.5 text-muted-foreground">
             <ClockIcon className="size-4 shrink-0 text-foreground" />
             <span>
-              {activity.weekday && (
+              {(activity.start_time?.weekday || activity.weekday) && (
                 <span className="mr-1">
-                  {activity.weekday}:
+                  {activity.start_time?.weekday || activity.weekday}:
                 </span>
               )}
               {pad(activity.start_time.hour)}:{pad(activity.start_time.minute)} –{' '}

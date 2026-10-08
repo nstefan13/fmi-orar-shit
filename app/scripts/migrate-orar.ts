@@ -1,6 +1,17 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import objectHash from 'object-hash'
+import { initializeApp } from 'firebase/app'
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
+
+const firebaseConfig = {
+  apiKey: process.env.VITE_FIREBASE_API_KEY || "AIzaSyAYs2TmlqmTkGy31sGWlr1FI0JV-EMK0zE",
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || "fmi-orar-shit.firebaseapp.com",
+  projectId: process.env.VITE_FIREBASE_PROJECT_ID || "fmi-orar-shit",
+  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || "fmi-orar-shit.firebasestorage.app",
+  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "258751651264",
+  appId: process.env.VITE_FIREBASE_APP_ID || "1:258751651264:web:d81fa952452a233366fc25",
+}
 
 // Schema-01 conversion helper
 function activityToSchema01(act: any) {
@@ -33,7 +44,7 @@ function computeOrarHash(timetables: any[]) {
   return objectHash(sanitized)
 }
 
-function main() {
+async function main() {
   const inputArg = process.argv[2] || 'src/data/DATA.json'
   const inputPath = path.resolve(process.cwd(), inputArg)
   const outputPath = path.resolve(process.cwd(), 'src/data/ORAR.json')
@@ -56,6 +67,7 @@ function main() {
 
   let totalOriginalActivities = 0
   let totalDeduplicatedActivities = 0
+  let strippedWeekdayCount = 0
 
   const migratedTimetables = rawTimetables.map((t: any) => {
     const ttNum = String(t.id).replace(/^(IMG-|tt:)/, '')
@@ -76,8 +88,13 @@ function main() {
       }
 
       seenActivityIds.add(newActivityId)
+
+      // Strip redundant weekday attribute from activity root
+      if ('weekday' in act) strippedWeekdayCount++
+      const { weekday: _ignoredWeekday, ...cleanAct } = act
+
       deduplicatedActivities.push({
-        ...act,
+        ...cleanAct,
         id: newActivityId,
       })
     }
@@ -104,6 +121,31 @@ function main() {
   console.log(`  - Total timetables: ${migratedTimetables.length}`)
   console.log(`  - Activities before: ${totalOriginalActivities}`)
   console.log(`  - Activities after: ${totalDeduplicatedActivities}`)
+  console.log(`  - Stripped 'weekday' from ${strippedWeekdayCount} activities`)
+
+  // Publish to Firestore global 'orares' collection
+  console.log(`Publishing to global collection 'orares/${rootHash}' in Firestore (${firebaseConfig.projectId})...`)
+  try {
+    const app = initializeApp(firebaseConfig)
+    const db = getFirestore(app)
+    const orarDocRef = doc(db, 'orares', rootHash)
+    await setDoc(orarDocRef, result)
+
+    const snapshot = await getDoc(orarDocRef)
+    if (snapshot.exists()) {
+      console.log(`✓ Successfully published and verified in Firestore: orares/${rootHash}`)
+      process.exit(0)
+    } else {
+      console.warn(`⚠ Uploaded, but verification getDoc returned empty.`)
+      process.exit(1)
+    }
+  } catch (err) {
+    console.error(`✗ Failed to publish to Firestore:`, err)
+    process.exit(1)
+  }
 }
 
-main()
+main().catch((err) => {
+  console.error('Migration failed:', err)
+  process.exit(1)
+})

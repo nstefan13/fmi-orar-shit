@@ -2,7 +2,6 @@ import * as React from 'react'
 import rawOrarData from '@/data/ORAR.json'
 import type { DidacticWeekSpec, CustomActivity, Profile, OrarData } from '@/types/timetable'
 import { NULL_UUID } from '@/types/timetable'
-import { getDidacticWeekForDate } from '@/lib/timetable'
 import {
   ensureOrarVersion,
   saveOrarClone,
@@ -15,22 +14,25 @@ import {
 import { ScheduleView } from '@/components/ScheduleView'
 import { SettingsView } from '@/components/SettingsView'
 import { Button } from '@/components/ui/button'
-import { Toaster } from 'sonner'
+import { Toaster, toast } from '@/components/ui/toast'
 import {
   CalendarIcon,
   SettingsIcon,
   MoonIcon,
   SunIcon,
   MonitorIcon,
-  BookOpenIcon,
 } from 'lucide-react'
+import { AccountDialog } from '@/components/AccountDialog'
+import { useCloudSync } from '@/hooks/useCloudSync'
+import { markStorageDirty, STORAGE_KEY_THEME } from '@/lib/profile'
+import { fetchOrarByHash } from '@/lib/sync'
 
 import { themeSchema, type Theme } from '@/lib/schemas'
 export type { Theme }
 
 function getInitialTheme(): Theme {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('theme')
+    const saved = localStorage.getItem(STORAGE_KEY_THEME)
     const result = themeSchema.safeParse(saved)
     if (result.success) {
       return result.data
@@ -48,6 +50,9 @@ saveOrarClone(latestOrar)
 export function App() {
   const [activeTab, setActiveTab] = React.useState<'schedule' | 'settings'>('schedule')
 
+  // Theme State
+  const [theme, setTheme] = React.useState<Theme>(getInitialTheme)
+
   // Profiles State
   const [profiles, setProfiles] = React.useState<Profile[]>(() =>
     getProfiles(latestOrar.hash)
@@ -55,6 +60,27 @@ export function App() {
   const [activeProfileId, setActiveProfileId] = React.useState<string>(() =>
     getActiveProfileId()
   )
+
+  // Helper to reload state from storage after a cloud sync pull
+  const refreshFromStorage = React.useCallback(() => {
+    setProfiles(getProfiles(latestOrar.hash))
+    setActiveProfileId(getActiveProfileId())
+    setTheme(getInitialTheme())
+  }, [])
+
+  // Cloud Authentication & Sync orchestration
+  const {
+    user,
+    syncStatus,
+    handleSignIn,
+    handleSignOut,
+    handleManualSync,
+  } = useCloudSync({
+    onStorageRefresh: refreshFromStorage,
+    profiles,
+    activeProfileId,
+    theme,
+  })
 
   // Derived Active Profile
   const activeProfile = React.useMemo(() => {
@@ -69,6 +95,17 @@ export function App() {
     }
     return latestOrar
   }, [activeProfile])
+
+  // Asynchronously resolve orar clone if not locally cached yet
+  React.useEffect(() => {
+    if (activeProfile?.orar_hash && !getOrarClone(activeProfile.orar_hash)) {
+      fetchOrarByHash(activeProfile.orar_hash, user?.uid).then((resolved) => {
+        if (resolved) {
+          refreshFromStorage()
+        }
+      })
+    }
+  }, [activeProfile?.orar_hash, user?.uid, refreshFromStorage])
 
   const timetableData = currentOrar.timetables
 
@@ -86,9 +123,11 @@ export function App() {
 
   const totalActiveActivities = selectedActivityKeys.size + activeCustomCount
 
-  const currentWeekNumber = React.useMemo(() => {
-    return getDidacticWeekForDate(new Date(), didacticWeeks)
-  }, [didacticWeeks])
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      ;(window as any).toast = toast
+    }
+  }, [])
 
   // Handlers for updating active profile
   const handleSelectionChange = React.useCallback(
@@ -186,12 +225,10 @@ export function App() {
     []
   )
 
-  const [theme, setTheme] = React.useState<Theme>(getInitialTheme)
-
   React.useEffect(() => {
     const result = themeSchema.safeParse(theme)
     if (result.success) {
-      localStorage.setItem('theme', result.data)
+      localStorage.setItem(STORAGE_KEY_THEME, result.data)
     }
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -215,33 +252,33 @@ export function App() {
 
   const toggleTheme = () => {
     setTheme((prev) => {
-      if (prev === 'dark') return 'light'
-      if (prev === 'light') return 'system'
-      return 'dark'
+      const next: Theme = prev === 'dark' ? 'light' : prev === 'light' ? 'system' : 'dark'
+      markStorageDirty()
+      return next
     })
   }
 
   return (
     <div className="flex h-dvh w-full flex-col bg-background text-foreground overflow-hidden sm:max-w-lg sm:mx-auto sm:border-x sm:border-border sm:shadow-2xl">
-      <Toaster position="top-center" richColors />
+      <Toaster position="top-center" />
 
       {/* Top Application Bar */}
       <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-border/80 bg-background/90 px-4 py-2.5 backdrop-blur supports-backdrop-filter:bg-background/80">
         <div className="flex items-center gap-2.5">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs">
-            {activeTab === 'schedule' ? (
-              <CalendarIcon className="size-4.5" />
-            ) : (
-              <BookOpenIcon className="size-4.5" />
-            )}
-          </div>
+          <AccountDialog
+            user={user}
+            syncStatus={syncStatus}
+            onSignIn={handleSignIn}
+            onSignOut={handleSignOut}
+            onSync={handleManualSync}
+          />
           <div className="flex flex-col">
             <span className="font-heading text-base font-bold leading-none tracking-tight">
               {activeTab === 'schedule' ? 'Your Schedule' : 'Settings'}
             </span>
             <span className="text-[10px] text-muted-foreground">
               {activeTab === 'schedule'
-                ? `${totalActiveActivities} activities active${currentWeekNumber !== null ? ` • Week ${currentWeekNumber}` : ''}`
+                ? `${totalActiveActivities} activities active`
                 : `Profile: ${activeProfile.name}`}
             </span>
           </div>

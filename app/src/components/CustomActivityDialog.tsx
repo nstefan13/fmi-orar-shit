@@ -13,7 +13,10 @@ import {
   Field,
   FieldLabel,
   FieldDescription,
+  FieldError,
 } from '@/components/ui/field'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { AlertCircleIcon } from 'lucide-react'
@@ -231,30 +234,34 @@ function CustomActivityForm({
               if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
             }}
             placeholder="e.g., Study Session, Gym, Math Club..."
+            aria-invalid={Boolean(errors.name)}
             autoFocus
           />
-          {errors.name && (
-            <span className="text-xs text-destructive">{errors.name}</span>
-          )}
+          {errors.name && <FieldError>{errors.name}</FieldError>}
         </Field>
 
         {/* Weekday Selection */}
         <Field>
-          <FieldLabel htmlFor="custom-activity-weekday">Weekday *</FieldLabel>
-          <div className="grid grid-cols-5 gap-1.5 pt-0.5">
+          <FieldLabel>Weekday *</FieldLabel>
+          <ToggleGroup
+            value={[weekday]}
+            onValueChange={(val) => {
+              if (val && val.length > 0 && val[0]) setWeekday(val[0])
+            }}
+            variant="outline"
+            spacing={1}
+            className="grid grid-cols-5 gap-1 pt-0.5 w-full"
+          >
             {WEEKDAY_OPTIONS.map((opt) => (
-              <Button
+              <ToggleGroupItem
                 key={opt.value}
-                type="button"
-                variant={weekday === opt.value ? 'default' : 'outline'}
-                size="sm"
+                value={opt.value}
                 className="h-8 text-xs px-1"
-                onClick={() => setWeekday(opt.value)}
               >
                 {opt.label}
-              </Button>
+              </ToggleGroupItem>
             ))}
-          </div>
+          </ToggleGroup>
         </Field>
 
         {/* Time Inputs */}
@@ -265,6 +272,7 @@ function CustomActivityForm({
               id="custom-activity-start"
               type="time"
               value={startTime}
+              aria-invalid={Boolean(errors.time)}
               onChange={(e) => {
                 setStartTime(e.target.value)
                 if (errors.time) setErrors((prev) => ({ ...prev, time: undefined }))
@@ -278,6 +286,7 @@ function CustomActivityForm({
               id="custom-activity-end"
               type="time"
               value={endTime}
+              aria-invalid={Boolean(errors.time)}
               onChange={(e) => {
                 setEndTime(e.target.value)
                 if (errors.time) setErrors((prev) => ({ ...prev, time: undefined }))
@@ -285,9 +294,7 @@ function CustomActivityForm({
             />
           </Field>
         </div>
-        {errors.time && (
-          <span className="text-xs text-destructive -mt-2">{errors.time}</span>
-        )}
+        {errors.time && <FieldError className="-mt-1.5">{errors.time}</FieldError>}
 
         {/* Professors / Authors */}
         <Field>
@@ -318,31 +325,39 @@ function CustomActivityForm({
 
         {/* Periodicity */}
         <Field>
-          <FieldLabel htmlFor="custom-activity-periodicity">
-            Week Recurrence
-          </FieldLabel>
-          <div className="grid grid-cols-3 gap-1.5 pt-0.5">
+          <FieldLabel>Week Recurrence</FieldLabel>
+          <ToggleGroup
+            value={[periodicity]}
+            onValueChange={(val) => {
+              if (val && val.length > 0) {
+                setPeriodicity(val[0] as 'odd' | 'even' | '')
+              }
+            }}
+            variant="outline"
+            spacing={1}
+            className="grid grid-cols-3 gap-1 pt-0.5 w-full"
+          >
             {PERIODICITY_OPTIONS.map((opt) => (
-              <Button
+              <ToggleGroupItem
                 key={opt.value}
-                type="button"
-                variant={periodicity === opt.value ? 'default' : 'outline'}
-                size="sm"
+                value={opt.value}
                 className="h-8 text-xs px-1"
-                onClick={() => setPeriodicity(opt.value)}
               >
                 {opt.label}
-              </Button>
+              </ToggleGroupItem>
             ))}
-          </div>
+          </ToggleGroup>
         </Field>
 
         {/* Duplicate collision error banner */}
         {isDuplicate && (
-          <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-2.5 text-xs text-destructive">
-            <AlertCircleIcon className="size-4 shrink-0" />
-            <span>An activity with the exact same properties already exist.</span>
-          </div>
+          <Alert variant="destructive" className="py-2.5 text-xs">
+            <AlertCircleIcon className="size-4" />
+            <AlertTitle className="text-xs font-semibold">Activity Collision</AlertTitle>
+            <AlertDescription className="text-xs">
+              An activity with the exact same properties already exists.
+            </AlertDescription>
+          </Alert>
         )}
       </FieldGroup>
 

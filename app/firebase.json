@@ -1,0 +1,17 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Orar",
+        "authorizedRedirectUris": [
+          "https://fmi-orar-shit.firebaseapp.com/__/auth/handler",
+          "http://localhost",
+          "https://orar-schedule.netlify.app"
+        ]
+      }
+    }
+  }
+}

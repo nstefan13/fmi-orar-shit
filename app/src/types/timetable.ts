@@ -6,7 +6,7 @@ export interface Timetable {
 
 export interface Activity {
   id: string
-  weekday: string // 'Luni' | 'Marti' | 'Miercuri' | 'Joi' | 'Vineri'
+  weekday?: string // Optional legacy attribute; use start_time.weekday instead
   start_time: TimeSpec
   end_time: TimeSpec
   name: string

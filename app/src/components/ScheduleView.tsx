@@ -11,6 +11,15 @@ import {
 } from '@/lib/timetable'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+} from '@/components/ui/empty'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { ActivityDetailsDialog } from '@/components/ActivityDetailsDialog'
 import { CalendarIcon, MapPinIcon, UserIcon } from 'lucide-react'
 
@@ -83,7 +92,7 @@ export function ScheduleView({
   const [selectedActivityForModal, setSelectedActivityForModal] =
     React.useState<Activity | null>(null)
 
-  const currentMonday = React.useMemo(() => getMondayOfCurrentWeek(new Date()), [])
+  const [currentMonday] = React.useState(() => getMondayOfCurrentWeek(new Date()))
 
   const activeDate = React.useMemo(() => {
     return getDateForWeekdayIndex(currentMonday, selectedWeekdayIndex)
@@ -141,33 +150,39 @@ export function ScheduleView({
       {/* Daily Calendar Area */}
       <div className="relative flex-1 min-h-0 overflow-hidden p-2 sm:p-4">
         {!hasAnyActivities ? (
-          <div className="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
-            <div className="flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
-              <CalendarIcon className="size-7" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="font-heading text-lg font-semibold">No activities selected</h2>
-              <p className="max-w-xs text-sm text-muted-foreground">
-                Head to Settings to choose the timetables and activities you want to see in your schedule.
-              </p>
-            </div>
-            <Button onClick={onNavigateToSettings} className="mt-2">
-              Go to Settings
-            </Button>
+          <div className="flex h-full items-center justify-center p-6">
+            <Empty>
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <CalendarIcon />
+                </EmptyMedia>
+                <EmptyTitle>No activities selected</EmptyTitle>
+                <EmptyDescription>
+                  Head to Settings to choose the timetables and activities you want to see in your schedule.
+                </EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <Button onClick={onNavigateToSettings}>
+                  Go to Settings
+                </Button>
+              </EmptyContent>
+            </Empty>
           </div>
         ) : todaysActivities.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
-            <div className="flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
-              <CalendarIcon className="size-7" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="font-heading text-lg font-semibold">
-                Free day on {WEEKDAYS.find((w) => w.key === selectedWeekdayIndex)?.full}!
-              </h2>
-              <p className="max-w-xs text-sm text-muted-foreground">
-                You have no scheduled activities for this day from your selected courses.
-              </p>
-            </div>
+          <div className="flex h-full items-center justify-center p-6">
+            <Empty>
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <CalendarIcon />
+                </EmptyMedia>
+                <EmptyTitle>
+                  Free day on {WEEKDAYS.find((w) => w.key === selectedWeekdayIndex)?.full}!
+                </EmptyTitle>
+                <EmptyDescription>
+                  You have no scheduled activities for this day from your selected courses.
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
           </div>
         ) : (
           <FullCalendar
@@ -203,12 +218,18 @@ export function ScheduleView({
               const day = d.getDate()
               const month = d.toLocaleDateString('en-US', { month: 'long' })
               return (
-                <div className="inline-flex items-center justify-center gap-2.5 px-3 py-1">
+                <div
+                  data-slot="calendar-day-header"
+                  className="inline-flex items-center justify-center gap-2.5 px-3 py-1"
+                >
                   <span className="leading-none">
                     {weekday}, {day} {month}
                   </span>
                   {currentWeekNumber !== null && (
-                    <span className="inline-flex items-center text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 leading-none">
+                    <span
+                      data-slot="calendar-week-badge"
+                      className="inline-flex items-center text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 leading-none"
+                    >
                       Week {currentWeekNumber}
                     </span>
                   )}
@@ -280,23 +301,28 @@ export function ScheduleView({
         aria-label="Weekday selection"
         className="sticky bottom-0 z-30 border-t border-border/80 bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/80"
       >
-        <div className="mx-auto flex max-w-sm items-center justify-center gap-2">
-          {WEEKDAYS.map((wd) => {
-            const isSelected = wd.key === selectedWeekdayIndex
-            return (
-              <Button
-                key={wd.key}
-                variant={isSelected ? 'default' : 'outline'}
-                size="sm"
-                className={`flex-1 font-medium transition-all ${isSelected ? 'shadow-sm font-semibold' : 'text-muted-foreground'
-                  }`}
-                onClick={() => setSelectedWeekdayIndex(wd.key)}
-              >
-                {wd.label}
-              </Button>
-            )
-          })}
-        </div>
+        <ToggleGroup
+          value={[String(selectedWeekdayIndex)]}
+          onValueChange={(val) => {
+            if (val && val.length > 0 && val[0]) {
+              setSelectedWeekdayIndex(Number(val[0]))
+            }
+          }}
+          variant="outline"
+          spacing={2}
+          className="mx-auto flex max-w-sm w-full"
+        >
+          {WEEKDAYS.map((wd) => (
+            <ToggleGroupItem
+              key={wd.key}
+              value={String(wd.key)}
+              className="flex-1 font-medium text-xs sm:text-sm"
+              title={wd.full}
+            >
+              {wd.label}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
       </nav>
 
       {/* Activity Details Dialog */}

@@ -10,10 +10,11 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog'
-import { FieldGroup, Field, FieldLabel, FieldDescription } from '@/components/ui/field'
+import { FieldGroup, Field, FieldLabel, FieldDescription, FieldError } from '@/components/ui/field'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { UploadIcon, CheckCircle2Icon, AlertCircleIcon, FileJsonIcon } from 'lucide-react'
+import { UploadIcon, CheckCircle2Icon, FileJsonIcon } from 'lucide-react'
 
 export interface CreateProfileDialogProps {
   open: boolean
@@ -115,6 +116,7 @@ function CreateProfileForm({
             type="text"
             placeholder="e.g., Mihai, Semester 2, Grupa 131..."
             value={name}
+            aria-invalid={errorMessage ? true : undefined}
             onChange={(e) => {
               setName(e.target.value)
               if (errorMessage) setErrorMessage(null)
@@ -124,6 +126,7 @@ function CreateProfileForm({
           <FieldDescription>
             You can give this profile any friendly name.
           </FieldDescription>
+          {errorMessage && <FieldError>{errorMessage}</FieldError>}
         </Field>
 
         {/* Import Profile Action */}
@@ -144,31 +147,21 @@ function CreateProfileForm({
 
         {/* Import feedback success banner */}
         {importResult && (
-          <div className="flex items-start gap-2.5 rounded-lg border border-primary/25 bg-primary/5 p-3 text-xs">
-            <CheckCircle2Icon className="size-4.5 text-primary shrink-0 mt-0.5" />
-            <div className="flex flex-col gap-0.5 min-w-0">
-              <span className="font-semibold text-foreground truncate">
-                Imported data ready ({importedFileName || 'file'})
-              </span>
-              <span className="text-[11px] text-muted-foreground">
-                {importResult.matchedSelectedCount} selected activities matched
-                {importResult.totalSelectedImported > importResult.matchedSelectedCount &&
-                  ` (${importResult.totalSelectedImported - importResult.matchedSelectedCount} dropped)`}
-                {' • '}
-                {importResult.customCount} custom activities
-                {importResult.didacticWeeks.length > 0 &&
-                  ` • ${importResult.didacticWeeks.length} weeks`}
-              </span>
-            </div>
-          </div>
-        )}
-
-        {/* Import or validation error banner */}
-        {errorMessage && (
-          <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-2.5 text-xs text-destructive">
-            <AlertCircleIcon className="size-4 shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
+          <Alert className="py-2.5 text-xs border-primary/25 bg-primary/5">
+            <CheckCircle2Icon className="text-primary size-4" />
+            <AlertTitle className="text-xs font-semibold">
+              Imported data ready ({importedFileName || 'file'})
+            </AlertTitle>
+            <AlertDescription className="text-[11px] text-muted-foreground">
+              {importResult.matchedSelectedCount} selected activities matched
+              {importResult.totalSelectedImported > importResult.matchedSelectedCount &&
+                ` (${importResult.totalSelectedImported - importResult.matchedSelectedCount} dropped)`}
+              {' • '}
+              {importResult.customCount} custom activities
+              {importResult.didacticWeeks.length > 0 &&
+                ` • ${importResult.didacticWeeks.length} weeks`}
+            </AlertDescription>
+          </Alert>
         )}
       </FieldGroup>
 
