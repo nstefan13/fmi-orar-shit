@@ -11,6 +11,8 @@ import {
   getActiveProfileId,
   getSyncMetadata,
   saveSyncMetadata,
+  hasSyncMetadata,
+  clearSyncMetadata,
   setLocalStateClean,
   getOrarClone,
   saveOrarClone,
@@ -373,16 +375,17 @@ async function executeSync(
       }
     }
 
+    const hasMetadata = hasSyncMetadata()
     const metadata = getSyncMetadata()
 
-    // Check if current local data belonged to a different user
-    const isDifferentUser = Boolean(
-      metadata.lastSyncedUserId && metadata.lastSyncedUserId !== user.uid
-    )
+    // Check if the current client is already linked and synced with this user
+    const isLinkedToThisUser = hasMetadata && metadata.lastSyncedUserId === user.uid
 
-    // CASE 1: Account Switch occurred on the same client
-    if (isDifferentUser) {
+    // CASE 1: Client is NOT linked to this user (e.g. localStorage was cleared,
+    // fresh client session, or client was previously synced with a different user)
+    if (!isLinkedToThisUser) {
       if (snapshot.exists()) {
+        // User has data in cloud: PULL cloud data to populate client
         const cloudData = snapshot.data() as CloudUserData
         const cloudVersion = typeof cloudData.version === 'number' ? cloudData.version : 1
         await applyCloudToLocal(cloudData, cloudVersion, user.uid)
@@ -390,64 +393,72 @@ async function executeSync(
         if (onCloudUpdate) {
           onCloudUpdate()
         }
-        return { action: 'switched_user_pulled', version: cloudVersion }
+        return { action: 'pulled', version: cloudVersion }
       } else {
-        const defaultProfiles = [DEFAULT_PROFILE]
-        await setDoc(settingsDocRef, {
-          profiles: defaultProfiles,
-          activeProfileId: NULL_UUID,
-          theme: 'system',
-          version: 1,
-          updatedAt: serverTimestamp(),
-        })
-        setLocalStateClean(defaultProfiles, NULL_UUID, 'system', 1, user.uid)
-        setSyncStatus('synced')
-        if (onCloudUpdate) {
-          onCloudUpdate()
+        // Cloud document does not exist yet
+        const isDifferentUser = Boolean(
+          metadata.lastSyncedUserId && metadata.lastSyncedUserId !== user.uid
+        )
+        if (isDifferentUser) {
+          // Different user on same client without cloud data -> reset to clean default
+          const defaultProfiles = [DEFAULT_PROFILE]
+          await setDoc(settingsDocRef, {
+            profiles: defaultProfiles,
+            activeProfileId: NULL_UUID,
+            theme: 'system',
+            version: 1,
+            updatedAt: serverTimestamp(),
+          })
+          setLocalStateClean(defaultProfiles, NULL_UUID, 'system', 1, user.uid)
+          setSyncStatus('synced')
+          if (onCloudUpdate) {
+            onCloudUpdate()
+          }
+          return { action: 'switched_user_reset', version: 1 }
+        } else {
+          // Initial login for a new account with local data -> push initial state
+          const payload = getValidatedLocalPayload()
+          await syncCustomOraresForUser(user.uid, payload.profiles)
+          await setDoc(settingsDocRef, {
+            ...payload,
+            version: 1,
+            updatedAt: serverTimestamp(),
+          })
+          saveSyncMetadata({
+            isDirty: false,
+            lastSyncedVersion: 1,
+            lastSyncedUserId: user.uid,
+          })
+          setSyncStatus('synced')
+          return { action: 'pushed_initial', version: 1 }
         }
-        return { action: 'switched_user_reset', version: 1 }
       }
     }
 
-    // CASE 2: Cloud document does not exist yet (Initial login)
+    // CASE 2: Client is linked to this user
     if (!snapshot.exists()) {
+      // Cloud document does not exist (e.g. deleted externally) -> push initial
       const payload = getValidatedLocalPayload()
-
-      // Upload any custom orar clones belonging to local profiles
       await syncCustomOraresForUser(user.uid, payload.profiles)
-
       await setDoc(settingsDocRef, {
         ...payload,
         version: 1,
         updatedAt: serverTimestamp(),
       })
-
       saveSyncMetadata({
         isDirty: false,
         lastSyncedVersion: 1,
         lastSyncedUserId: user.uid,
       })
-
       setSyncStatus('synced')
       return { action: 'pushed_initial', version: 1 }
     }
 
-    // CASE 3: Cloud document exists
     const cloudData = snapshot.data() as CloudUserData
     const cloudVersion = typeof cloudData.version === 'number' ? cloudData.version : 1
     const { isDirty, lastSyncedVersion } = metadata
 
-    // 3A: Local is clean, but cloud has newer version -> PULL
-    if (!isDirty && cloudVersion > lastSyncedVersion) {
-      await applyCloudToLocal(cloudData, cloudVersion, user.uid)
-      setSyncStatus('synced')
-      if (onCloudUpdate) {
-        onCloudUpdate()
-      }
-      return { action: 'pulled', version: cloudVersion }
-    }
-
-    // 3B: Local is dirty -> PUSH
+    // 2A: Local changes exist (isDirty) -> PUSH
     if (isDirty) {
       const payload = getValidatedLocalPayload()
       const newVersion = Math.max(cloudVersion, lastSyncedVersion) + 1
@@ -471,15 +482,17 @@ async function executeSync(
       return { action: 'pushed', version: newVersion }
     }
 
-    // 3C: Both are clean and in sync
-    if (metadata.lastSyncedUserId !== user.uid) {
-      saveSyncMetadata({
-        isDirty: false,
-        lastSyncedVersion,
-        lastSyncedUserId: user.uid,
-      })
+    // 2B: Local is clean, but cloud has newer version -> PULL
+    if (cloudVersion > lastSyncedVersion) {
+      await applyCloudToLocal(cloudData, cloudVersion, user.uid)
+      setSyncStatus('synced')
+      if (onCloudUpdate) {
+        onCloudUpdate()
+      }
+      return { action: 'pulled', version: cloudVersion }
     }
 
+    // 2C: Both are clean and in sync
     setSyncStatus('synced')
     return { action: 'in_sync', version: cloudVersion }
   } catch (error) {
@@ -530,4 +543,5 @@ export function scheduleDebouncedSync(
 export function resetSyncOnSignOut(): void {
   cancelDebouncedSync()
   setSyncStatus('idle')
+  clearSyncMetadata()
 }

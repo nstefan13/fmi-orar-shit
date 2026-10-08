@@ -110,7 +110,7 @@ export function getProfiles(fallbackOrarHash: string = ''): Profile[] {
     }
 
     if (!json) {
-      saveProfiles([defaultProfileWithHash])
+      saveProfiles([defaultProfileWithHash], false)
       return [defaultProfileWithHash]
     }
 
@@ -137,7 +137,7 @@ export function getProfiles(fallbackOrarHash: string = ''): Profile[] {
     }
 
     console.warn('Profiles validation failed, falling back to default profile:', result.error)
-    saveProfiles([defaultProfileWithHash])
+    saveProfiles([defaultProfileWithHash], false)
     return [defaultProfileWithHash]
   } catch (e) {
     console.error('Failed to load profiles from localStorage', e)
@@ -147,8 +147,9 @@ export function getProfiles(fallbackOrarHash: string = ''): Profile[] {
 
 /**
  * Save all profiles to localStorage.
+ * Optionally marks storage dirty (defaults to true).
  */
-export function saveProfiles(profiles: Profile[]): void {
+export function saveProfiles(profiles: Profile[], markDirty: boolean = true): void {
   if (typeof window === 'undefined') return
   try {
     const result = profilesSchema.safeParse(profiles)
@@ -157,7 +158,9 @@ export function saveProfiles(profiles: Profile[]): void {
       return
     }
     localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(result.data))
-    markStorageDirty()
+    if (markDirty) {
+      markStorageDirty()
+    }
   } catch (e) {
     console.error('Failed to save profiles to localStorage', e)
   }
@@ -181,7 +184,7 @@ export function getActiveProfileId(): string {
     }
 
     const fallbackId = profiles.some((p) => p.id === NULL_UUID) ? NULL_UUID : profiles[0].id
-    saveActiveProfileId(fallbackId)
+    saveActiveProfileId(fallbackId, false)
     return fallbackId
   } catch {
     return NULL_UUID
@@ -190,8 +193,9 @@ export function getActiveProfileId(): string {
 
 /**
  * Save the active profile ID to localStorage.
+ * Optionally marks storage dirty (defaults to true).
  */
-export function saveActiveProfileId(id: string): void {
+export function saveActiveProfileId(id: string, markDirty: boolean = true): void {
   if (typeof window === 'undefined') return
   try {
     const result = activeProfileIdSchema.safeParse(id)
@@ -200,9 +204,31 @@ export function saveActiveProfileId(id: string): void {
       return
     }
     localStorage.setItem(STORAGE_KEY_ACTIVE_PROFILE_ID, result.data)
-    markStorageDirty()
+    if (markDirty) {
+      markStorageDirty()
+    }
   } catch (e) {
     console.error('Failed to save active profile ID to localStorage', e)
+  }
+}
+
+/**
+ * Check if sync metadata explicitly exists in localStorage.
+ */
+export function hasSyncMetadata(): boolean {
+  if (typeof window === 'undefined') return false
+  return localStorage.getItem(STORAGE_KEY_SYNC_METADATA) !== null
+}
+
+/**
+ * Clear sync metadata from localStorage.
+ */
+export function clearSyncMetadata(): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.removeItem(STORAGE_KEY_SYNC_METADATA)
+  } catch (e) {
+    console.error('Failed to clear sync metadata from localStorage', e)
   }
 }
 

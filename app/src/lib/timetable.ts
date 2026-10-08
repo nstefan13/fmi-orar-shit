@@ -4,13 +4,11 @@ import {
   didacticWeeksSchema,
   selectedActivitiesSchema,
   customActivitiesSchema,
-  selectedDaySchema,
 } from '@/lib/schemas'
 
 export const STORAGE_KEY_SELECTED_ACTIVITIES = 'orar_selected_activities'
 export const STORAGE_KEY_DIDACTIC_WEEKS = 'orar_didactic_weeks'
 export const STORAGE_KEY_CUSTOM_ACTIVITIES = 'orar_custom_activities'
-export const STORAGE_KEY_SELECTED_DAY = 'orar_selected_day'
 
 /**
  * Read didactic week specifications from localStorage.
@@ -310,45 +308,6 @@ export function getDefaultDay(): number {
   return 1
 }
 
-/**
- * Read the selected weekday index (1-5) from sessionStorage.
- * Defaults to current day.
- */
-export function getSelectedDay(): number {
-  if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
-    return getDefaultDay()
-  }
-  try {
-    const raw = sessionStorage.getItem(STORAGE_KEY_SELECTED_DAY)
-    if (raw !== null) {
-      const parsed = Number(raw)
-      const result = selectedDaySchema.safeParse(parsed)
-      if (result.success) {
-        return result.data
-      }
-    }
-  } catch (e) {
-    console.error('Failed to load selected day from sessionStorage', e)
-  }
-  return getDefaultDay()
-}
-
-/**
- * Save the selected weekday index (1-5) to sessionStorage.
- */
-export function saveSelectedDay(day: number): void {
-  if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
-    return
-  }
-  try {
-    const result = selectedDaySchema.safeParse(day)
-    if (result.success) {
-      sessionStorage.setItem(STORAGE_KEY_SELECTED_DAY, String(result.data))
-    }
-  } catch (e) {
-    console.error('Failed to save selected day to sessionStorage', e)
-  }
-}
 
 /**
  * Map JavaScript Date day of week (0-6) to Romanian weekday name.

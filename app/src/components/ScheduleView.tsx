@@ -6,8 +6,7 @@ import {
   activitiesForToday,
   formatActivityName,
   getDidacticWeekForDate,
-  getSelectedDay,
-  saveSelectedDay,
+  getDefaultDay,
 } from '@/lib/timetable'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -80,14 +79,8 @@ export function ScheduleView({
 }: ScheduleViewProps) {
   const calendarRef = React.useRef<any>(null)
 
-  // Selected day stored in session storage, defaults to current day
-  const [selectedWeekdayIndex, setSelectedWeekdayIndex] = React.useState<number>(() => {
-    return getSelectedDay()
-  })
-
-  React.useEffect(() => {
-    saveSelectedDay(selectedWeekdayIndex)
-  }, [selectedWeekdayIndex])
+  // Calculate default day: if Monday-Friday, use today; if weekend, default to Monday
+  const [selectedWeekdayIndex, setSelectedWeekdayIndex] = React.useState<number>(getDefaultDay)
 
   const [selectedActivityForModal, setSelectedActivityForModal] =
     React.useState<Activity | null>(null)
