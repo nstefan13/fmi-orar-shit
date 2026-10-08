@@ -3,6 +3,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   onAuthStateChanged,
   type Auth,
@@ -49,6 +51,15 @@ if (isFirebaseConfigured) {
       // If already initialized (e.g. HMR in Vite)
       db = getFirestore(app)
     }
+
+    // Process any pending redirect auth result (e.g. returning from PWA redirect)
+    if (typeof window !== 'undefined' && auth) {
+      getRedirectResult(auth).catch((e) => {
+        if (e?.code !== 'auth/null-user') {
+          console.warn('Firebase getRedirectResult:', e)
+        }
+      })
+    }
   } catch (e) {
     console.error('Failed to initialize Firebase:', e)
   }
@@ -58,13 +69,36 @@ export { app, auth, db, googleProvider }
 export type { User }
 
 /**
- * Sign in with Google using popup.
- * Gracefully handles user-initiated cancellation (closing popup) by returning null.
+ * Checks if the application is currently running as an installed standalone PWA.
+ */
+export function isPWAStandalone(): boolean {
+  if (typeof window === 'undefined') return false
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    (window.navigator as any).standalone === true ||
+    document.referrer.includes('android-app://')
+  )
+}
+
+/**
+ * Sign in with Google.
+ * Uses popup for standard browsers and desktop PWAs, with redirect fallback for
+ * iOS standalone PWAs or environments where popup windows are restricted.
  */
 export async function signInWithGoogle(): Promise<User | null> {
   if (!auth) {
     throw new Error('Firebase is not configured. Please add your credentials to .env')
   }
+
+  // iOS standalone PWAs do not support multi-window popups; use redirect
+  const isIOS =
+    typeof navigator !== 'undefined' &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent)
+  if (isIOS && isPWAStandalone()) {
+    await signInWithRedirect(auth, googleProvider)
+    return null
+  }
+
   try {
     const result = await signInWithPopup(auth, googleProvider)
     return result.user
@@ -76,14 +110,21 @@ export async function signInWithGoogle(): Promise<User | null> {
       // User closed the popup or clicked outside — not an error to throw
       return null
     }
+    if (error?.code === 'auth/popup-blocked') {
+      // Popups blocked (e.g. strict browser settings or PWA mode) — fall back to redirect
+      await signInWithRedirect(auth, googleProvider)
+      return null
+    }
     if (error?.code === 'auth/configuration-not-found' || error?.code === 'auth/operation-not-allowed') {
       throw new Error(
         'Google Sign-In is not enabled in Firebase Console. Go to Firebase Console > Authentication > Sign-in method and enable Google.'
       )
     }
     if (error?.code === 'auth/unauthorized-domain') {
+      const currentHost =
+        typeof window !== 'undefined' ? window.location.hostname : 'current domain'
       throw new Error(
-        'Domain not authorized. Add "localhost" under Firebase Console > Authentication > Settings > Authorized domains.'
+        `Domain "${currentHost}" is not authorized. Add "${currentHost}" in Firebase Console > Authentication > Settings > Authorized domains.`
       )
     }
     throw error
