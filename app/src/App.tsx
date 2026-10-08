@@ -61,8 +61,9 @@ export function App() {
     getActiveProfileId()
   )
 
-  // Helper to reload state from storage after a cloud sync pull
+  // Helper to reload state from storage after a cloud sync pull or sign out
   const refreshFromStorage = React.useCallback(() => {
+    saveOrarClone(latestOrar)
     setProfiles(getProfiles(latestOrar.hash))
     setActiveProfileId(getActiveProfileId())
     setTheme(getInitialTheme())

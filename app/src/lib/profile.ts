@@ -233,6 +233,19 @@ export function clearSyncMetadata(): void {
 }
 
 /**
+ * Clears entire local storage on user sign-out and re-initializes clean orar version.
+ */
+export function clearLocalStorageOnSignOut(): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.clear()
+    localStorage.setItem(STORAGE_KEY_ORAR_VERSION, CURRENT_ORAR_VERSION)
+  } catch (e) {
+    console.error('Failed to clear local storage on sign out:', e)
+  }
+}
+
+/**
  * Get sync metadata from localStorage.
  */
 export function getSyncMetadata(): SyncMetadata {

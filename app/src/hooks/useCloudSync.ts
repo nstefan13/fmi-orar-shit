@@ -13,7 +13,7 @@ import {
   resetSyncOnSignOut,
   type SyncStatus,
 } from '@/lib/sync'
-import { getSyncMetadata } from '@/lib/profile'
+import { getSyncMetadata, clearLocalStorageOnSignOut } from '@/lib/profile'
 import type { Profile } from '@/types/timetable'
 import type { Theme } from '@/lib/schemas'
 
@@ -48,6 +48,7 @@ export function useCloudSync({
 }: UseCloudSyncOptions): UseCloudSyncResult {
   const [user, setUser] = React.useState<User | null>(null)
   const [syncStatus, setSyncStatus] = React.useState<SyncStatus>('idle')
+  const wasLoggedInRef = React.useRef(false)
 
   // Keep onStorageRefresh fresh in ref for async callbacks
   const onStorageRefreshRef = React.useRef(onStorageRefresh)
@@ -63,6 +64,8 @@ export function useCloudSync({
   // Firebase auth state observer & initial synchronization
   React.useEffect(() => {
     const unsubscribe = onAuthUserChanged(async (currentUser) => {
+      const previouslyLoggedIn = wasLoggedInRef.current
+      wasLoggedInRef.current = Boolean(currentUser)
       setUser(currentUser)
       if (currentUser) {
         try {
@@ -78,6 +81,10 @@ export function useCloudSync({
         }
       } else {
         resetSyncOnSignOut()
+        if (previouslyLoggedIn) {
+          clearLocalStorageOnSignOut()
+          onStorageRefreshRef.current()
+        }
       }
     })
     return () => unsubscribe()
@@ -109,6 +116,8 @@ export function useCloudSync({
     try {
       await signOutUser()
       resetSyncOnSignOut()
+      clearLocalStorageOnSignOut()
+      onStorageRefreshRef.current()
       toast.info('Signed out of cloud account')
     } catch (err: any) {
       console.error('Sign-out failed:', err)
